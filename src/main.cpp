@@ -30,6 +30,12 @@
 #include <QStyleHints>
 
 namespace {
+void setupCommandLineParser(QCommandLineParser& parser) {
+	parser.setApplicationDescription("Editor for RPG Maker 2000/2003 and EasyRPG projects");
+	parser.addHelpOption();
+	parser.addVersionOption();
+}
+
 // Handles --help and --version (both exit) without creating a window
 void handleCommandLine(int& argc, char* argv[]) {
 	QCoreApplication app(argc, argv);
@@ -37,9 +43,7 @@ void handleCommandLine(int& argc, char* argv[]) {
 	app.setApplicationVersion(Version::Full());
 
 	QCommandLineParser parser;
-	parser.setApplicationDescription("Editor for RPG Maker 2000/2003 and EasyRPG projects");
-	parser.addHelpOption();
-	parser.addVersionOption();
+	setupCommandLineParser(parser);
 	// Ignore errors: QApplication handles Qt options like -platform
 	parser.parse(app.arguments());
 
@@ -61,6 +65,13 @@ int main(int argc, char *argv[]) {
 	app.setApplicationVersion(Version::Full());
 	app.setOrganizationName("EasyRPG");
 	app.setOrganizationDomain("easyrpg.org");
+
+	// --help-all lists the Qt GUI options, which only exist with a QApplication
+	if (app.arguments().contains("--help-all")) {
+		QCommandLineParser parser;
+		setupCommandLineParser(parser);
+		parser.process(app);
+	}
 
 	// show splash
 	QPixmap logo(":/app/splash.png");
