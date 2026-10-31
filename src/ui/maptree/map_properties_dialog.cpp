@@ -23,7 +23,10 @@
 #include "ui/picker/picker_backdrop_widget.h"
 #include "ui/picker/picker_panorama_widget.h"
 #include "ui/picker/picker_dialog.h"
+#include <QClipboard>
+#include <QGuiApplication>
 #include <QMessageBox>
+#include <QTimer>
 #include "common/lcf_widget_binding.h"
 
 MapPropertiesDialog::MapPropertiesDialog(ProjectData& project, lcf::rpg::MapInfo &info, lcf::rpg::Map &map, QWidget *parent) :
@@ -37,6 +40,10 @@ MapPropertiesDialog::MapPropertiesDialog(ProjectData& project, lcf::rpg::MapInfo
 
 	m_info_copy = m_info;
 	m_map_copy = m_map;
+
+	QString theme = palette().color(QWidget::backgroundRole()).lightness() >= 128 ? ":/bright" : ":/dark";
+	ui->pushCopyID->setIcon(QIcon(theme + "/edit-copy"));
+	ui->pushCopyID->setText(QString::number(m_info.ID));
 
 	auto& database = project.database();
 
@@ -386,6 +393,16 @@ void MapPropertiesDialog::accept() {
 	m_map = m_map_copy;
 
 	QDialog::accept();
+}
+
+void MapPropertiesDialog::on_pushCopyID_clicked()
+{
+	QGuiApplication::clipboard()->setText(QString::number(m_info.ID));
+
+	ui->pushCopyID->setText(tr("Copied!"));
+	QTimer::singleShot(1500, this, [this]() {
+		ui->pushCopyID->setText(QString::number(m_info.ID));
+	});
 }
 
 void MapPropertiesDialog::on_groupPanorama_toggled(bool arg1)

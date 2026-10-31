@@ -42,6 +42,8 @@ public:
 private slots:
 	void accept();
 
+	void on_pushCopyID_clicked();
+
 	void on_groupPanorama_toggled(bool arg1);
 
 	void on_groupUseGenerator_toggled(bool arg1);

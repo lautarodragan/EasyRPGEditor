@@ -26,6 +26,22 @@
       <item>
        <layout class="QVBoxLayout" name="layoutLeft">
         <item>
+         <widget class="QGroupBox" name="groupID">
+          <property name="title">
+           <string>ID</string>
+          </property>
+          <layout class="QHBoxLayout" name="layoutID">
+           <item>
+            <widget class="QPushButton" name="pushCopyID">
+             <property name="toolTip">
+              <string>Copy ID to clipboard</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
          <widget class="QGroupBox" name="groupName">
           <property name="title">
            <string>Name</string>
