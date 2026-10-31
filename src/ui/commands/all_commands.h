@@ -39,4 +39,5 @@
 #include "timer_operation_widget.h"
 #include "tint_screen_widget.h"
 #include "variable_operations_widget.h"
+#include "wait_widget.h"
 #include "weather_effects_widget.h"

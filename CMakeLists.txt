@@ -173,6 +173,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/variable_operations_widget.cpp
 	src/ui/commands/variable_operations_widget.h
 	src/ui/commands/variable_operations_widget.ui
+	src/ui/commands/wait_widget.cpp
+	src/ui/commands/wait_widget.h
+	src/ui/commands/wait_widget.ui
 	src/ui/commands/weather_effects_widget.cpp
 	src/ui/commands/weather_effects_widget.h
 	src/ui/commands/weather_effects_widget.ui
