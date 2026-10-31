@@ -24,6 +24,7 @@
 #include "main_window.h"
 #include "ui_main_window.h"
 #include "common/dbstring.h"
+#include "version.h"
 #include <QImage>
 #include <QToolBar>
 #include <QCloseEvent>
@@ -1345,6 +1346,23 @@ void MainWindow::selectTile(int x, int y)
 void MainWindow::on_actionDebugEnableCaching_toggled(bool checked)
 {
 	searchdialog->enableCache(checked);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+	QMessageBox::about(this, tr("About EasyRPG Editor"),
+		tr("<h3>EasyRPG Editor</h3>"
+		   "<p>Version %1<br>Revision %2</p>"
+		   "<p>Editor for RPG Maker 2000/2003 and EasyRPG projects.</p>"
+		   "<p>Licensed under the GNU GPL version 3 or later.</p>"
+		   "<p><a href=\"https://easyrpg.org\">easyrpg.org</a> · "
+		   "<a href=\"https://github.com/EasyRPG/Editor\">Source code</a></p>")
+			.arg(Version::String(), Version::GitDescribe()));
+}
+
+void MainWindow::on_actionAboutQt_triggered()
+{
+	QApplication::aboutQt();
 }
 
 void MainWindow::refreshIcons() {
