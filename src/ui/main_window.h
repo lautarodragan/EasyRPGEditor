@@ -19,6 +19,7 @@
 
 #include <QFile>
 #include <QMainWindow>
+#include <QPointer>
 #include <QSettings>
 #include <QTreeWidgetItem>
 #include "ui/other/resource_manager_dialog.h"
@@ -164,6 +165,7 @@ private:
 	PaletteScene *m_paletteScene;
 	QMap<int,QGraphicsView*> m_views;
 	QMap<int,QTreeWidgetItem*> m_treeItems;
+	QPointer<QDialog> m_jukebox;
 	QString m_copiedMap;
 	int copiedMapId;
 	SearchDialog *searchdialog;

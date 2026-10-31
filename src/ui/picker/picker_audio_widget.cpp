@@ -17,6 +17,9 @@
 
 #include "picker_audio_widget.h"
 #include "ui_picker_audio_widget.h"
+#include <QFileInfo>
+
+#include "common/audio_player.h"
 
 #include <lcf/rpg/music.h>
 #include <lcf/rpg/sound.h>
@@ -30,6 +33,8 @@ PickerAudioWidget::PickerAudioWidget(const lcf::rpg::Music& music, QWidget *pare
 	ui->sliderVolume->setValue(music.volume);
 	ui->sliderTempo->setValue(music.tempo);
 	ui->sliderBalance->setValue(music.balance);
+
+	setupPlayback();
 }
 
 PickerAudioWidget::PickerAudioWidget(const lcf::rpg::Sound& sound, QWidget *parent) :
@@ -42,14 +47,36 @@ PickerAudioWidget::PickerAudioWidget(const lcf::rpg::Sound& sound, QWidget *pare
 	ui->sliderBalance->setValue(sound.balance);
 
 	ui->groupFadeIn->hide();
+
+	setupPlayback();
+	m_player->setLooping(false);
 }
 
 PickerAudioWidget::~PickerAudioWidget() {
 	delete ui;
 }
 
+void PickerAudioWidget::setupPlayback() {
+	m_player = new AudioPlayer(this);
+	connect(m_player, &AudioPlayer::error, ui->labelError, &QLabel::setText);
+	connect(ui->sliderVolume, &QSlider::valueChanged, m_player, &AudioPlayer::setVolume);
+	connect(ui->sliderTempo, &QSlider::valueChanged, m_player, &AudioPlayer::setTempo);
+}
+
 void PickerAudioWidget::fileChanged(const QString& filename) {
 	m_filename = filename;
+}
+
+void PickerAudioWidget::on_pushPlay_clicked() {
+	ui->labelError->clear();
+	if (m_filename.isEmpty() || QFileInfo(m_filename).isDir()) {
+		return;
+	}
+	m_player->play(m_filename, volume(), tempo(), fadeInTime());
+}
+
+void PickerAudioWidget::on_pushStop_clicked() {
+	m_player->stop();
 }
 
 int PickerAudioWidget::fadeInTime() const {

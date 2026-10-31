@@ -30,6 +30,8 @@ namespace lcf::rpg {
 	class Sound;
 }
 
+class AudioPlayer;
+
 class PickerAudioWidget : public PickerChildWidget {
 	Q_OBJECT
 
@@ -51,7 +53,10 @@ public:
 	int balance() const;
 
 private:
+	void setupPlayback();
+
 	Ui::PickerAudioWidget *ui;
+	AudioPlayer* m_player = nullptr;
 
 	Type m_type;
 	QString m_filename;
@@ -61,4 +66,6 @@ private slots:
 	void on_sliderVolume_valueChanged(int value);
 	void on_sliderTempo_valueChanged(int value);
 	void on_sliderBalance_valueChanged(int value);
+	void on_pushPlay_clicked();
+	void on_pushStop_clicked();
 };

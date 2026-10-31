@@ -102,6 +102,10 @@ void PickerDialog::setDirectoryAndFile(const QString &dir, const QString& initia
 	}
 }
 
+void PickerDialog::setBrowseOnly() {
+	ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
+}
+
 void PickerDialog::on_filesystemView_clicked(const QModelIndex &index) {
 	m_currentFile = m_model->fileInfo(index);
 	ui->wrappedWidget->fileChanged(m_currentFile.absoluteFilePath());

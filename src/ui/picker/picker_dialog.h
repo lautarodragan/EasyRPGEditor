@@ -41,6 +41,9 @@ public:
 
 	void setDirectoryAndFile(const QString& dir, const QString& initialFile);
 
+	/** Only browse files, with a single Close button */
+	void setBrowseOnly();
+
 signals:
 	void fileSelected(QString baseName);
 

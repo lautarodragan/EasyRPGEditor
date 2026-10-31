@@ -46,6 +46,8 @@ configure_file(src/version.cpp.in ${CMAKE_CURRENT_BINARY_DIR}/version.cpp @ONLY)
 
 # Source Files
 set(EDITOR_SOURCES
+	src/common/audio_player.cpp
+	src/common/audio_player.h
 	src/common/dbstring.h
 	src/common/filefinder.cpp
 	src/common/filefinder.h

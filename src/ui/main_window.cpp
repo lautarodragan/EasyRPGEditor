@@ -25,6 +25,9 @@
 #include "ui_main_window.h"
 #include "common/dbstring.h"
 #include "version.h"
+#include "ui/picker/picker_audio_widget.h"
+#include "ui/picker/picker_dialog.h"
+#include <lcf/rpg/music.h>
 #include <QImage>
 #include <QToolBar>
 #include <QCloseEvent>
@@ -521,6 +524,7 @@ void MainWindow::update_actions()
 	ui->actionProjectImport->setEnabled(!has_project);
 	ui->actionDrawRectangle->setEnabled(has_project);
 	ui->actionResourceManager->setEnabled(has_project);
+	ui->actionJukebox->setEnabled(has_project);
 	ui->actionZoom100->setEnabled(has_project);
 	ui->actionMapRevert->setEnabled(currentScene() && currentScene()->isModified());
 	ui->actionZoomIn->setEnabled(has_project);
@@ -800,6 +804,10 @@ void MainWindow::on_actionProjectClose_triggered()
 		while (ui->tabMap->currentIndex() != -1)
 			removeView(currentScene()->id());
 
+		// The Jukebox refers to the project
+		if (m_jukebox)
+			m_jukebox->close();
+
 		core().project().reset();
 
 		m_copiedMap.clear();
@@ -821,7 +829,24 @@ void MainWindow::on_actionProjectOpen_triggered()
 
 void MainWindow::on_actionJukebox_triggered(bool)
 {
+	if (!core().project())
+		return;
 
+	if (m_jukebox) {
+		m_jukebox->raise();
+		m_jukebox->activateWindow();
+		return;
+	}
+
+	// Not modal, so the music keeps playing while editing. Closing it stops the music.
+	auto* widget = new PickerAudioWidget(lcf::rpg::Music(), this);
+	auto* dialog = new PickerDialog(core().project()->projectData(), FileFinder::FileType::Music, widget, this);
+	dialog->setAttribute(Qt::WA_DeleteOnClose);
+	dialog->setWindowTitle(tr("Jukebox"));
+	dialog->setBrowseOnly();
+	dialog->setDirectoryAndFile(MUSIC, QString());
+	dialog->show();
+	m_jukebox = dialog;
 }
 
 void MainWindow::on_actionLayerLower_triggered()
