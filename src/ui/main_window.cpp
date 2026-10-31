@@ -202,7 +202,7 @@ void MainWindow::LoadProject(QString foldername)
 	QTreeWidgetItem *root = new QTreeWidgetItem();
 	root->setData(1, Qt::DisplayRole, 0);
 	root->setData(0,Qt::DisplayRole,  core().project()->gameTitle());
-	root->setIcon(0,QIcon(":/icons/share/old_folder.png"));
+	updateTreeIcon(root);
 	lcf::rpg::TreeMap maps = core().project()->treeMap();
 	ui->treeMap->addTopLevelItem(root);
 	m_treeItems.clear();
@@ -213,7 +213,7 @@ void MainWindow::LoadProject(QString foldername)
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setData(1,Qt::DisplayRole,maps.maps[i].ID);
 		item->setData(0,Qt::DisplayRole,ToQString(maps.maps[i].name));
-		item->setIcon(0, QIcon(":/icons/share/old_map.png"));
+		updateTreeIcon(item);
 		m_treeItems[maps.maps[i].ID] = item;
 	}
 	//Parent Items
@@ -374,7 +374,7 @@ void MainWindow::ImportProject(const QDir& src_dir, QDir& target_dir, bool conve
 	QTreeWidgetItem *root = new QTreeWidgetItem();
 	root->setData(1, Qt::DisplayRole, 0);
 	root->setData(0,Qt::DisplayRole,  prj->gameTitle());
-	root->setIcon(0,QIcon(":/icons/share/old_folder.png"));
+	updateTreeIcon(root);
 	ui->treeMap->addTopLevelItem(root);
 	m_treeItems.clear();
 	m_treeItems[0] = root;
@@ -386,7 +386,7 @@ void MainWindow::ImportProject(const QDir& src_dir, QDir& target_dir, bool conve
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setData(1,Qt::DisplayRole,maps.maps[i].ID);
 		item->setData(0,Qt::DisplayRole,ToQString(maps.maps[i].name));
-		item->setIcon(0, QIcon(":/icons/share/old_map.png"));
+		updateTreeIcon(item);
 		m_treeItems[maps.maps[i].ID] = item;
 	}
 	//Parent Items
@@ -623,7 +623,7 @@ void MainWindow::on_actionProjectNew_triggered() {
 		QTreeWidgetItem *root = new QTreeWidgetItem();
 		root->setData(1, Qt::DisplayRole, 0);
 		root->setData(0,Qt::DisplayRole,  core().project()->gameTitle());
-		root->setIcon(0,QIcon(":/icons/share/old_folder.png"));
+		updateTreeIcon(root);
 		lcf::rpg::TreeMap maps = core().project()->treeMap();
 		ui->treeMap->addTopLevelItem(root);
 		m_treeItems.clear();
@@ -634,7 +634,7 @@ void MainWindow::on_actionProjectNew_triggered() {
 			QTreeWidgetItem *item = new QTreeWidgetItem();
 			item->setData(1,Qt::DisplayRole,maps.maps[i].ID);
 			item->setData(0,Qt::DisplayRole,ToQString(maps.maps[i].name));
-			item->setIcon(0, QIcon(":/icons/share/old_map.png"));
+			updateTreeIcon(item);
 			m_treeItems[maps.maps[i].ID] = item;
 		}
 		//Parent Items
@@ -711,7 +711,7 @@ QGraphicsView *MainWindow::getView(int id)
 				break;
 			}
 		}
-		ui->tabMap->addTab(view, QIcon(":/icons/share/old_map.png"), mapName);
+		ui->tabMap->addTab(view, themeIcon("map"), mapName);
 		view->setScene(new MapScene(core().project()->projectData(), id, view, this));
 		connect(getScene(id),
 				SIGNAL(mapChanged()),
@@ -1131,7 +1131,7 @@ void MainWindow::on_actionMapNew_triggered()
 	QTreeWidgetItem *item = new QTreeWidgetItem();
 	item->setData(1,Qt::DisplayRole,info.ID);
 	item->setData(0,Qt::DisplayRole,ToQString(info.name));
-	item->setIcon(0, QIcon(":/icons/share/old_map.png"));
+	updateTreeIcon(item);
 	m_treeItems[info.ID] = item;
 	m_treeItems[info.parent_map]->addChild(item);
 	QTreeWidgetItem *root = m_treeItems[0];
@@ -1225,7 +1225,7 @@ void MainWindow::on_actionMapPaste_triggered()
 	QTreeWidgetItem *item = new QTreeWidgetItem();
 	item->setData(1,Qt::DisplayRole,info.ID);
 	item->setData(0,Qt::DisplayRole,ToQString(info.name));
-	item->setIcon(0, QIcon(":/icons/share/old_map.png"));
+	updateTreeIcon(item);
 	m_treeItems[info.ID] = item;
 	m_treeItems[info.parent_map]->addChild(item);
 	QTreeWidgetItem *root = m_treeItems[0];
@@ -1349,10 +1349,25 @@ void MainWindow::on_actionDebugEnableCaching_toggled(bool checked)
 	searchdialog->enableCache(checked);
 }
 
+QIcon MainWindow::themeIcon(const QString& name) const {
+	QString theme = palette().color(QWidget::backgroundRole()).lightness() >= 128 ? ":/bright" : ":/dark";
+	return QIcon(theme + "/" + name);
+}
+
+void MainWindow::updateTreeIcon(QTreeWidgetItem* item) {
+	int map_id = item->data(1, Qt::DisplayRole).toInt();
+	if (map_id == 0) {
+		item->setIcon(0, themeIcon("folder"));
+	} else if (core().project()->projectData().isEditableMap(map_id)) {
+		item->setIcon(0, themeIcon("map"));
+	} else {
+		item->setIcon(0, themeIcon("map-area"));
+	}
+}
+
 void MainWindow::refreshIcons() {
 	auto set = [this](auto& action, const auto& icon) {
-		QString theme = palette().color(QWidget::backgroundRole()).lightness() >= 128 ? ":/bright" : ":/dark";
-		return action->setIcon(QIcon(theme + "/" + icon));
+		return action->setIcon(themeIcon(icon));
 	};
 
 	// File
@@ -1405,4 +1420,11 @@ void MainWindow::refreshIcons() {
 
 	// Help
 	set(ui->actionContents, "help-about");
+
+	// Map tree items
+	if (core().project()) {
+		for (QTreeWidgetItem* item : std::as_const(m_treeItems)) {
+			updateTreeIcon(item);
+		}
+	}
 }

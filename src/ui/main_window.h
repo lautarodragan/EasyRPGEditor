@@ -138,6 +138,8 @@ private slots:
 
 private:
 	void refreshIcons();
+	QIcon themeIcon(const QString& name) const;
+	void updateTreeIcon(QTreeWidgetItem* item);
 	void closeEvent(QCloseEvent *event);
 	bool saveAll();
 	bool removeDir(const QString & dirName, const QString &root);
