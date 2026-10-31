@@ -21,7 +21,11 @@
 
 #include <QObject>
 #include <QVariant>
+// Qt defines "emit" as a macro, which breaks newer glaze versions
+#pragma push_macro("emit")
+#undef emit
 #include <glaze/json/generic.hpp>
+#pragma pop_macro("emit")
 
 #include "common/dbstring.h"
 #include "lcf_glaze.h"
