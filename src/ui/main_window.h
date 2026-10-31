@@ -136,6 +136,10 @@ private slots:
 
 	void on_actionDebugEnableCaching_toggled(bool checked);
 
+	void on_actionAbout_triggered();
+
+	void on_actionAboutQt_triggered();
+
 private:
 	void refreshIcons();
 	QIcon themeIcon(const QString& name) const;

@@ -17,7 +17,10 @@
 
 #include "core.h"
 #include "ui/main_window.h"
+#include "version.h"
 #include <QApplication>
+#include <QCommandLineParser>
+#include <QCoreApplication>
 #include <QSplashScreen>
 #include <QTranslator>
 #include <QTimer>
@@ -26,10 +29,36 @@
 #include <QQuickStyle>
 #include <QStyleHints>
 
+namespace {
+// Handles --help and --version (both exit) without creating a window
+void handleCommandLine(int& argc, char* argv[]) {
+	QCoreApplication app(argc, argv);
+	app.setApplicationName("EasyRPG Editor");
+	app.setApplicationVersion(Version::Full());
+
+	QCommandLineParser parser;
+	parser.setApplicationDescription("Editor for RPG Maker 2000/2003 and EasyRPG projects");
+	parser.addHelpOption();
+	parser.addVersionOption();
+	// Ignore errors: QApplication handles Qt options like -platform
+	parser.parse(app.arguments());
+
+	if (parser.isSet("version")) {
+		parser.showVersion();
+	}
+	if (parser.isSet("help")) {
+		parser.showHelp();
+	}
+}
+}
+
 int main(int argc, char *argv[]) {
+	handleCommandLine(argc, argv);
+
 	QApplication app(argc, argv);
 
 	app.setApplicationName("EasyRPG Editor");
+	app.setApplicationVersion(Version::Full());
 	app.setOrganizationName("EasyRPG");
 	app.setOrganizationDomain("easyrpg.org");
 
