@@ -18,7 +18,11 @@
 #pragma once
 
 #include <QString>
+// Qt defines "emit" as a macro, which breaks newer glaze versions
+#pragma push_macro("emit")
+#undef emit
 #include <glaze/glaze.hpp>
+#pragma pop_macro("emit")
 #include <lcf/dbbitarray.h>
 #include <lcf/dbstring.h>
 #include <lcf/rpg/database.h>
