@@ -48,6 +48,15 @@ public:
 		return *m_project;
 	}
 
+	/**
+	 * Checks whether the map tree entry with the given ID is a map that can
+	 * be opened in the map editor. The root node and areas have no map file.
+	 *
+	 * @param map_id ID of the map tree entry
+	 * @return true when the entry exists and is a map
+	 */
+	bool isEditableMap(int map_id) const;
+
 private:
 	Project* m_project = nullptr;
 	lcf::rpg::Database m_database;
