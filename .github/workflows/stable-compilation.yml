@@ -47,7 +47,7 @@ jobs:
           - ubuntu:24.04  # 3.28.3 | 13.2.0 | (too old) | LTS    (4/29) #
         os:
           - arch: x86_64
-            name: ubuntu-latest
+            name: ubuntu-24.04
           - arch: arm64
             name: ubuntu-24.04-arm
 
@@ -103,7 +103,7 @@ jobs:
 
   appimage:
     name: "AppImage (x86_64)"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: ubuntu:24.04
       options: --privileged
