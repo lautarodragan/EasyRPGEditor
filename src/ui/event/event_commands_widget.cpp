@@ -68,6 +68,30 @@ WidgetAsDialogWrapper<T, EventCommandList>* make_complex_evt_dialog(ProjectData*
 	return new WidgetAsDialogWrapper<T, EventCommandList>(*prj, commands, self);
 }
 
+namespace {
+using Cmd = lcf::rpg::EventCommand::Code;
+
+// Index past the last line of the command at index.
+// A ShowMessage is followed by one ShowMessage_2 per additional line.
+size_t commandEnd(const std::vector<lcf::rpg::EventCommand>& commands, size_t index) {
+	size_t end = index + 1;
+	if (static_cast<Cmd>(commands[index].code) == Cmd::ShowMessage) {
+		while (end < commands.size() && static_cast<Cmd>(commands[end].code) == Cmd::ShowMessage_2) {
+			++end;
+		}
+	}
+	return end;
+}
+
+QString commandText(const std::vector<lcf::rpg::EventCommand>& commands, size_t index) {
+	QString text = Stringizer::stringize(commands[index]);
+	for (size_t i = index + 1; i < commandEnd(commands, index); ++i) {
+		text += "\n" + Stringizer::stringize(commands[i]);
+	}
+	return text;
+}
+}
+
 void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 	assert(column == 0);
 
@@ -123,31 +147,21 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 
 	int index = item->text(1).toInt();
 
-	// Event commands that need special handling
-	// FIXME: Causes a visual glitch because the wrong item is updated in the Tree
-	switch (static_cast<Cmd>(cmd.code)) {
-		case Cmd::ShowMessage_2: {
-			// Search for a ShowMessage command above and invoke it instead
-			for (int i = index - 1; i >= 0; --i) {
-				auto& cur_cmd = (*m_commands)[i];
-				auto code = static_cast<Cmd>(cur_cmd.code);
-				if (code == Cmd::ShowMessage_2) {
-					continue;
-				} else if (static_cast<Cmd>(cur_cmd.code) == Cmd::ShowMessage) {
-					index = i;
-					cmd = cur_cmd;
-					break;
-				} else {
-					Q_ASSERT(false && "Event list corrupted: ShowMessage_2 without ShowMessage");
-				}
-			}
+	// The list shows a ShowMessage and its ShowMessage_2 lines as one item,
+	// but a stray ShowMessage_2 must still open the ShowMessage above it.
+	// Only move the index: cmd refers to the command stored in the list.
+	auto code = static_cast<Cmd>(cmd.code);
+	if (code == Cmd::ShowMessage_2) {
+		while (index > 0 && static_cast<Cmd>((*m_commands)[index].code) == Cmd::ShowMessage_2) {
+			--index;
 		}
-		default: break;
+		Q_ASSERT(static_cast<Cmd>((*m_commands)[index].code) == Cmd::ShowMessage && "Event list corrupted: ShowMessage_2 without ShowMessage");
+		code = Cmd::ShowMessage;
 	}
 
 	EventCommandList evt_lst(*m_commands, index);
 
-	switch (static_cast<Cmd>(cmd.code))	{
+	switch (code)	{
 		//case Cmd::CallCommonEvent: evt_dialog.reset(make_evt_dialog<CallCommonEventWidget>(m_project, cmd, this)); break;
 		//case Cmd::ForceFlee: evt_dialog.reset(make_evt_dialog<ForceFleeWidget>(m_project, cmd, this)); break;
 		//case Cmd::EnableCombo: evt_dialog.reset(make_evt_dialog<EnableComboWidget>(m_project, cmd, this)); break;
@@ -263,7 +277,7 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 
 	evt_dialog->exec();
 
-	currentItem()->setData(column, Qt::DisplayRole, Stringizer::stringize(cmd));
+	item->setData(column, Qt::DisplayRole, commandText(*m_commands, index));
 }
 
 void EventCommandsWidget::addRawEvent(QTreeWidgetItem *item) {
@@ -279,7 +293,7 @@ void EventCommandsWidget::addRawEvent(QTreeWidgetItem *item) {
 		if (!item) {
 			m_commands->push_back(cmd);
 		} else {
-			m_commands->insert(m_commands->begin() + item->text(1).toInt() + 1, cmd);
+			m_commands->insert(m_commands->begin() + commandEnd(*m_commands, item->text(1).toInt()), cmd);
 		}
 		refreshList();
 	}
@@ -301,7 +315,8 @@ void EventCommandsWidget::editRawEvent(QTreeWidgetItem *item, int column, bool s
 }
 
 void EventCommandsWidget::deleteEvent(QTreeWidgetItem *item) {
-	m_commands->erase(m_commands->begin() + item->text(1).toInt());
+	size_t index = item->text(1).toInt();
+	m_commands->erase(m_commands->begin() + index, m_commands->begin() + commandEnd(*m_commands, index));
 	refreshList();
 }
 
@@ -372,7 +387,7 @@ void EventCommandsWidget::refreshList() {
 		}
 		cmd.indent = indent;
 
-		auto* item = new QTreeWidgetItem({Stringizer::stringize(cmd), QString::number(i)});
+		auto* item = new QTreeWidgetItem({commandText(*m_commands, i), QString::number(i)});
 		item->setToolTip(0, tr("Line") + ": " + QString::number(i + 1));
 		item->setData(0, Qt::UserRole, QVariant::fromValue(reinterpret_cast<void*>(&cmd)));
 
@@ -399,6 +414,13 @@ void EventCommandsWidget::refreshList() {
 		}
 
 		prev_indent = indent;
+
+		// Skip the additional lines of a message, they are part of this item
+		size_t end = commandEnd(*m_commands, i);
+		for (++i; i < end; ++i) {
+			(*m_commands)[i].indent = indent;
+		}
+		--i;
 	}
 
 	expandAll();
