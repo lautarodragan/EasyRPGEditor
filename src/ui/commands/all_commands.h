@@ -29,6 +29,7 @@
 #include "flash_screen_widget.h"
 #include "full_heal_widget.h"
 #include "message_options_widget.h"
+#include "move_event_widget.h"
 #include "face_graphics_widget.h"
 #include "input_number_widget.h"
 #include "message_options_widget.h"

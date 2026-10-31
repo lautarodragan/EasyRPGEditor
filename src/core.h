@@ -109,6 +109,7 @@ public:
 	void setSelection(std::vector<short> n_sel, int n_w, int n_h);
 
 	lcf::rpg::Event *currentMapEvent(int eventID);
+	const QMap<int, lcf::rpg::Event *> *currentMapEvents() const { return m_currentMapEvents; }
 	void setCurrentMapEvents(QMap<int, lcf::rpg::Event *> *events);
 
 	void runGame();

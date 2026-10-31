@@ -19,6 +19,7 @@
 
 #include <QString>
 #include <lcf/rpg/eventcommand.h>
+#include <lcf/rpg/movecommand.h>
 #include <qcoreapplication.h>
 
 namespace Stringizer {
@@ -55,6 +56,8 @@ namespace Stringizer {
 	QString mapName(int id);
 	QString direction(int id);
 	QString moveCommand(int id);
+	QString moveCommand(const lcf::rpg::MoveCommand& cmd);
+	QString characterName(int id);
 	QString eraseTransitionName(int id);
 	QString showTransitionName(int id);
 }

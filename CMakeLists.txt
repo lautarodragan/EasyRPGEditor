@@ -80,6 +80,8 @@ set(EDITOR_SOURCES
 	src/model/event_command_list.cpp
 	src/model/event_command_list.h
 	src/model/item.cpp
+	src/model/move_route_codec.cpp
+	src/model/move_route_codec.h
 	src/model/item.h
 	src/model/project.cpp
 	src/model/project.h
@@ -149,6 +151,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/input_number_widget.cpp
 	src/ui/commands/input_number_widget.h
 	src/ui/commands/input_number_widget.ui
+	src/ui/commands/move_event_widget.cpp
+	src/ui/commands/move_event_widget.h
+	src/ui/commands/move_event_widget.ui
 	src/ui/commands/message_options_widget.cpp
 	src/ui/commands/message_options_widget.h
 	src/ui/commands/message_options_widget.ui
@@ -561,6 +566,17 @@ if(EDITOR_BUILD_TESTS)
 		target_link_libraries(project_data_test PRIVATE liblcf::liblcf)
 	endif()
 	add_test(NAME project_data_test COMMAND project_data_test)
+
+	add_executable(move_route_codec_test
+		tests/move_route_codec_test.cpp
+		src/model/move_route_codec.cpp)
+	target_include_directories(move_route_codec_test PRIVATE src)
+	if(EDITOR_BUILD_LIBLCF)
+		target_link_libraries(move_route_codec_test PRIVATE lcf)
+	else()
+		target_link_libraries(move_route_codec_test PRIVATE liblcf::liblcf)
+	endif()
+	add_test(NAME move_route_codec_test COMMAND move_route_codec_test)
 endif()
 
 # Libraries

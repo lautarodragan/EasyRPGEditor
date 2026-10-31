@@ -17,6 +17,7 @@
 
 #include <QObject>
 #include "stringizer.h"
+#include "model/move_route_codec.h"
 #include "common/dbstring.h"
 #include <lcf/rpg/eventcommand.h>
 #include "core.h"
@@ -902,9 +903,11 @@ namespace
 	QString stringizeMoveEvent(const lcf::rpg::EventCommand& com)
 	{
 		QString movements;
-		for (size_t i = 4; i < 8 && i < com.parameters.size(); ++i)
-			movements.append(", ").append(Stringizer::moveCommand(com.parameters[i]));
-		if (com.parameters.size() >= 8)
+		std::vector<lcf::rpg::MoveCommand> route;
+		MoveRouteCodec::Decode(com.parameters, route);
+		for (size_t i = 0; i < 4 && i < route.size(); ++i)
+			movements.append(", ").append(Stringizer::moveCommand(route[i].command_id));
+		if (route.size() > 4)
 			movements.append("...");
 		return Stringizer::tr("Move Event") + ": " + characterName(com.parameters[0]) + movements;
 	}
@@ -1387,6 +1390,29 @@ namespace Stringizer
 		case C::decrease_transp:			 return tr("Decrease Transparency");
 		default:							 return tr("Unknown");
 		}
+	}
+
+	QString moveCommand(const lcf::rpg::MoveCommand& cmd)
+	{
+		using C = lcf::rpg::MoveCommand::Code;
+		QString name = moveCommand(cmd.command_id);
+		switch (static_cast<C>(cmd.command_id))
+		{
+		case C::switch_on:
+		case C::switch_off:
+			return name + ": " + switchName(cmd.parameter_a);
+		case C::change_graphic:
+			return name + ": " + ToQString(cmd.parameter_string) + " (" + QString::number(cmd.parameter_a + 1) + ")";
+		case C::play_sound_effect:
+			return name + ": " + ToQString(cmd.parameter_string);
+		default:
+			return name;
+		}
+	}
+
+	QString characterName(int id)
+	{
+		return ::characterName(id);
 	}
 
 	QString eraseTransitionName(int id)
