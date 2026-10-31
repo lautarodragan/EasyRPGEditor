@@ -115,7 +115,9 @@ jobs:
         run: |
           export DEBIAN_FRONTEND="noninteractive"
           apt-get install -yqq --no-install-recommends --no-install-suggests \
-            file fuse
+            file fuse \
+            libegl1 libgl1 libx11-6 libxext6 libxrandr2 libxkbcommon0 \
+            libdrm2 libpulse0 libbz2-1.0 zlib1g
 
       - *qt6
       - *vcpkg
