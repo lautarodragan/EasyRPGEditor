@@ -18,6 +18,8 @@ zoom-reset: zoom-original
 
 palette: draw-brush
 tree: view-list-tree
+map: map-flat
+map-area: select-rectangular
 audio: folder-sound
 
 database: network-server-database

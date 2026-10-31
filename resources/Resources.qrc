@@ -34,6 +34,8 @@
         <file alias="layer-event">icons/bright/layer-event.svg</file>
         <file alias="layer-high">icons/bright/layer-high.svg</file>
         <file alias="layer-low">icons/bright/layer-low.svg</file>
+        <file alias="map">icons/bright/map.svg</file>
+        <file alias="map-area">icons/bright/map-area.svg</file>
         <file alias="new">icons/bright/new.svg</file>
         <file alias="palette">icons/bright/palette.svg</file>
         <file alias="play">icons/bright/play.svg</file>
@@ -75,6 +77,8 @@
         <file alias="layer-event">icons/dark/layer-event.svg</file>
         <file alias="layer-high">icons/dark/layer-high.svg</file>
         <file alias="layer-low">icons/dark/layer-low.svg</file>
+        <file alias="map">icons/dark/map.svg</file>
+        <file alias="map-area">icons/dark/map-area.svg</file>
         <file alias="new">icons/dark/new.svg</file>
         <file alias="palette">icons/dark/palette.svg</file>
         <file alias="play">icons/dark/play.svg</file>
