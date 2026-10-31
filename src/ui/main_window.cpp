@@ -860,9 +860,11 @@ void MainWindow::on_actionZoom100_triggered()
 void MainWindow::on_treeMap_itemDoubleClicked(QTreeWidgetItem *item, int column)
 {
 	Q_UNUSED(column)
-	if (item->data(1,Qt::DisplayRole).toInt() == 0)
+	int map_id = item->data(1,Qt::DisplayRole).toInt();
+	// The root node and areas have no map file
+	if (!core().project()->projectData().isEditableMap(map_id))
 		return;
-	QGraphicsView *view = getView(item->data(1,Qt::DisplayRole).toInt());
+	QGraphicsView *view = getView(map_id);
 	ui->tabMap->setCurrentWidget(view);
 	if (ui->tabMap->count() == 1)
 		m_paletteScene->onChipsetChange();

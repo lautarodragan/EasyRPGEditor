@@ -25,3 +25,12 @@ ProjectData::ProjectData(Project& project, lcf::rpg::Database database, lcf::rpg
 	m_project(&project), m_database(std::move(database)), m_treemap(std::move(treeMap)) {
 
 }
+
+bool ProjectData::isEditableMap(int map_id) const {
+	for (const auto& info : m_treemap.maps) {
+		if (info.ID == map_id) {
+			return info.type == lcf::rpg::TreeMap::MapType_map;
+		}
+	}
+	return false;
+}

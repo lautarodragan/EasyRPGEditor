@@ -517,6 +517,22 @@ else()
 	target_link_libraries(${EXE_NAME} PRIVATE liblcf::liblcf)
 endif()
 
+# Tests
+option(EDITOR_BUILD_TESTS "Build the unit tests" OFF)
+if(EDITOR_BUILD_TESTS)
+	enable_testing()
+	add_executable(project_data_test
+		tests/project_data_test.cpp
+		src/model/project_data.cpp)
+	target_include_directories(project_data_test PRIVATE src)
+	if(EDITOR_BUILD_LIBLCF)
+		target_link_libraries(project_data_test PRIVATE lcf)
+	else()
+		target_link_libraries(project_data_test PRIVATE liblcf::liblcf)
+	endif()
+	add_test(NAME project_data_test COMMAND project_data_test)
+endif()
+
 # Libraries
 target_link_libraries(${EXE_NAME} PRIVATE
 	ZLIB::ZLIB
