@@ -49,6 +49,12 @@ PickerDialog::PickerDialog(ProjectData &project, FileFinder::FileType file_type,
 
 	QObject::connect(ui->buttonBox, &QDialogButtonBox::clicked, this, &PickerDialog::buttonClicked);
 
+	// Follows the keyboard too, not only clicks
+	QObject::connect(ui->filesystemView->selectionModel(), &QItemSelectionModel::currentChanged, this, &PickerDialog::currentFileChanged);
+	QObject::connect(ui->filesystemView, &QAbstractItemView::doubleClicked, this, [this] {
+		ui->wrappedWidget->fileActivated();
+	});
+
 	if (file_type == FileFinder::FileType::Image) {
 		ui->wrappedWidget->setView(ui->graphicsView);
 		QObject::connect(ui->graphicsView, &RpgGraphicsViewBase::clicked, this, &PickerDialog::viewClicked);
@@ -106,7 +112,7 @@ void PickerDialog::setBrowseOnly() {
 	ui->buttonBox->setStandardButtons(QDialogButtonBox::Close);
 }
 
-void PickerDialog::on_filesystemView_clicked(const QModelIndex &index) {
+void PickerDialog::currentFileChanged(const QModelIndex &index) {
 	m_currentFile = m_model->fileInfo(index);
 	ui->wrappedWidget->fileChanged(m_currentFile.absoluteFilePath());
 	if (m_file_type == FileFinder::FileType::Image) {

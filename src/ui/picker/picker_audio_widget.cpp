@@ -67,6 +67,10 @@ void PickerAudioWidget::fileChanged(const QString& filename) {
 	m_filename = filename;
 }
 
+void PickerAudioWidget::fileActivated() {
+	on_pushPlay_clicked();
+}
+
 void PickerAudioWidget::on_pushPlay_clicked() {
 	ui->labelError->clear();
 	if (m_filename.isEmpty() || QFileInfo(m_filename).isDir()) {

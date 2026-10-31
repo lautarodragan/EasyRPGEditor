@@ -27,6 +27,8 @@ public:
 
 	virtual void clicked(const QPointF&) {}
 	virtual void fileChanged(const QString&) {}
+	/** The file was double-clicked */
+	virtual void fileActivated() {}
 	virtual void imageChanged(QPixmap) {};
 
 	void setView(PixmapGraphicsView* view);

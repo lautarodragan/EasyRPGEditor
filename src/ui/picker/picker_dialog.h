@@ -48,7 +48,7 @@ signals:
 	void fileSelected(QString baseName);
 
 private slots:
-	void on_filesystemView_clicked(const QModelIndex &index);
+	void currentFileChanged(const QModelIndex &index);
 	void buttonClicked(QAbstractButton* button);
 	void viewClicked(const QPointF& pos);
 

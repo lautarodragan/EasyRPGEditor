@@ -79,6 +79,21 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent) {
 
 AudioPlayer::~AudioPlayer() {
 	stop();
+
+	// A QProcess kills its process when deleted, which would skip turning the
+	// notes off. Closing is the only place where waiting for that is fine.
+	for (QProcess* midi : m_stopping) {
+		midi->disconnect();
+		if (!midi->waitForFinished(3000)) {
+			midi->kill();
+			midi->waitForFinished(1000);
+		}
+	}
+	if (m_port_lookup) {
+		m_port_lookup->disconnect();
+		m_port_lookup->kill();
+		m_port_lookup->waitForFinished(1000);
+	}
 }
 
 void AudioPlayer::setLooping(bool looping) {
@@ -126,6 +141,7 @@ void AudioPlayer::stop() {
 	m_fade->stop();
 	m_player->stop();
 	m_player->setSource(QUrl());
+	m_pending_midi.clear();
 	stopMidi();
 }
 
@@ -146,12 +162,6 @@ void AudioPlayer::playMidi(const QString& path) {
 		return;
 	}
 
-	m_midi_port = findMidiPort();
-	if (m_midi_port.isEmpty()) {
-		emit error(tr("No MIDI synthesizer found. Start one, for example: fluidsynth -a pipewire -m alsa_seq -si <soundfont.sf2>"));
-		return;
-	}
-
 	// Written once and kept, the shell below may need it after the editor is gone
 	m_notes_off_path = QDir::temp().filePath("easyrpg-editor-all-notes-off.mid");
 	QFile notes_off(m_notes_off_path);
@@ -159,7 +169,57 @@ void AudioPlayer::playMidi(const QString& path) {
 		notes_off.write(allNotesOffMidi());
 	}
 
-	m_midi_path = path;
+	// Nothing here waits: the song starts once the previous one turned its
+	// notes off and the synthesizer port is known. A newer request replaces it.
+	m_pending_midi = path;
+	startPendingMidi();
+}
+
+void AudioPlayer::startPendingMidi() {
+	if (m_pending_midi.isEmpty() || !m_stopping.isEmpty() || m_port_lookup) {
+		return;
+	}
+
+	// Output of "aplaymidi -l":
+	//  Port    Client name                      Port name
+	//  14:0    Midi Through                     Midi Through Port-0
+	// 128:0    FLUID Synth (1234)               Synth input port (1234:0)
+	m_port_lookup = new QProcess(this);
+	connect(m_port_lookup, &QProcess::finished, this, [this] {
+		QString output = QString::fromLocal8Bit(m_port_lookup->readAllStandardOutput());
+		m_port_lookup->deleteLater();
+		m_port_lookup = nullptr;
+
+		m_midi_port.clear();
+		static const QRegularExpression port_line(R"(^\s*(\d+:\d+)\s+(.*)$)");
+		for (const QString& line : output.split('\n')) {
+			auto match = port_line.match(line);
+			if (match.hasMatch() && !match.captured(2).contains("Midi Through")) {
+				m_midi_port = match.captured(1);
+				break;
+			}
+		}
+
+		if (m_pending_midi.isEmpty()) {
+			// Stopped meanwhile
+			return;
+		}
+		if (m_midi_port.isEmpty()) {
+			m_pending_midi.clear();
+			emit error(tr("No MIDI synthesizer found. Start one, for example: fluidsynth -a pipewire -m alsa_seq -si <soundfont.sf2>"));
+			return;
+		}
+		// A song may have been stopped while looking up the port
+		if (m_stopping.isEmpty()) {
+			startMidi();
+		}
+	});
+	m_port_lookup->start("aplaymidi", { "-l" });
+}
+
+void AudioPlayer::startMidi() {
+	m_midi_path = m_pending_midi;
+	m_pending_midi.clear();
 	m_midi = new QProcess(this);
 
 #ifdef Q_OS_LINUX
@@ -196,35 +256,22 @@ void AudioPlayer::stopMidi() {
 		return;
 	}
 
+	// SIGTERM, so the shell turns all notes off. This takes a moment, the next
+	// song starts once it is done so it does not get its notes turned off.
 	QProcess* midi = m_midi;
 	m_midi = nullptr;
 	midi->disconnect();
-	// SIGTERM, so the shell turns all notes off
+	m_stopping.append(midi);
+	connect(midi, &QProcess::finished, this, [this, midi] {
+		m_stopping.removeOne(midi);
+		midi->deleteLater();
+		startPendingMidi();
+	});
 	midi->terminate();
-	if (!midi->waitForFinished(2000)) {
-		midi->kill();
-		midi->waitForFinished(1000);
-	}
-	midi->deleteLater();
-}
 
-QString AudioPlayer::findMidiPort() {
-	// Output of "aplaymidi -l":
-	//  Port    Client name                      Port name
-	//  14:0    Midi Through                     Midi Through Port-0
-	// 128:0    FLUID Synth (1234)               Synth input port (1234:0)
-	QProcess list;
-	list.start("aplaymidi", { "-l" });
-	if (!list.waitForFinished(2000)) {
-		return {};
-	}
-
-	static const QRegularExpression port_line(R"(^\s*(\d+:\d+)\s+(.*)$)");
-	for (const QString& line : QString::fromLocal8Bit(list.readAllStandardOutput()).split('\n')) {
-		auto match = port_line.match(line);
-		if (match.hasMatch() && !match.captured(2).contains("Midi Through")) {
-			return match.captured(1);
+	QTimer::singleShot(3000, midi, [midi] {
+		if (midi->state() != QProcess::NotRunning) {
+			midi->kill();
 		}
-	}
-	return {};
+	});
 }

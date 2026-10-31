@@ -17,6 +17,7 @@
 
 #pragma once
 
+#include <QList>
 #include <QObject>
 #include <QString>
 
@@ -68,9 +69,10 @@ signals:
 
 private:
 	void playMidi(const QString& path);
+	void startPendingMidi();
+	void startMidi();
 	void startMidiProcess();
 	void stopMidi();
-	QString findMidiPort();
 
 	QMediaPlayer* m_player = nullptr;
 	QAudioOutput* m_output = nullptr;
@@ -78,6 +80,10 @@ private:
 	float m_volume = 1.0f;
 
 	QProcess* m_midi = nullptr;
+	// Songs turning their notes off, the next song waits for them
+	QList<QProcess*> m_stopping;
+	QProcess* m_port_lookup = nullptr;
+	QString m_pending_midi;
 	QString m_midi_port;
 	QString m_midi_path;
 	QString m_notes_off_path;

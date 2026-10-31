@@ -46,6 +46,7 @@ public:
 	~PickerAudioWidget();
 
 	void fileChanged(const QString&) override;
+	void fileActivated() override;
 
 	int fadeInTime() const;
 	int volume() const;
