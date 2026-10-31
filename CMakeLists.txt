@@ -118,6 +118,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/change_actor_title_widget.cpp
 	src/ui/commands/change_actor_title_widget.h
 	src/ui/commands/change_actor_title_widget.ui
+	src/ui/commands/change_event_location_widget.cpp
+	src/ui/commands/change_event_location_widget.h
+	src/ui/commands/change_event_location_widget.ui
 	src/ui/commands/change_experience_widget.cpp
 	src/ui/commands/change_experience_widget.h
 	src/ui/commands/change_experience_widget.ui
@@ -188,6 +191,8 @@ set(EDITOR_SOURCES
 	src/ui/common/edit_dialog.h
 	src/ui/common/edit_dialog.ui
 	src/ui/common/encounter_delegate.cpp
+	src/ui/common/event_target_combobox.cpp
+	src/ui/common/event_target_combobox.h
 	src/ui/common/encounter_delegate.h
 	src/ui/common/import_image_dialog.cpp
 	src/ui/common/import_image_dialog.h

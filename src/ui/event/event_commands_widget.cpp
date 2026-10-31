@@ -206,7 +206,7 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		//case Cmd::RecallToLocation: evt_dialog.reset(make_evt_dialog<RecallToLocationWidget>(m_project, cmd, this)); break;
 		//case Cmd::EnterExitVehicle: evt_dialog.reset(make_evt_dialog<EnterExitVehicleWidget>(m_project, cmd, this)); break;
 		//case Cmd::SetVehicleLocation: evt_dialog.reset(make_evt_dialog<SetVehicleLocationWidget>(m_project, cmd, this)); break;
-		//case Cmd::ChangeEventLocation: evt_dialog.reset(make_evt_dialog<ChangeEventLocationWidget>(m_project, cmd, this)); break;
+		case Cmd::ChangeEventLocation: evt_dialog.reset(make_evt_dialog<ChangeEventLocationWidget>(m_project, cmd, this)); break;
 		//case Cmd::TradeEventLocations: evt_dialog.reset(make_evt_dialog<TradeEventLocationsWidget>(m_project, cmd, this)); break;
 		//case Cmd::StoreTerrainID: evt_dialog.reset(make_evt_dialog<StoreTerrainIdWidget>(m_project, cmd, this)); break;
 		//case Cmd::StoreEventID: evt_dialog.reset(make_evt_dialog<StoreEventIdWidget>(m_project, cmd, this)); break;

@@ -17,7 +17,7 @@
 
 #include "move_event_widget.h"
 #include "ui_move_event_widget.h"
-#include "core.h"
+#include "ui/common/event_target_combobox.h"
 #include "stringizer.h"
 #include "common/dbstring.h"
 #include "model/move_route_codec.h"
@@ -55,13 +55,6 @@ bool needsDialog(Code code) {
 	return code == Code::switch_on || code == Code::switch_off
 		|| code == Code::change_graphic || code == Code::play_sound_effect;
 }
-
-// Vehicles and the event itself use reserved IDs
-constexpr int target_hero = 10001;
-constexpr int target_boat = 10002;
-constexpr int target_ship = 10003;
-constexpr int target_airship = 10004;
-constexpr int target_this_event = 10005;
 }
 
 MoveEventWidget::MoveEventWidget(ProjectData& project, QWidget *parent) :
@@ -127,30 +120,9 @@ void MoveEventWidget::addCommandButtons() {
 }
 
 void MoveEventWidget::populateTargets() {
-	auto* combo = ui->comboTarget;
-	combo->clear();
-	combo->addItem(Stringizer::characterName(target_hero), target_hero);
-	combo->addItem(Stringizer::characterName(target_boat), target_boat);
-	combo->addItem(Stringizer::characterName(target_ship), target_ship);
-	combo->addItem(Stringizer::characterName(target_airship), target_airship);
-	combo->addItem(Stringizer::characterName(target_this_event), target_this_event);
+	EventTargetComboBox::fill(ui->comboTarget, m_cmd->parameters[0], true);
 
-	if (const auto* events = core().currentMapEvents()) {
-		for (auto it = events->begin(); it != events->end(); ++it) {
-			combo->addItem(QString("%1: %2").arg(it.key(), 4, 10, QChar('0')).arg(ToQString(it.value()->name)), it.key());
-		}
-	}
-
-	int target = m_cmd->parameters[0];
-	int index = combo->findData(target);
-	if (index == -1) {
-		// Event not on the current map, keep it selectable
-		combo->addItem(Stringizer::characterName(target), target);
-		index = combo->count() - 1;
-	}
-	combo->setCurrentIndex(index);
-
-	connect(combo, qOverload<int>(&QComboBox::currentIndexChanged), this, [this](int i) {
+	connect(ui->comboTarget, qOverload<int>(&QComboBox::currentIndexChanged), this, [this](int i) {
 		m_cmd->parameters[0] = ui->comboTarget->itemData(i).toInt();
 	});
 }

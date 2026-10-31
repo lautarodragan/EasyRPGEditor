@@ -19,6 +19,7 @@
 #include "change_actor_graphic_widget.h"
 #include "change_actor_name_widget.h"
 #include "change_actor_title_widget.h"
+#include "change_event_location_widget.h"
 #include "change_experience_widget.h"
 #include "change_money_widget.h"
 #include "change_item_widget.h"

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChangeEventLocationWidget</class>
+ <widget class="QWidget" name="ChangeEventLocationWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>380</width><height>300</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Change Event Location</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupTarget">
+     <property name="title"><string>Event</string></property>
+     <layout class="QVBoxLayout" name="layoutTarget">
+      <item><widget class="QComboBox" name="comboTarget"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupLocation">
+     <property name="title"><string>Location</string></property>
+     <layout class="QGridLayout" name="layoutLocation">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioConstant">
+        <property name="text"><string>Constant</string></property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="labelX"><property name="text"><string>X:</string></property></widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="RpgSpinBox" name="spinX"><property name="maximum"><number>9999</number></property></widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="labelY"><property name="text"><string>Y:</string></property></widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="RpgSpinBox" name="spinY"><property name="maximum"><number>9999</number></property></widget>
+      </item>
+      <item row="1" column="0" colspan="5">
+       <widget class="QRadioButton" name="radioVariable">
+        <property name="text"><string>Variable</string></property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="5">
+       <widget class="QGroupBox" name="groupVariables">
+        <property name="title"><string>From Variables</string></property>
+        <layout class="QFormLayout" name="layoutVariables">
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelVarX"><property name="text"><string>Map X:</string></property></widget>
+         </item>
+         <item row="0" column="1"><widget class="VariableRpgComboBox" name="comboVarX"/></item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelVarY"><property name="text"><string>Map Y:</string></property></widget>
+         </item>
+         <item row="1" column="1"><widget class="VariableRpgComboBox" name="comboVarY"/></item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>VariableRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
