@@ -23,10 +23,16 @@
 #include <QProcess>
 #include <QRegularExpression>
 #include <QStandardPaths>
-#include <QTemporaryFile>
+#include <QFile>
 #include <QTimer>
 #include <QUrl>
 #include <algorithm>
+
+#ifdef Q_OS_LINUX
+#include <csignal>
+#include <sys/prctl.h>
+#include <unistd.h>
+#endif
 
 namespace {
 constexpr int fade_step_ms = 50;
@@ -146,15 +152,43 @@ void AudioPlayer::playMidi(const QString& path) {
 		return;
 	}
 
+	// Written once and kept, the shell below may need it after the editor is gone
+	m_notes_off_path = QDir::temp().filePath("easyrpg-editor-all-notes-off.mid");
+	QFile notes_off(m_notes_off_path);
+	if (!notes_off.exists() && notes_off.open(QIODevice::WriteOnly)) {
+		notes_off.write(allNotesOffMidi());
+	}
+
 	m_midi_path = path;
 	m_midi = new QProcess(this);
+
+#ifdef Q_OS_LINUX
+	m_midi->setChildProcessModifier([] {
+		// Ctrl+C in a terminal signals the whole process group: the editor
+		// quits normally, but the shell must not be killed directly
+		setsid();
+		// Stop the music when the editor ends, even when it crashes
+		prctl(PR_SET_PDEATHSIG, SIGTERM);
+	});
+#endif
+
 	// Loop like the game does: start over when the song ends
-	connect(m_midi, &QProcess::finished, this, [this](int, QProcess::ExitStatus status) {
-		if (m_midi && m_looping && status == QProcess::NormalExit) {
-			m_midi->start("aplaymidi", { "-p", m_midi_port, m_midi_path });
+	connect(m_midi, &QProcess::finished, this, [this](int exit_code, QProcess::ExitStatus status) {
+		if (m_midi && m_looping && status == QProcess::NormalExit && exit_code == 0) {
+			startMidiProcess();
 		}
 	});
-	m_midi->start("aplaymidi", { "-p", m_midi_port, path });
+	startMidiProcess();
+}
+
+void AudioPlayer::startMidiProcess() {
+	// aplaymidi does not handle signals: killing it leaves notes playing in
+	// the synthesizer. This shell stops it on SIGTERM and turns all notes off.
+	static const QString script = QStringLiteral(
+		"trap 'kill $pid 2>/dev/null; wait $pid; aplaymidi -p \"$1\" \"$3\"; exit 143' TERM\n"
+		"aplaymidi -p \"$1\" \"$2\" & pid=$!\n"
+		"wait $pid\n");
+	m_midi->start("sh", { "-c", script, "sh", m_midi_port, m_midi_path, m_notes_off_path });
 }
 
 void AudioPlayer::stopMidi() {
@@ -165,16 +199,13 @@ void AudioPlayer::stopMidi() {
 	QProcess* midi = m_midi;
 	m_midi = nullptr;
 	midi->disconnect();
-	midi->kill();
-	midi->waitForFinished(1000);
-	midi->deleteLater();
-
-	QTemporaryFile notes_off(QDir::tempPath() + "/easyrpg-editor-XXXXXX.mid");
-	if (notes_off.open()) {
-		notes_off.write(allNotesOffMidi());
-		notes_off.flush();
-		QProcess::execute("aplaymidi", { "-p", m_midi_port, notes_off.fileName() });
+	// SIGTERM, so the shell turns all notes off
+	midi->terminate();
+	if (!midi->waitForFinished(2000)) {
+		midi->kill();
+		midi->waitForFinished(1000);
 	}
+	midi->deleteLater();
 }
 
 QString AudioPlayer::findMidiPort() {

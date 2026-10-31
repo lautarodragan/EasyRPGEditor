@@ -68,6 +68,7 @@ signals:
 
 private:
 	void playMidi(const QString& path);
+	void startMidiProcess();
 	void stopMidi();
 	QString findMidiPort();
 
@@ -79,5 +80,6 @@ private:
 	QProcess* m_midi = nullptr;
 	QString m_midi_port;
 	QString m_midi_path;
+	QString m_notes_off_path;
 	bool m_looping = true;
 };
