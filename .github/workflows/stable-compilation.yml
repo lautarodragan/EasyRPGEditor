@@ -47,7 +47,7 @@ jobs:
           - ubuntu:24.04  # 3.28.3 | 13.2.0 | (too old) | LTS    (4/29) #
         os:
           - arch: x86_64
-            name: ubuntu-latest
+            name: ubuntu-24.04
           - arch: arm64
             name: ubuntu-24.04-arm
 
@@ -61,18 +61,11 @@ jobs:
             ca-certificates build-essential cmake ninja-build git \
             libicu-dev curl zip unzip tar tzdata
 
-      - &python
-        name: Install Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.13'
-
       - &qt6
         name: Install Qt6
         uses: jurplel/install-qt-action@v4
         with:
           version: '6.10.1'
-          setup-python: 'false'
           install-deps: 'nosudo'
           modules: 'qtmultimedia qtshadertools qtwaylandcompositor'
 
@@ -110,7 +103,7 @@ jobs:
 
   appimage:
     name: "AppImage (x86_64)"
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: ubuntu:24.04
       options: --privileged
@@ -124,7 +117,6 @@ jobs:
           apt-get install -yqq --no-install-recommends --no-install-suggests \
             file fuse
 
-      - *python
       - *qt6
       - *vcpkg
       - *clone
