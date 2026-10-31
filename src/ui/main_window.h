@@ -86,6 +86,8 @@ private slots:
 
 	void on_tabMap_tabCloseRequested(int index);
 
+	void on_actionMapClose_triggered();
+
 	void on_tabMap_currentChanged(int index);
 
 	void on_actionProjectImport_triggered();

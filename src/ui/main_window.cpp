@@ -546,6 +546,7 @@ void MainWindow::update_actions()
 	ui->actionMapDelete->setEnabled(has_project);
 
 	ui->actionMapProperties->setEnabled(ui->tabMap->count());
+	ui->actionMapClose->setEnabled(ui->tabMap->count());
 	ui->actionMapCopy->setEnabled(ui->treeMap->currentItem() && ui->treeMap->currentItem()->data(1,Qt::DisplayRole).toInt() != 0);
 	ui->actionMapPaste->setEnabled(!m_copiedMap.isEmpty());
 	ui->actionMapDelete->setEnabled(ui->treeMap->currentItem() && ui->treeMap->currentItem()->data(1,Qt::DisplayRole).toInt() != 0);
@@ -897,8 +898,16 @@ void MainWindow::on_tabMap_tabCloseRequested(int index)
 	removeView(getTabScene(index)->id());
 }
 
+void MainWindow::on_actionMapClose_triggered()
+{
+	int index = ui->tabMap->currentIndex();
+	if (index != -1)
+		on_tabMap_tabCloseRequested(index);
+}
+
 void MainWindow::on_tabMap_currentChanged(int index)
 {
+	ui->actionMapClose->setEnabled(index != -1);
 	if (index == -1)
 	{
 		for (int i = 0; i < m_paletteScene->items().size(); i++)
