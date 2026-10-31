@@ -18,6 +18,8 @@
 #include "change_event_location_widget.h"
 #include "ui_change_event_location_widget.h"
 #include "ui/common/event_target_combobox.h"
+#include "ui/common/map_location_dialog.h"
+#include "core.h"
 #include <algorithm>
 
 namespace {
@@ -72,6 +74,15 @@ void ChangeEventLocationWidget::setData(lcf::rpg::EventCommand* cmd) {
 	connect(ui->spinY, qOverload<int>(&QSpinBox::valueChanged), this, [this] { writeLocation(); });
 	connect(ui->comboVarX->comboBox(), qOverload<int>(&QComboBox::currentIndexChanged), this, [this] { writeLocation(); });
 	connect(ui->comboVarY->comboBox(), qOverload<int>(&QComboBox::currentIndexChanged), this, [this] { writeLocation(); });
+
+	// Events can only move on the map they are on
+	connect(ui->pushPick, &QPushButton::clicked, this, [this] {
+		MapLocationDialog dialog(m_project, core().currentMapId(), ui->spinX->value(), ui->spinY->value(), false, this);
+		if (dialog.exec() == QDialog::Accepted) {
+			ui->spinX->setValue(dialog.x());
+			ui->spinY->setValue(dialog.y());
+		}
+	});
 }
 
 void ChangeEventLocationWidget::writeLocation() {
@@ -91,5 +102,6 @@ void ChangeEventLocationWidget::updateEnabled() {
 	bool constant = ui->radioConstant->isChecked();
 	ui->spinX->setEnabled(constant);
 	ui->spinY->setEnabled(constant);
+	ui->pushPick->setEnabled(constant && core().currentMapId() != 0);
 	ui->groupVariables->setEnabled(!constant);
 }

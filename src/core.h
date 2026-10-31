@@ -62,6 +62,10 @@ public:
 
 	void LoadChipset(int n_chipsetid);
 	void LoadBackground(QString name);
+	/** ID of the loaded chipset, 0 when none */
+	int chipsetId() const { return m_chipset.ID; }
+	/** Name of the loaded panorama, empty when none */
+	const QString& backgroundName() const { return m_backgroundName; }
 
 	int tileSize();
 	void setTileSize(int tileSize);
@@ -108,6 +112,10 @@ public:
 	int selHeight();
 	void setSelection(std::vector<short> n_sel, int n_w, int n_h);
 
+	/** ID of the map shown in the map editor, 0 when none */
+	int currentMapId() const { return m_currentMapId; }
+	void setCurrentMapId(int id) { m_currentMapId = id; }
+
 	lcf::rpg::Event *currentMapEvent(int eventID);
 	const QMap<int, lcf::rpg::Event *> *currentMapEvents() const { return m_currentMapEvents; }
 	void setCurrentMapEvents(QMap<int, lcf::rpg::Event *> *events);
@@ -139,6 +147,8 @@ private:
 	Layer m_layer;
 	Tool m_tool;
 	QPixmap m_background;
+	QString m_backgroundName;
+	int m_currentMapId = 0;
 	QMap<int, QPixmap> m_tileCache;
 	QMap<int, QPixmap> m_eventCache;
 	QMap<int, short> m_dictionary;

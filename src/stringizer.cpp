@@ -666,17 +666,19 @@ namespace
 	{
 		QString direction;
 
+		// RPG Maker 2003: 0 retains the facing, 1 to 4 are up, right, down and left
 		if (com.parameters.size() >= 4) {
-			if (com.parameters[3] < 0 || com.parameters[3] > 3)
-				direction = Stringizer::tr("Retain Facing");
+			int dir = com.parameters[3];
+			if (dir >= 1 && dir <= 4)
+				direction = ", " + Stringizer::direction(dir - 1);
 			else
-				direction = Stringizer::direction(com.parameters[3]);
+				direction = ", " + Stringizer::tr("Retain Facing");
 		}
 
 		return Stringizer::tr("Teleport") + ": "
 			+ map(com.parameters[0]) + " ("
 			+ QString::number(com.parameters[1]) + ","
-			+ QString::number(com.parameters[2]) + "), "
+			+ QString::number(com.parameters[2]) + ")"
 			+ direction;
 	}
 

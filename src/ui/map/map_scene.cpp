@@ -266,6 +266,7 @@ void MapScene::redrawMap()
 		return;
 	core().LoadChipset(m_map->chipset_id);
 	core().setCurrentMapEvents(mapEvents());
+	core().setCurrentMapId(id());
 	s_tileSize = core().tileSize() * static_cast<double>(m_scale);
 	redrawLayer(Core::LOWER);
 	redrawLayer(Core::UPPER);

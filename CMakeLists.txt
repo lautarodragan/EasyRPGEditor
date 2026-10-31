@@ -177,6 +177,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/timer_operation_widget.cpp
 	src/ui/commands/timer_operation_widget.h
 	src/ui/commands/timer_operation_widget.ui
+	src/ui/commands/teleport_widget.cpp
+	src/ui/commands/teleport_widget.h
+	src/ui/commands/teleport_widget.ui
 	src/ui/commands/tint_screen_widget.cpp
 	src/ui/commands/tint_screen_widget.h
 	src/ui/commands/tint_screen_widget.ui
@@ -194,6 +197,8 @@ set(EDITOR_SOURCES
 	src/ui/common/edit_dialog.ui
 	src/ui/common/encounter_delegate.cpp
 	src/ui/common/event_target_combobox.cpp
+	src/ui/common/map_location_dialog.cpp
+	src/ui/common/map_location_dialog.h
 	src/ui/common/event_target_combobox.h
 	src/ui/common/encounter_delegate.h
 	src/ui/common/import_image_dialog.cpp

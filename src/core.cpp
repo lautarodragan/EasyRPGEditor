@@ -570,6 +570,7 @@ void Core::LoadChipset(int n_chipsetid)
 
 void Core::LoadBackground(QString name)
 {
+	m_backgroundName = name;
 	if (name.isEmpty()) {
 		m_background = QPixmap(640,480);
 		m_background.fill(Qt::magenta);

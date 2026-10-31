@@ -201,7 +201,7 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		//case Cmd::OpenShop: evt_dialog.reset(make_evt_dialog<OpenShopWidget>(m_project, cmd, this)); break;
 		//case Cmd::ShowInn: evt_dialog.reset(make_evt_dialog<ShowInnWidget>(m_project, cmd, this)); break;
 		//case Cmd::EnterHeroName: evt_dialog.reset(make_evt_dialog<EnterHeroNameWidget>(m_project, cmd, this)); break;
-		//case Cmd::Teleport: evt_dialog.reset(make_evt_dialog<TeleportWidget>(m_project, cmd, this)); break;
+		case Cmd::Teleport: evt_dialog.reset(make_evt_dialog<TeleportWidget>(m_project, cmd, this)); break;
 		//case Cmd::MemorizeLocation: evt_dialog.reset(make_evt_dialog<MemorizeLocationWidget>(m_project, cmd, this)); break;
 		//case Cmd::RecallToLocation: evt_dialog.reset(make_evt_dialog<RecallToLocationWidget>(m_project, cmd, this)); break;
 		//case Cmd::EnterExitVehicle: evt_dialog.reset(make_evt_dialog<EnterExitVehicleWidget>(m_project, cmd, this)); break;

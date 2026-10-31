@@ -732,6 +732,7 @@ QGraphicsView *MainWindow::getView(int id)
 				this,
 				SLOT(on_mapUnchanged()));
 		core().setCurrentMapEvents(getScene(id)->mapEvents());
+		core().setCurrentMapId(id);
 		getScene(id)->setScale(2.0);
 		getScene(id)->Init();
 	}
@@ -935,6 +936,7 @@ void MainWindow::on_tabMap_currentChanged(int index)
 	ui->actionMapClose->setEnabled(index != -1);
 	if (index == -1)
 	{
+		core().setCurrentMapId(0);
 		for (int i = 0; i < m_paletteScene->items().size(); i++)
 			m_paletteScene->items()[i]->setVisible(false);
 		return;
@@ -943,6 +945,7 @@ void MainWindow::on_tabMap_currentChanged(int index)
 	{
 		core().LoadChipset(currentScene()->chipsetId());
 		core().setCurrentMapEvents(currentScene()->mapEvents());
+		core().setCurrentMapId(currentScene()->id());
 		ui->actionUndo->setEnabled(currentScene()->isModified());
 		ui->actionMapSave->setEnabled(currentScene()->isModified());
 		ui->actionMapRevert->setEnabled(currentScene()->isModified());

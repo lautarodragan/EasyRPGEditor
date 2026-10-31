@@ -38,6 +38,12 @@
       <item row="0" column="4">
        <widget class="RpgSpinBox" name="spinY"><property name="maximum"><number>9999</number></property></widget>
       </item>
+      <item row="0" column="5">
+       <widget class="QPushButton" name="pushPick">
+        <property name="text"><string>...</string></property>
+        <property name="toolTip"><string>Pick the location on the map</string></property>
+       </widget>
+      </item>
       <item row="1" column="0" colspan="5">
        <widget class="QRadioButton" name="radioVariable">
         <property name="text"><string>Variable</string></property>
