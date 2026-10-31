@@ -275,9 +275,17 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		default: editRawEvent(item, column, true); return;
 	}
 
+	size_t old_size = m_commands->size();
+
 	evt_dialog->exec();
 
-	item->setData(column, Qt::DisplayRole, commandText(*m_commands, index));
+	if (m_commands->size() != old_size) {
+		// Lines were added to or removed from a message, the following items moved
+		refreshList();
+		setCurrentItem(findItems(QString::number(index), Qt::MatchExactly | Qt::MatchRecursive, 1).value(0));
+	} else {
+		item->setData(column, Qt::DisplayRole, commandText(*m_commands, index));
+	}
 }
 
 void EventCommandsWidget::addRawEvent(QTreeWidgetItem *item) {

@@ -18,6 +18,7 @@
 #pragma once
 
 #include "ui/event/event_command_base_widget.h"
+#include <QStringList>
 
 namespace Ui {
 class ShowMessageWidget;
@@ -35,7 +36,12 @@ public:
 
 	void apply();
 
+private slots:
+	void textChanged();
+
 private:
+	QStringList lines() const;
+
 	Ui::ShowMessageWidget *ui;
 };
 

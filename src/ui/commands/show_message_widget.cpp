@@ -51,6 +51,45 @@ void ShowMessageWidget::setData(EventCommandList* commands) {
 }
 
 void ShowMessageWidget::apply() {
-	//m_commands->command().string = ToDBString(ui->message->toPlainText());
-	// FIXME: Todo
+	using Cmd = lcf::rpg::EventCommand::Code;
+
+	auto& commands = m_commands->commands();
+	size_t index = m_commands->index();
+
+	// Remove the old additional lines
+	size_t end = index + 1;
+	while (end < commands.size() && static_cast<Cmd>(commands[end].code) == Cmd::ShowMessage_2) {
+		++end;
+	}
+	commands.erase(commands.begin() + index + 1, commands.begin() + end);
+
+	// The first line belongs to the ShowMessage, each other line is a ShowMessage_2
+	QStringList text = lines();
+	commands[index].string = ToDBString(text[0]);
+
+	std::vector<lcf::rpg::EventCommand> additional;
+	for (qsizetype i = 1; i < text.size(); ++i) {
+		lcf::rpg::EventCommand cmd;
+		cmd.code = static_cast<int32_t>(Cmd::ShowMessage_2);
+		cmd.indent = commands[index].indent;
+		cmd.string = ToDBString(text[i]);
+		additional.push_back(cmd);
+	}
+	commands.insert(commands.begin() + index + 1, additional.begin(), additional.end());
+
+	// The insertion may have moved the commands
+	m_cmd = &m_commands->command();
+}
+
+void ShowMessageWidget::textChanged() {
+	// The message window of RPG Maker shows four lines
+	if (lines().size() > 4) {
+		ui->labelWarning->setText(tr("RPG Maker shows up to 4 lines per message."));
+	} else {
+		ui->labelWarning->clear();
+	}
+}
+
+QStringList ShowMessageWidget::lines() const {
+	return ui->message->toPlainText().split('\n');
 }
