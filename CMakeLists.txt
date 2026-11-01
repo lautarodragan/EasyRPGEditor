@@ -83,6 +83,8 @@ set(EDITOR_SOURCES
 	src/model/enemy.h
 	src/model/event_command_list.cpp
 	src/model/event_command_list.h
+	src/model/event_command_templates.cpp
+	src/model/event_command_templates.h
 	src/model/item.cpp
 	src/model/move_route_codec.cpp
 	src/model/move_route_codec.h
@@ -604,6 +606,17 @@ if(EDITOR_BUILD_TESTS)
 		target_link_libraries(move_route_codec_test PRIVATE liblcf::liblcf)
 	endif()
 	add_test(NAME move_route_codec_test COMMAND move_route_codec_test)
+
+	add_executable(event_command_templates_test
+		tests/event_command_templates_test.cpp
+		src/model/event_command_templates.cpp)
+	target_include_directories(event_command_templates_test PRIVATE src)
+	if(EDITOR_BUILD_LIBLCF)
+		target_link_libraries(event_command_templates_test PRIVATE lcf)
+	else()
+		target_link_libraries(event_command_templates_test PRIVATE liblcf::liblcf)
+	endif()
+	add_test(NAME event_command_templates_test COMMAND event_command_templates_test)
 
 	add_executable(midi_loop_test
 		tests/midi_loop_test.cpp
