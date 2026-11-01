@@ -96,6 +96,8 @@ modules:
       - -Denable-pulseaudio=OFF
       - -Denable-readline=OFF
       - -Denable-sdl3=OFF
+      # Downloads its sources while building, which Flatpak builds cannot
+      - -Denable-signalsmith=OFF
       - -Denable-systemd=OFF
     sources:
       - type: git

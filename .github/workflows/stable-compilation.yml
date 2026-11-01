@@ -59,7 +59,8 @@ jobs:
           apt-get update
           apt-get install -yqq --no-install-recommends --no-install-suggests \
             ca-certificates build-essential cmake ninja-build git \
-            libicu-dev curl zip unzip tar tzdata
+            libicu-dev curl zip unzip tar tzdata \
+            autoconf autoconf-archive automake libtool pkg-config
 
       - &qt6
         name: Install Qt6
