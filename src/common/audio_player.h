@@ -17,21 +17,20 @@
 
 #pragma once
 
-#include <QList>
 #include <QObject>
 #include <QString>
 
 class QAudioOutput;
 class QMediaPlayer;
-class QProcess;
 class QTimer;
 
 /**
  * Plays music and sounds for previews.
  *
- * Audio files are played with Qt Multimedia. Like EasyRPG Player, MIDI files
- * are not synthesized here: they are sent to an external synthesizer, such as
- * FluidSynth, through the ALSA sequencer using aplaymidi.
+ * Audio files are played with Qt Multimedia. MIDI files are synthesized with
+ * FluidSynth inside the editor, using a SoundFont: the one set in the
+ * EASYRPG_EDITOR_SOUNDFONT environment variable, the one shipped with the
+ * editor, or FluidR3 as installed by the system.
  */
 class AudioPlayer : public QObject {
 	Q_OBJECT
@@ -45,18 +44,21 @@ public:
 	 *
 	 * @param path File to play
 	 * @param volume Volume in percent (0 - 100)
-	 * @param tempo Tempo in percent (50 - 150), not supported for MIDI
-	 * @param fade_in Fade in time in milliseconds, not supported for MIDI
+	 * @param tempo Tempo in percent (50 - 150)
+	 * @param fade_in Fade in time in milliseconds
 	 */
 	void play(const QString& path, int volume, int tempo, int fade_in);
 
 	void stop();
 
-	/** Applies a new volume to the current audio file */
+	/** Applies a new volume to the current file */
 	void setVolume(int volume);
 
-	/** Applies a new tempo to the current audio file */
+	/** Applies a new tempo to the current file */
 	void setTempo(int tempo);
+
+	/** Applies a new balance to the current MIDI file (0: left, 50: center, 100: right) */
+	void setBalance(int balance);
 
 	/** Whether to start over when the file ends, true by default */
 	void setLooping(bool looping);
@@ -69,23 +71,22 @@ signals:
 
 private:
 	void playMidi(const QString& path);
-	void startPendingMidi();
 	void startMidi();
-	void startMidiProcess();
 	void stopMidi();
+	void startFade(int fade_in);
+	void applyVolume(float volume);
 
 	QMediaPlayer* m_player = nullptr;
 	QAudioOutput* m_output = nullptr;
 	QTimer* m_fade = nullptr;
 	float m_volume = 1.0f;
-
-	QProcess* m_midi = nullptr;
-	// Songs turning their notes off, the next song waits for them
-	QList<QProcess*> m_stopping;
-	QProcess* m_port_lookup = nullptr;
-	QString m_pending_midi;
-	QString m_midi_port;
-	QString m_midi_path;
-	QString m_notes_off_path;
+	float m_current_volume = 1.0f;
+	int m_tempo = 100;
 	bool m_looping = true;
+
+	// MIDI
+	void* m_midi_player = nullptr;
+	int m_balance = 50;
+	QString m_pending_midi;
+	bool m_midi = false;
 };

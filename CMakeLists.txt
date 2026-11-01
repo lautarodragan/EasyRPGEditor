@@ -426,10 +426,11 @@ set(EDITOR_QML_INTERFACE
 # Dependencies
 set(QT_NO_PRIVATE_MODULE_WARNING ON)
 find_package(Qt6 ${REQUIRED_QT_VERSION} CONFIG REQUIRED COMPONENTS
-	Widgets Core Multimedia Gui Svg
+	Widgets Core Concurrent Multimedia Gui Svg
 	GuiPrivate QuickPrivate QuickControls2 WidgetsPrivate)
 find_package(Qt6LinguistTools CONFIG QUIET)
 find_package(ZLIB REQUIRED)
+find_package(FluidSynth REQUIRED) # 2.2 or newer, for fluid_player_set_tempo
 find_package(glaze REQUIRED)
 find_package(KF6 ${KF_DEP_VERSION} REQUIRED COMPONENTS Kirigami)
 find_package(QQC2BreezeStyle REQUIRED)
@@ -600,6 +601,8 @@ target_link_libraries(${EXE_NAME} PRIVATE
 	Qt6::Gui
 	Qt6::Core
 	Qt6::Multimedia
+	Qt6::Concurrent
+	FluidSynth::libfluidsynth
 	Qt6::Svg
 	Qt6::QuickControls2
 )
@@ -687,6 +690,13 @@ else()
 		# FIXME: Fill appdata file
 		#install(FILES resources/unix/easyrpg-editor.appdata.xml
 		#	DESTINATION ${CMAKE_INSTALL_DATADIR}/appdata)
+	endif()
+
+	# SoundFont used to play MIDI. Without one, the editor looks for FluidR3 in the system.
+	set(EDITOR_SOUNDFONT "" CACHE STRING "SoundFont (.sf2 or .sf3) to install for playing MIDI, and its license, e.g. FluidR3Mono_GM.sf3;FluidR3Mono_License.md")
+	if(EDITOR_SOUNDFONT)
+		install(FILES ${EDITOR_SOUNDFONT}
+			DESTINATION ${CMAKE_INSTALL_DATADIR}/easyrpg-editor/soundfonts)
 	endif()
 endif()
 

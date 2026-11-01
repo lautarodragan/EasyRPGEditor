@@ -80,6 +80,31 @@ modules:
         branch: v2.4.0
     cleanup:
       - /share
+  - name: fluidsynth
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      # Only the synthesizer is used: the editor outputs the audio with Qt
+      - -Denable-libsndfile=ON
+      - -Denable-alsa=OFF
+      - -Denable-dbus=OFF
+      - -Denable-jack=OFF
+      - -Denable-ladspa=OFF
+      - -Denable-oss=OFF
+      - -Denable-pipewire=OFF
+      - -Denable-pulseaudio=OFF
+      - -Denable-readline=OFF
+      - -Denable-sdl3=OFF
+      - -Denable-systemd=OFF
+    sources:
+      - type: git
+        url: https://github.com/FluidSynth/fluidsynth.git
+        tag: v2.6.1
+        commit: 71e85b2ca6bf48641ba7e2261d8f2640ae473773
+    cleanup:
+      - /bin
+      - /share
   # own libraries
   - name: liblcf
     buildsystem: cmake-ninja
@@ -98,6 +123,14 @@ modules:
     buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=RelWithDebInfo
+      - -DEDITOR_SOUNDFONT=FluidR3Mono_GM.sf3;FluidR3Mono_License.md
     sources:
       - type: dir
         path: "../../"
+      # FluidR3Mono (MIT), compressed FluidR3, for playing MIDI in the Jukebox
+      - type: file
+        url: https://raw.githubusercontent.com/musescore/MuseScore/v3.6.2/share/sound/FluidR3Mono_GM.sf3
+        sha256: 2aacd036d7058d40a371846ef2f5dc5f130d648ab3837fe2626591ba49a71254
+      - type: file
+        url: https://raw.githubusercontent.com/musescore/MuseScore/v3.6.2/share/sound/FluidR3Mono_License.md
+        sha256: cf1889febeafd2b0a20c2c82359245524fc7dba29ded336cc3b51e0bcfdc8b84

@@ -146,6 +146,17 @@ jobs:
         run: |
           cmake --build --preset vcpkg-liblcf-release --target install
 
+      - name: Download SoundFont
+        run: |
+          # FluidR3Mono (MIT), compressed FluidR3, for playing MIDI in the Jukebox
+          dir=AppDir/usr/share/easyrpg-editor/soundfonts
+          url=https://raw.githubusercontent.com/musescore/MuseScore/v3.6.2/share/sound
+          mkdir -p $dir
+          curl -L -o $dir/FluidR3Mono_GM.sf3 $url/FluidR3Mono_GM.sf3
+          curl -L -o $dir/FluidR3Mono_License.md $url/FluidR3Mono_License.md
+          echo "2aacd036d7058d40a371846ef2f5dc5f130d648ab3837fe2626591ba49a71254  $dir/FluidR3Mono_GM.sf3" | sha256sum -c
+          echo "cf1889febeafd2b0a20c2c82359245524fc7dba29ded336cc3b51e0bcfdc8b84  $dir/FluidR3Mono_License.md" | sha256sum -c
+
       - name: Build AppImage
         run: |
           export EXTRA_QT_MODULES=waylandcompositor

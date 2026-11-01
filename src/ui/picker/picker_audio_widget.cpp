@@ -61,6 +61,7 @@ void PickerAudioWidget::setupPlayback() {
 	connect(m_player, &AudioPlayer::error, ui->labelError, &QLabel::setText);
 	connect(ui->sliderVolume, &QSlider::valueChanged, m_player, &AudioPlayer::setVolume);
 	connect(ui->sliderTempo, &QSlider::valueChanged, m_player, &AudioPlayer::setTempo);
+	connect(ui->sliderBalance, &QSlider::valueChanged, m_player, &AudioPlayer::setBalance);
 }
 
 void PickerAudioWidget::fileChanged(const QString& filename) {
@@ -76,6 +77,7 @@ void PickerAudioWidget::on_pushPlay_clicked() {
 	if (m_filename.isEmpty() || QFileInfo(m_filename).isDir()) {
 		return;
 	}
+	m_player->setBalance(balance());
 	m_player->play(m_filename, volume(), tempo(), fadeInTime());
 }
 

@@ -9,6 +9,10 @@
         },
         "ecm",
         "expat",
+        {
+            "name": "fluidsynth",
+            "features": ["sndfile"]
+        },
         "glaze",
         {
             "name": "kddockwidgets",
