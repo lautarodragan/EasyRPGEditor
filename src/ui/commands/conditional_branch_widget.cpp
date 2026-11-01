@@ -21,6 +21,7 @@
 #include "ui/common/event_target_combobox.h"
 #include "common/dbstring.h"
 #include "model/event_command_list.h"
+#include "model/event_command_templates.h"
 #include "model/project_data.h"
 #include <QButtonGroup>
 #include <algorithm>
@@ -59,47 +60,6 @@ enum ActorCheck {
 	ActorEquipment = 5,
 	ActorState = 6,
 };
-
-struct Branch {
-	int else_index = -1;
-	int end_index = -1;
-};
-
-// Finds the Else Branch and End Branch of the Conditional Branch at index.
-// The commands inside the branches are indented deeper than the Conditional Branch.
-Branch findBranch(const std::vector<lcf::rpg::EventCommand>& commands, int index) {
-	Branch branch;
-	int indent = commands[index].indent;
-	for (int i = index + 1; i < static_cast<int>(commands.size()); ++i) {
-		const auto& cmd = commands[i];
-		if (cmd.indent < indent) {
-			break;
-		}
-		if (cmd.indent > indent) {
-			continue;
-		}
-		auto code = static_cast<Cmd>(cmd.code);
-		if (code == Cmd::ElseBranch && branch.else_index == -1) {
-			branch.else_index = i;
-			continue;
-		}
-		if (code == Cmd::EndBranch) {
-			branch.end_index = i;
-		}
-		break;
-	}
-	if (branch.end_index == -1) {
-		branch.else_index = -1;
-	}
-	return branch;
-}
-
-lcf::rpg::EventCommand makeCommand(Cmd code, int indent) {
-	lcf::rpg::EventCommand cmd;
-	cmd.code = static_cast<int32_t>(code);
-	cmd.indent = indent;
-	return cmd;
-}
 
 // Combo boxes of database entries list IDs starting at 1
 int idOf(RpgComboBoxBase* combo) {
@@ -307,8 +267,8 @@ void ConditionalBranchWidget::loadParameters() {
 			"Its parameters are kept unless another condition is selected.").arg(type));
 	}
 
-	Branch branch = findBranch(m_commands->commands(), m_commands->index());
-	ui->checkElse->setChecked(branch.end_index != -1 ? branch.else_index != -1 : p[param_else] != 0);
+	auto block = EventCommandTemplates::parseBlock(m_commands->commands(), m_commands->index());
+	ui->checkElse->setChecked(block.end_line != -1 ? !block.branches.empty() : p[param_else] != 0);
 }
 
 void ConditionalBranchWidget::connectWidgets() {
@@ -459,10 +419,8 @@ void ConditionalBranchWidget::updateEnabled() {
 }
 
 void ConditionalBranchWidget::updateElseWarning() {
-	Branch branch = findBranch(m_commands->commands(), m_commands->index());
-	// An empty else branch holds only the END of the branch
-	bool loses_commands = !ui->checkElse->isChecked() && branch.else_index != -1
-		&& branch.end_index - branch.else_index > 2;
+	bool loses_commands = !ui->checkElse->isChecked() && !EventCommandTemplates::branchesLosingContent(
+		m_commands->commands(), m_commands->index(), {}).empty();
 	if (loses_commands) {
 		ui->labelElseWarning->setText(tr("The commands of the else branch will be deleted."));
 		ui->labelElseWarning->show();
@@ -481,26 +439,7 @@ void ConditionalBranchWidget::apply() {
 	m_edit.indent = indent;
 	commands[index] = m_edit;
 
-	Branch branch = findBranch(commands, index);
-	if (branch.end_index == -1) {
-		// The branch has no body yet, give it one
-		std::vector<lcf::rpg::EventCommand> body;
-		body.push_back(makeCommand(Cmd::END, indent + 1));
-		if (with_else) {
-			body.push_back(makeCommand(Cmd::ElseBranch, indent));
-			body.push_back(makeCommand(Cmd::END, indent + 1));
-		}
-		body.push_back(makeCommand(Cmd::EndBranch, indent));
-		commands.insert(commands.begin() + index + 1, body.begin(), body.end());
-	} else if (with_else && branch.else_index == -1) {
-		std::vector<lcf::rpg::EventCommand> body = {
-			makeCommand(Cmd::ElseBranch, indent),
-			makeCommand(Cmd::END, indent + 1)
-		};
-		commands.insert(commands.begin() + branch.end_index, body.begin(), body.end());
-	} else if (!with_else && branch.else_index != -1) {
-		commands.erase(commands.begin() + branch.else_index, commands.begin() + branch.end_index);
-	}
+	EventCommandTemplates::setBranches(commands, index, with_else ? std::vector<Cmd>{Cmd::ElseBranch} : std::vector<Cmd>{});
 
 	updateElseWarning();
 }

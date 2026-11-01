@@ -97,4 +97,50 @@ namespace EventCommandTemplates {
 	 * deleted or have commands inserted before it on its own.
 	 */
 	bool isCompanion(int code);
+
+	/** A branch line of a block with its content, up to the next branch or the closing line */
+	struct BranchRange {
+		lcf::rpg::EventCommand::Code code;
+		size_t begin;
+		size_t end;
+
+		/** Whether it holds more than its terminating empty line */
+		bool hasContent() const { return end - begin > 2; }
+	};
+
+	/** The branches of the block of a command and its closing line */
+	struct BlockRanges {
+		std::vector<BranchRange> branches;
+		/** Index of the closing line, -1 when the command has no (or a broken) block */
+		int end_line = -1;
+	};
+
+	/**
+	 * Finds the branches of the block of the command at index
+	 * (Else Branch, battle and shop handlers, ...).
+	 * The content of a Conditional Branch before its first branch isn't listed.
+	 * Requires correct indents.
+	 */
+	BlockRanges parseBlock(const std::vector<lcf::rpg::EventCommand>& commands, size_t index);
+
+	/**
+	 * The branches the block of a command needs due to its parameters,
+	 * like makeCompanions. Empty when the command has no block.
+	 */
+	std::vector<lcf::rpg::EventCommand::Code> requiredBranches(const lcf::rpg::EventCommand& head);
+
+	/**
+	 * Gives the block of the command at index exactly the branches in codes,
+	 * in this order, keeping the content of the branches that remain.
+	 * Without codes a block whose head can't have content (encounter, shop, inn)
+	 * is removed. The block of a Conditional Branch always keeps its content
+	 * and its closing line.
+	 * Requires correct indents.
+	 */
+	void setBranches(std::vector<lcf::rpg::EventCommand>& commands, size_t index,
+		const std::vector<lcf::rpg::EventCommand::Code>& codes);
+
+	/** The branches with content that setBranches would delete */
+	std::vector<lcf::rpg::EventCommand::Code> branchesLosingContent(const std::vector<lcf::rpg::EventCommand>& commands,
+		size_t index, const std::vector<lcf::rpg::EventCommand::Code>& codes);
 }

@@ -127,6 +127,56 @@ int main() {
 	check(T::blockEnd(list, 8) == 9, "encounter end");
 	check(T::blockEnd(list, 9) == 10, "wait end");
 
+	// Changing the branches of a block keeps the content of the remaining ones
+	{
+		auto head = T::makeCommand(find(Cmd::EnemyEncounter), true, 1);
+		head.parameters[3] = 2;
+		Lines lines = {T::makeCommand(find(Cmd::Wait), true, 0)};
+		auto enc = block(head);
+		lines.insert(lines.end(), enc.begin(), enc.end());
+		lines.push_back(T::makeCommand(find(Cmd::Wait), true, 0));
+		// 0 wait, 1 encounter, 2 victory, 3 empty, 4 escape, 5 empty, 6 end, 7 wait
+		auto content = T::makeCommand(find(Cmd::Wait), true, 2);
+		content.parameters[0] = 77;
+		lines.insert(lines.begin() + 5, content);
+		auto ranges = T::parseBlock(lines, 1);
+		check(ranges.end_line == 7 && ranges.branches.size() == 2 && ranges.branches[1].hasContent()
+			&& !ranges.branches[0].hasContent(), "parse encounter");
+		check(T::branchesLosingContent(lines, 1, {Cmd::VictoryHandler, Cmd::DefeatHandler}) == std::vector<Cmd>{Cmd::EscapeHandler}, "losing escape");
+		check(T::branchesLosingContent(lines, 1, {Cmd::VictoryHandler, Cmd::EscapeHandler, Cmd::DefeatHandler}).empty(), "keeping escape");
+
+		T::setBranches(lines, 1, {Cmd::VictoryHandler, Cmd::EscapeHandler, Cmd::DefeatHandler});
+		check(hasShape(lines, {{Cmd::Wait, 0}, {Cmd::EnemyEncounter, 1}, {Cmd::VictoryHandler, 1}, {Cmd::END, 2},
+			{Cmd::EscapeHandler, 1}, {Cmd::Wait, 2}, {Cmd::END, 2}, {Cmd::DefeatHandler, 1}, {Cmd::END, 2},
+			{Cmd::EndBattle, 1}, {Cmd::Wait, 0}}), "add defeat handler");
+		check(lines[5].parameters[0] == 77, "escape content kept");
+
+		T::setBranches(lines, 1, {});
+		check(hasShape(lines, {{Cmd::Wait, 0}, {Cmd::EnemyEncounter, 1}, {Cmd::Wait, 0}}), "remove handlers");
+		check(T::parseBlock(lines, 1).end_line == -1, "no block");
+		T::setBranches(lines, 1, {});
+		check(lines.size() == 3, "no handlers stays");
+	}
+	{
+		// Conditional Branch: the content before the else branch stays
+		auto head = T::makeCommand(find(Cmd::ConditionalBranch_B), true, 0);
+		Lines lines = block(head);
+		auto content = T::makeCommand(find(Cmd::Wait), true, 1);
+		lines.insert(lines.begin() + 1, content);
+		lines.insert(lines.begin() + 4, content);
+		// 0 branch, 1 wait, 2 empty, 3 else, 4 wait, 5 empty, 6 end
+		auto ranges = T::parseBlock(lines, 0);
+		check(ranges.end_line == 6 && ranges.branches.size() == 1 && ranges.branches[0].begin == 3, "parse branch");
+		T::setBranches(lines, 0, {});
+		check(hasShape(lines, {{Cmd::ConditionalBranch_B, 0}, {Cmd::Wait, 1}, {Cmd::END, 1}, {Cmd::EndBranch_B, 0}}), "remove else");
+		T::setBranches(lines, 0, {Cmd::ElseBranch_B});
+		check(hasShape(lines, {{Cmd::ConditionalBranch_B, 0}, {Cmd::Wait, 1}, {Cmd::END, 1}, {Cmd::ElseBranch_B, 0},
+			{Cmd::END, 1}, {Cmd::EndBranch_B, 0}}), "add else");
+		Lines lonely = {head};
+		T::setBranches(lonely, 0, {});
+		check(hasShape(lonely, {{Cmd::ConditionalBranch_B, 0}, {Cmd::END, 1}, {Cmd::EndBranch_B, 0}}), "branch without block");
+	}
+
 	// Message lines
 	Lines message = {T::makeCommand(find(Cmd::ShowMessage), true, 0)};
 	lcf::rpg::EventCommand message_line;

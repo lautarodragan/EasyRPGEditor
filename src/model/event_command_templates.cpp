@@ -267,6 +267,18 @@ bool blockCodes(int code, BlockCodes& block) {
 		default: return false;
 	}
 }
+
+// Whether the head is followed by its own content before the first branch
+bool hasBody(int code) {
+	switch (static_cast<Cmd>(code)) {
+		case Cmd::ConditionalBranch:
+		case Cmd::ConditionalBranch_B:
+		case Cmd::Loop:
+			return true;
+		default:
+			return false;
+	}
+}
 }
 
 std::vector<lcf::rpg::EventCommand> makeCompanions(const lcf::rpg::EventCommand& head) {
@@ -312,36 +324,20 @@ std::vector<lcf::rpg::EventCommand> makeCompanions(const lcf::rpg::EventCommand&
 			lines.push_back(line(Cmd::ShowChoiceEnd, indent));
 			break;
 		}
-		case Cmd::EnemyEncounter: {
-			// Escape: 0 disallowed, 1 ends the event, 2 handler. Defeat: 0 game over, 1 handler.
-			const bool escape = parameter(head, 3) == 2;
-			const bool defeat = parameter(head, 4) == 1;
-			if (escape || defeat) {
-				branch(Cmd::VictoryHandler);
-				if (escape) {
-					branch(Cmd::EscapeHandler);
+		case Cmd::EnemyEncounter:
+		case Cmd::OpenShop:
+		case Cmd::ShowInn: {
+			const auto codes = requiredBranches(head);
+			if (!codes.empty()) {
+				for (Cmd code : codes) {
+					branch(code);
 				}
-				if (defeat) {
-					branch(Cmd::DefeatHandler);
-				}
-				lines.push_back(line(Cmd::EndBattle, indent));
+				BlockCodes block;
+				blockCodes(head.code, block);
+				lines.push_back(line(block.end, indent));
 			}
 			break;
 		}
-		case Cmd::OpenShop:
-			if (parameter(head, 2)) {
-				branch(Cmd::Transaction);
-				branch(Cmd::NoTransaction);
-				lines.push_back(line(Cmd::EndShop, indent));
-			}
-			break;
-		case Cmd::ShowInn:
-			if (parameter(head, 2)) {
-				branch(Cmd::Stay);
-				branch(Cmd::NoStay);
-				lines.push_back(line(Cmd::EndInn, indent));
-			}
-			break;
 		default:
 			break;
 	}
@@ -415,6 +411,149 @@ bool isCompanion(int code) {
 		default:
 			return false;
 	}
+}
+
+std::vector<Cmd> requiredBranches(const lcf::rpg::EventCommand& head) {
+	switch (static_cast<Cmd>(head.code)) {
+		case Cmd::ConditionalBranch:
+			return parameter(head, 5) ? std::vector<Cmd>{Cmd::ElseBranch} : std::vector<Cmd>{};
+		case Cmd::ConditionalBranch_B:
+			return parameter(head, 5) ? std::vector<Cmd>{Cmd::ElseBranch_B} : std::vector<Cmd>{};
+		case Cmd::EnemyEncounter: {
+			// Escape: 0 disallowed, 1 ends the event, 2 handler. Defeat: 0 game over, 1 handler.
+			const bool escape = parameter(head, 3) == 2;
+			const bool defeat = parameter(head, 4) == 1;
+			std::vector<Cmd> codes;
+			if (escape || defeat) {
+				codes.push_back(Cmd::VictoryHandler);
+				if (escape) {
+					codes.push_back(Cmd::EscapeHandler);
+				}
+				if (defeat) {
+					codes.push_back(Cmd::DefeatHandler);
+				}
+			}
+			return codes;
+		}
+		case Cmd::OpenShop:
+			return parameter(head, 2) ? std::vector<Cmd>{Cmd::Transaction, Cmd::NoTransaction} : std::vector<Cmd>{};
+		case Cmd::ShowInn:
+			return parameter(head, 2) ? std::vector<Cmd>{Cmd::Stay, Cmd::NoStay} : std::vector<Cmd>{};
+		default:
+			return {};
+	}
+}
+
+BlockRanges parseBlock(const std::vector<lcf::rpg::EventCommand>& commands, size_t index) {
+	BlockRanges ranges;
+	const auto& head = commands[index];
+	BlockCodes block;
+	if (!blockCodes(head.code, block)) {
+		return ranges;
+	}
+
+	size_t i = index + 1;
+	if (hasBody(head.code)) {
+		while (i < commands.size() && commands[i].indent > head.indent) {
+			++i;
+		}
+	}
+
+	for (; i < commands.size(); ++i) {
+		const auto& cmd = commands[i];
+		if (cmd.indent > head.indent) {
+			if (ranges.branches.empty()) {
+				// Content outside of a branch
+				break;
+			}
+			continue;
+		}
+		if (cmd.indent < head.indent) {
+			break;
+		}
+		if (!ranges.branches.empty()) {
+			ranges.branches.back().end = i;
+		}
+		const auto code = static_cast<Cmd>(cmd.code);
+		if (code == block.end) {
+			ranges.end_line = static_cast<int>(i);
+			return ranges;
+		}
+		if (std::find(block.branches.begin(), block.branches.end(), code) == block.branches.end()) {
+			break;
+		}
+		ranges.branches.push_back({code, i, i + 1});
+	}
+
+	// No block or a broken one
+	return {};
+}
+
+namespace {
+// The branch of the block with this code that isn't used yet
+const BranchRange* takeBranch(const BlockRanges& ranges, Cmd code, std::vector<bool>& used) {
+	for (size_t i = 0; i < ranges.branches.size(); ++i) {
+		if (!used[i] && ranges.branches[i].code == code) {
+			used[i] = true;
+			return &ranges.branches[i];
+		}
+	}
+	return nullptr;
+}
+}
+
+void setBranches(std::vector<lcf::rpg::EventCommand>& commands, size_t index, const std::vector<Cmd>& codes) {
+	BlockCodes block;
+	if (!blockCodes(commands[index].code, block)) {
+		return;
+	}
+	const int indent = commands[index].indent;
+	const bool body = hasBody(commands[index].code);
+	const BlockRanges ranges = parseBlock(commands, index);
+
+	std::vector<lcf::rpg::EventCommand> lines;
+	size_t first = index + 1;
+	size_t last = index + 1;
+	if (ranges.end_line >= 0) {
+		if (body) {
+			// Keep the content of the head
+			first = ranges.branches.empty() ? ranges.end_line : ranges.branches.front().begin;
+		}
+		last = ranges.end_line + 1;
+	} else if (body) {
+		lines.push_back(line(Cmd::END, indent + 1));
+	}
+
+	if (!codes.empty() || body) {
+		std::vector<bool> used(ranges.branches.size());
+		for (Cmd code : codes) {
+			if (const auto* branch = takeBranch(ranges, code, used)) {
+				lines.insert(lines.end(), commands.begin() + branch->begin, commands.begin() + branch->end);
+			} else {
+				lines.push_back(line(code, indent));
+				lines.push_back(line(Cmd::END, indent + 1));
+			}
+		}
+		lines.push_back(ranges.end_line >= 0 ? commands[ranges.end_line] : line(block.end, indent));
+	}
+
+	commands.erase(commands.begin() + first, commands.begin() + last);
+	commands.insert(commands.begin() + first, lines.begin(), lines.end());
+}
+
+std::vector<Cmd> branchesLosingContent(const std::vector<lcf::rpg::EventCommand>& commands, size_t index, const std::vector<Cmd>& codes) {
+	const BlockRanges ranges = parseBlock(commands, index);
+	std::vector<bool> used(ranges.branches.size());
+	for (Cmd code : codes) {
+		takeBranch(ranges, code, used);
+	}
+	std::vector<Cmd> lost;
+	for (size_t i = 0; i < ranges.branches.size(); ++i) {
+		if (!used[i] && ranges.branches[i].hasContent()) {
+			lost.push_back(ranges.branches[i].code);
+		}
+	}
+	return lost;
 }
 
 }
