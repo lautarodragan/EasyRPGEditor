@@ -16,6 +16,7 @@
  */
 
 #include "conditional_branch_widget.h"
+#include "common/sortfilter_proxy_models.h"
 #include "ui_conditional_branch_widget.h"
 #include "ui/common/event_target_combobox.h"
 #include "common/dbstring.h"
@@ -108,6 +109,15 @@ int idOf(RpgComboBoxBase* combo) {
 void selectId(RpgComboBoxBase* combo, int id) {
 	combo->comboBox()->setCurrentIndex(id - 1);
 }
+
+// For filtered combo boxes, whose rows don't match the IDs
+int idOfFiltered(RpgComboBoxBase* combo) {
+	return combo->comboBox()->currentData().toInt();
+}
+
+void selectIdFiltered(RpgComboBoxBase* combo, int id) {
+	combo->comboBox()->setCurrentIndex(combo->comboBox()->findData(id));
+}
 }
 
 ConditionalBranchWidget::ConditionalBranchWidget(ProjectData& project, QWidget* parent) :
@@ -123,6 +133,14 @@ ConditionalBranchWidget::ConditionalBranchWidget(ProjectData& project, QWidget* 
 	ui->comboActor->makeModel(project);
 	ui->comboActorSkill->makeModel(project);
 	ui->comboActorEquipment->makeModel(project);
+	// Only weapons, shields, armors, helmets and accessories can be equipped
+	std::vector<int> equipment;
+	for (const auto& item : project.database().items) {
+		if (item.type >= lcf::rpg::Item::Type_weapon && item.type <= lcf::rpg::Item::Type_accessory) {
+			equipment.push_back(item.ID);
+		}
+	}
+	ui->comboActorEquipment->setFilter(new SortFilterProxyModelIdFilter(equipment, this));
 	ui->comboActorState->makeModel(project);
 
 	m_type_group = new QButtonGroup(this);
@@ -237,7 +255,7 @@ void ConditionalBranchWidget::loadParameters() {
 				case ActorLevel: ui->spinActorLevel->setValue(p[3]); break;
 				case ActorHp: ui->spinActorHp->setValue(p[3]); break;
 				case ActorSkill: selectId(ui->comboActorSkill, p[3]); break;
-				case ActorEquipment: selectId(ui->comboActorEquipment, p[3]); break;
+				case ActorEquipment: selectIdFiltered(ui->comboActorEquipment, p[3]); break;
 				case ActorState: selectId(ui->comboActorState, p[3]); break;
 				default: break;
 			}
@@ -389,7 +407,7 @@ void ConditionalBranchWidget::writeParameters() {
 				case ActorLevel: p[3] = ui->spinActorLevel->value(); break;
 				case ActorHp: p[3] = ui->spinActorHp->value(); break;
 				case ActorSkill: p[3] = idOf(ui->comboActorSkill); break;
-				case ActorEquipment: p[3] = idOf(ui->comboActorEquipment); break;
+				case ActorEquipment: p[3] = idOfFiltered(ui->comboActorEquipment); break;
 				case ActorState: p[3] = idOf(ui->comboActorState); break;
 				default: break;
 			}
