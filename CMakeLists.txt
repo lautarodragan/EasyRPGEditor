@@ -111,6 +111,8 @@ set(EDITOR_SOURCES
 	src/stringizer.cpp
 	src/stringizer.h
 	src/version.h
+	src/ui/commands/actor_commands_widget.cpp
+	src/ui/commands/actor_commands_widget.h
 	src/ui/commands/all_commands.h
 	src/ui/commands/call_event_widget.cpp
 	src/ui/commands/call_event_widget.h

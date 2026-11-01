@@ -15,6 +15,7 @@
  * along with EasyRPG Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "actor_commands_widget.h"
 #include "call_event_widget.h"
 #include "change_actor_face_widget.h"
 #include "change_actor_graphic_widget.h"
