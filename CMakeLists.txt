@@ -198,6 +198,22 @@ set(EDITOR_SOURCES
 	src/ui/commands/show_battle_animation_widget.cpp
 	src/ui/commands/show_battle_animation_widget.h
 	src/ui/commands/show_battle_animation_widget.ui
+	src/ui/commands/block_command_widget.cpp
+	src/ui/commands/block_command_widget.h
+	src/ui/commands/command_bindings.cpp
+	src/ui/commands/command_bindings.h
+	src/ui/commands/conditional_branch_battle_widget.cpp
+	src/ui/commands/conditional_branch_battle_widget.h
+	src/ui/commands/enemy_encounter_widget.cpp
+	src/ui/commands/enemy_encounter_widget.h
+	src/ui/commands/key_input_proc_widget.cpp
+	src/ui/commands/key_input_proc_widget.h
+	src/ui/commands/open_shop_widget.cpp
+	src/ui/commands/open_shop_widget.h
+	src/ui/commands/show_inn_widget.cpp
+	src/ui/commands/show_inn_widget.h
+	src/ui/commands/simple_command_widgets.cpp
+	src/ui/commands/simple_command_widgets.h
 	src/ui/commands/show_choices_widget.cpp
 	src/ui/commands/show_choices_widget.h
 	src/ui/commands/show_choices_widget.ui
