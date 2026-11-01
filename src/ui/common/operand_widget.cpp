@@ -95,6 +95,8 @@ ValueOperandWidget::ValueOperandWidget(QWidget *parent) :
 	m_buttonGroup->addButton(m_radioVar);
 	m_buttonGroup->setId(m_radioVar, 1);
 	m_spinValue = new RpgSpinBox(this);
+	// QSpinBox defaults to 0-99, too small for gold, experience, ...
+	m_spinValue->setRange(0, 9999999);
 	m_comboVar = new VariableRpgComboBox(this);
 	gridLayout->addWidget(m_radioValue, 0, 0);
 	gridLayout->addWidget(m_spinValue, 0, 1);

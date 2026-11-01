@@ -237,6 +237,9 @@ OperationOperandWidget<LCF>::OperationOperandWidget(QWidget *parent) :
 	m_spinBatchMin->setPrefix(OperandWidgetBase::tr("From") + " ");
 	m_spinBatchMax = new RpgSpinBox(this);
 	m_spinBatchMax->setPrefix(OperandWidgetBase::tr("To") + " ");
+	// QSpinBox defaults to 0-99, but switch and variable IDs go far beyond
+	m_spinBatchMin->setRange(1, 99999);
+	m_spinBatchMax->setRange(1, 99999);
 	m_buttonGroup = new QButtonGroup(this);
 	m_buttonGroup->addButton(m_radioValue);
 	m_buttonGroup->setId(m_radioValue, 0);
