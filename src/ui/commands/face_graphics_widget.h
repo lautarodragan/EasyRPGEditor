@@ -17,26 +17,37 @@
 
 #pragma once
 
-#include <QDialog>
-#include <lcf/rpg/eventcommand.h>
+#include "ui/event/event_command_base_widget.h"
+
+class FaceSetGraphicsItem;
 
 namespace Ui {
 class FaceGraphicsWidget;
 }
 
-class FaceGraphicsWidget : public QDialog
+/**
+ * Editor of Change Face Graphic:
+ * string: FaceSet file (empty erases the face)
+ * parameters: [0] face index, [1] position (0 left, 1 right), [2] flipped
+ */
+class FaceGraphicsWidget : public EventCommandBaseWidget
 {
 	Q_OBJECT
 
 public:
-	explicit FaceGraphicsWidget(QWidget *parent, lcf::rpg::EventCommand &cmd);
+	explicit FaceGraphicsWidget(ProjectData& project, QWidget* parent);
 	~FaceGraphicsWidget() override;
 
-private slots:
+	void setData(lcf::rpg::EventCommand* cmd) override;
 
+	void onParameterChanged(int index, int new_value) override;
 
 private:
-	Ui::FaceGraphicsWidget *ui;
-	lcf::rpg::EventCommand &cmd;
-};
+	void faceSetClicked();
+	void eraseClicked();
+	void refreshFace();
 
+	Ui::FaceGraphicsWidget *ui;
+
+	FaceSetGraphicsItem* m_faceItem = nullptr;
+};

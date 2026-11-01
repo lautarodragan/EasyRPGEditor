@@ -18,17 +18,73 @@
 #include "face_graphics_widget.h"
 #include "ui_face_graphics_widget.h"
 
-FaceGraphicsWidget::FaceGraphicsWidget(QWidget *parent, lcf::rpg::EventCommand &cmd) :
-	QDialog(parent),
-	ui(new Ui::FaceGraphicsWidget),
-	cmd(cmd)
-{
+#include "common/dbstring.h"
+#include "defines.h"
+#include "ui/picker/picker_dialog.h"
+#include "ui/picker/picker_faceset_widget.h"
+#include "ui/viewer/faceset_graphics_item.h"
+
+FaceGraphicsWidget::FaceGraphicsWidget(ProjectData& project, QWidget* parent) :
+	EventCommandBaseWidget(project, parent),
+	ui(new Ui::FaceGraphicsWidget) {
+
 	ui->setupUi(this);
 
-	//TODO
+	ui->groupPosition_arg1->setId(ui->buttonPositionLeft, 0);
+	ui->groupPosition_arg1->setId(ui->buttonPositionRight, 1);
+
+	m_faceItem = new FaceSetGraphicsItem(project);
+	ui->viewFace->scale(2.0, 2.0);
+	ui->viewFace->setItem(m_faceItem);
+	QObject::connect(ui->viewFace, &RpgGraphicsViewBase::clicked, this, &FaceGraphicsWidget::faceSetClicked);
+	QObject::connect(ui->buttonSet, &QPushButton::clicked, this, &FaceGraphicsWidget::faceSetClicked);
+	QObject::connect(ui->buttonErase, &QPushButton::clicked, this, &FaceGraphicsWidget::eraseClicked);
 }
 
-FaceGraphicsWidget::~FaceGraphicsWidget()
-{
+FaceGraphicsWidget::~FaceGraphicsWidget() {
 	delete ui;
+}
+
+void FaceGraphicsWidget::setData(lcf::rpg::EventCommand* cmd) {
+	// The parameter handlers add missing parameters
+	EventCommandBaseWidget::setData(cmd);
+
+	refreshFace();
+}
+
+void FaceGraphicsWidget::onParameterChanged(int index, int) {
+	if (index == 2) {
+		refreshFace();
+	}
+}
+
+void FaceGraphicsWidget::faceSetClicked() {
+	auto* widget = new PickerFacesetWidget(m_cmd->parameters[0], this);
+	PickerDialog dialog(m_project, FileFinder::FileType::Image, widget, this);
+	QObject::connect(&dialog, &PickerDialog::fileSelected, this, [&](const QString& baseName) {
+		m_cmd->string = ToDBString(baseName);
+		m_cmd->parameters[0] = widget->index();
+		refreshFace();
+	});
+	dialog.setDirectoryAndFile(FACESET, ToQString(m_cmd->string));
+	dialog.exec();
+}
+
+void FaceGraphicsWidget::eraseClicked() {
+	m_cmd->string = lcf::DBString();
+	m_cmd->parameters[0] = 0;
+	refreshFace();
+}
+
+void FaceGraphicsWidget::refreshFace() {
+	QString name = ToQString(m_cmd->string);
+	m_faceItem->refresh(name, m_cmd->parameters[0]);
+	m_faceItem->setFlip(m_cmd->parameters[2] != 0);
+	ui->buttonErase->setEnabled(!name.isEmpty());
+
+	if (name.isEmpty()) {
+		ui->labelFace->setText(tr("No face (erases the face graphic)"));
+	} else {
+		ui->labelFace->setText(tr("%1, index %2").arg(name).arg(m_cmd->parameters[0]));
+	}
 }

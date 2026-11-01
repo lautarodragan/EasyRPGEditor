@@ -39,6 +39,8 @@ public:
 	int index() const;
 	void setIndex(int index);
 
+	void setFlip(bool flip);
+
 private:
 	ProjectData& m_project;
 	int m_index = 0;

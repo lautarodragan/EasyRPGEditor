@@ -157,10 +157,15 @@ namespace
 
 	QString stringizeChangeFaceGraphic(const lcf::rpg::EventCommand& com)
 	{
+		// An empty filename erases the face
+		if (com.string.empty()) {
+			return Stringizer::tr("Change Face Graphic") + ": " + Stringizer::tr("Erase");
+		}
+
 		return Stringizer::tr("Change Face Graphic") + ": "
 			+ ToQString(com.string) + ", "
 			+ QString::number(com.parameters[0]) + ", "
-			+ (com.parameters[1] ? Stringizer::tr("Left") : Stringizer::tr("Right"))
+			+ (com.parameters[1] ? Stringizer::tr("Right") : Stringizer::tr("Left"))
 			+ (com.parameters[2] ? ", " + Stringizer::tr("Flipped") : "");
 	}
 

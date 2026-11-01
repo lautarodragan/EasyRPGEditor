@@ -45,7 +45,15 @@ QRectF FaceSetGraphicsItem::boundingRect() const {
 }
 
 void FaceSetGraphicsItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
-	painter->drawPixmap(boundingRect(), m_image, faceRect());
+	if (m_flip) {
+		painter->save();
+		painter->translate(boundingRect().width(), 0.);
+		painter->scale(-1., 1.);
+		painter->drawPixmap(boundingRect(), m_image, faceRect());
+		painter->restore();
+	} else {
+		painter->drawPixmap(boundingRect(), m_image, faceRect());
+	}
 }
 
 void FaceSetGraphicsItem::refresh(const lcf::rpg::Actor& actor) {
@@ -73,5 +81,10 @@ int FaceSetGraphicsItem::index() const {
 
 void FaceSetGraphicsItem::setIndex(int index) {
 	m_index = index;
+	update();
+}
+
+void FaceSetGraphicsItem::setFlip(bool flip) {
+	m_flip = flip;
 	update();
 }
