@@ -58,6 +58,9 @@ namespace Stringizer {
 	QString moveCommand(int id);
 	QString moveCommand(const lcf::rpg::MoveCommand& cmd);
 	QString characterName(int id);
+	/** Number of transitions, the IDs are 0 to transitionCount - 1. -1 is the default one. */
+	constexpr int transitionCount = 20;
+	/** Name of a transition, -1 is the default one and transitionCount is "None" (only for Change Screen Transitions) */
 	QString eraseTransitionName(int id);
 	QString showTransitionName(int id);
 }

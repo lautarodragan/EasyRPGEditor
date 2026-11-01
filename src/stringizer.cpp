@@ -924,19 +924,45 @@ namespace
 		}
 	}
 
+	QString milliseconds(int ms)
+	{
+		return QString::number(ms / 1000.0) + "s";
+	}
+
+	// File name of a Play BGM or Play Sound, with the options that differ from the defaults
+	QString audio(const lcf::rpg::EventCommand& com, int fade_in, int volume, int tempo, int balance)
+	{
+		QStringList options;
+		if (fade_in > 0)
+			options << Stringizer::tr("Fade In %1").arg(milliseconds(fade_in));
+		if (volume != 100)
+			options << Stringizer::tr("Volume %1%").arg(volume);
+		if (tempo != 100)
+			options << Stringizer::tr("Tempo %1%").arg(tempo);
+		if (balance != 50)
+			options << Stringizer::tr("Balance %1:%2").arg(100 - balance).arg(balance);
+
+		QString name = ToQString(com.string);
+		if (options.isEmpty())
+			return name;
+		return name + " (" + options.join(", ") + ")";
+	}
+
 	QString stringizePlayBGM(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Play BGM") + ": " + ToQString(com.string);
+		return Stringizer::tr("Play BGM") + ": "
+			+ audio(com, com.parameters[0], com.parameters[1], com.parameters[2], com.parameters[3]);
 	}
 
 	QString stringizeFadeOutBGM(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Fade Out BGM") + ": " + QString::number(com.parameters[0] / 1000) + "s";
+		return Stringizer::tr("Fade Out BGM") + ": " + milliseconds(com.parameters[0]);
 	}
 
 	QString stringizePlaySound(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Play Sound") + ": " + ToQString(com.string);
+		return Stringizer::tr("Play Sound") + ": "
+			+ audio(com, 0, com.parameters[0], com.parameters[1], com.parameters[2]);
 	}
 
 	QString stringizePlayMovie(const lcf::rpg::EventCommand& com)
@@ -1137,15 +1163,27 @@ namespace
 		switch (com.parameters[0])
 		{
 		case 0:
-			event = Stringizer::commonEventName(com.parameters[1]);
+			event = Stringizer::tr("Common Event") + " "
+				+ QString("%1:%2").arg(com.parameters[1], 4, 10, QChar('0')).arg(Stringizer::commonEventName(com.parameters[1]));
 			break;
 		case 1:
-			event = characterName(com.parameters[1]) + "["
-				+ QString::number(com.parameters[2]) + "]";
+			event = characterName(com.parameters[1]) + ", "
+				+ Stringizer::tr("Page %1").arg(com.parameters[2]);
 			break;
 		case 2:
-			event = "V[" + QString::number(com.parameters[1]) + "]"
-				+ "[V[" + QString::number(com.parameters[2]) + "]]";
+			event = Stringizer::tr("Event") + " " + variable(com.parameters[1]) + ", "
+				+ Stringizer::tr("Page") + " " + variable(com.parameters[2]);
+			break;
+		case 3:
+			// Maniac Patch
+			event = Stringizer::tr("Common Event") + " " + variable(com.parameters[1]);
+			break;
+		case 4:
+			// Maniac Patch
+			event = Stringizer::tr("Common Event") + " V[" + variable(com.parameters[1]) + "]";
+			break;
+		default:
+			event = Stringizer::tr("Unknown");
 		}
 
 		return Stringizer::tr("Call Event") + ": " + event;
@@ -1417,21 +1455,25 @@ namespace Stringizer
 		return ::characterName(id);
 	}
 
+	// Transitions of Erase Screen, Show Screen and Change Screen Transitions,
+	// in the order RPG Maker uses for their values
 	QString eraseTransitionName(int id)
 	{
 		static const std::vector<const char*> erase_transitions =
 			{
 				QT_TR_NOOP("Fade Out"),
 				QT_TR_NOOP("Random Blocks"),
-				QT_TR_NOOP("Random Blocks Up"),
 				QT_TR_NOOP("Random Blocks Down"),
+				QT_TR_NOOP("Random Blocks Up"),
 				QT_TR_NOOP("Blind Close"),
 				QT_TR_NOOP("Vertical Stripes Out"),
 				QT_TR_NOOP("Horizontal Stripes Out"),
 				QT_TR_NOOP("Border to Center Out"),
+				QT_TR_NOOP("Center to Border Out"),
 				QT_TR_NOOP("Scroll Up Out"),
 				QT_TR_NOOP("Scroll Down Out"),
 				QT_TR_NOOP("Scroll Left Out"),
+				QT_TR_NOOP("Scroll Right Out"),
 				QT_TR_NOOP("Vertical Division"),
 				QT_TR_NOOP("Horizontal Division"),
 				QT_TR_NOOP("Cross Division"),
@@ -1440,9 +1482,12 @@ namespace Stringizer
 				QT_TR_NOOP("Wave Out"),
 				QT_TR_NOOP("Instant")
 			};
+		static_assert(transitionCount == 20);
 		if (id < 0)
 			return tr("Use Default");
-		else if (id >= static_cast<int>(erase_transitions.size()))
+		else if (id == transitionCount)
+			return tr("None");
+		else if (id > transitionCount)
 			return tr("Unknown");
 		else
 			return tr(erase_transitions[static_cast<size_t>(id)]);
@@ -1454,8 +1499,8 @@ namespace Stringizer
 			{
 				QT_TR_NOOP("Fade In"),
 				QT_TR_NOOP("Random Blocks"),
-				QT_TR_NOOP("Random Blocks Up"),
 				QT_TR_NOOP("Random Blocks Down"),
+				QT_TR_NOOP("Random Blocks Up"),
 				QT_TR_NOOP("Blind Open"),
 				QT_TR_NOOP("Vertical Stripes In"),
 				QT_TR_NOOP("Horizontal Stripes In"),
@@ -1464,6 +1509,7 @@ namespace Stringizer
 				QT_TR_NOOP("Scroll Up In"),
 				QT_TR_NOOP("Scroll Down In"),
 				QT_TR_NOOP("Scroll Left In"),
+				QT_TR_NOOP("Scroll Right In"),
 				QT_TR_NOOP("Vertical Combine"),
 				QT_TR_NOOP("Horizontal Combine"),
 				QT_TR_NOOP("Cross Combine"),
@@ -1474,7 +1520,9 @@ namespace Stringizer
 			};
 		if (id < 0)
 			return tr("Use Default");
-		else if (id >= static_cast<int>(show_transitions.size()))
+		else if (id == transitionCount)
+			return tr("None");
+		else if (id > transitionCount)
 			return tr("Unknown");
 		else
 			return tr(show_transitions[static_cast<size_t>(id)]);
