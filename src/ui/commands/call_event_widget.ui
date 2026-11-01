@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CallEventWidget</class>
+ <widget class="QWidget" name="CallEventWidget">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>420</width><height>300</height></rect></property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupEvent">
+     <property name="title"><string>Event to call</string></property>
+     <layout class="QGridLayout" name="layoutEvent" columnstretch="0,1,0,0">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioCommonEvent">
+        <property name="text"><string>Common event</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="3"><widget class="CommonEventRpgComboBox" name="comboCommonEvent"/></item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="radioMapEvent">
+        <property name="text"><string>Map event</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="1" column="1"><widget class="QComboBox" name="comboEvent"><property name="minimumSize"><size><width>200</width><height>0</height></size></property></widget></item>
+      <item row="1" column="2"><widget class="QLabel" name="labelPage"><property name="text"><string>Page:</string></property></widget></item>
+      <item row="1" column="3">
+       <widget class="RpgSpinBox" name="spinPage">
+        <property name="minimum"><number>1</number></property>
+        <property name="maximum"><number>100</number></property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="4">
+       <widget class="QRadioButton" name="radioVariables">
+        <property name="text"><string>Map event and page from variables</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="4">
+       <widget class="QGroupBox" name="groupVariables">
+        <property name="flat"><bool>true</bool></property>
+        <layout class="QFormLayout" name="layoutVariables">
+         <item row="0" column="0"><widget class="QLabel" name="labelEventVar"><property name="text"><string>Event ID:</string></property></widget></item>
+         <item row="0" column="1"><widget class="VariableRpgComboBox" name="comboEventVar"/></item>
+         <item row="1" column="0"><widget class="QLabel" name="labelPageVar"><property name="text"><string>Page:</string></property></widget></item>
+         <item row="1" column="1"><widget class="VariableRpgComboBox" name="comboPageVar"/></item>
+        </layout>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="4">
+       <widget class="QRadioButton" name="radioCommonEventVar">
+        <property name="text"><string>Common event from variable (Maniac Patch)</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="4">
+       <widget class="QRadioButton" name="radioCommonEventVarIndirect">
+        <property name="text"><string>Common event from the variable a variable points to (Maniac Patch)</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="4"><widget class="VariableRpgComboBox" name="comboCommonEventVar"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>CommonEventRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>VariableRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="groupMode"/>
+ </buttongroups>
+</ui>

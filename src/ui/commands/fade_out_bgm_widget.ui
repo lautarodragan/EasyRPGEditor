@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FadeOutBgmWidget</class>
+ <widget class="QWidget" name="FadeOutBgmWidget">
+  <property name="geometry"><rect><x>0</x><y>0</y><width>260</width><height>90</height></rect></property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupTime">
+     <property name="title"><string>Fade out time</string></property>
+     <layout class="QHBoxLayout" name="layoutTime">
+      <item>
+       <widget class="RpgSpinBox" name="spinTime">
+        <property name="suffix"><string> s</string></property>
+        <property name="minimum"><number>1</number></property>
+        <property name="maximum"><number>10</number></property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+        <property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

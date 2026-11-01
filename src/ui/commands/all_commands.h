@@ -15,6 +15,7 @@
  * along with EasyRPG Editor. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "call_event_widget.h"
 #include "change_actor_face_widget.h"
 #include "change_actor_graphic_widget.h"
 #include "change_actor_name_widget.h"
@@ -27,6 +28,7 @@
 #include "change_party_widget.h"
 #include "change_vehicle_graphic_widget.h"
 #include "enable_disable_widget.h"
+#include "fade_out_bgm_widget.h"
 #include "flash_screen_widget.h"
 #include "full_heal_widget.h"
 #include "message_options_widget.h"
@@ -34,6 +36,8 @@
 #include "face_graphics_widget.h"
 #include "input_number_widget.h"
 #include "message_options_widget.h"
+#include "play_audio_widget.h"
+#include "screen_transition_widget.h"
 #include "shake_screen_widget.h"
 #include "show_choices_widget.h"
 #include "show_message_widget.h"

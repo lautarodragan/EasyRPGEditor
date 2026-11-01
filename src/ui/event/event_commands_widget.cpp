@@ -210,8 +210,8 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		//case Cmd::TradeEventLocations: evt_dialog.reset(make_evt_dialog<TradeEventLocationsWidget>(m_project, cmd, this)); break;
 		//case Cmd::StoreTerrainID: evt_dialog.reset(make_evt_dialog<StoreTerrainIdWidget>(m_project, cmd, this)); break;
 		//case Cmd::StoreEventID: evt_dialog.reset(make_evt_dialog<StoreEventIdWidget>(m_project, cmd, this)); break;
-		//case Cmd::EraseScreen: evt_dialog.reset(make_evt_dialog<EraseScreenWidget>(m_project, cmd, this)); break;
-		//case Cmd::ShowScreen: evt_dialog.reset(make_evt_dialog<ShowScreenWidget>(m_project, cmd, this)); break;
+		case Cmd::EraseScreen: evt_dialog.reset(make_evt_dialog<EraseScreenWidget>(m_project, cmd, this)); break;
+		case Cmd::ShowScreen: evt_dialog.reset(make_evt_dialog<ShowScreenWidget>(m_project, cmd, this)); break;
 		case Cmd::TintScreen: evt_dialog.reset(make_evt_dialog<TintScreenWidget>(m_project, cmd, this)); break;
 		case Cmd::FlashScreen: evt_dialog.reset(make_evt_dialog<FlashScreenWidget>(m_project, cmd, this)); break;
 		case Cmd::ShakeScreen: evt_dialog.reset(make_evt_dialog<ShakeScreenWidget>(m_project, cmd, this)); break;
@@ -225,9 +225,9 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		//case Cmd::FlashSprite: evt_dialog.reset(make_evt_dialog<FlashSpriteWidget>(m_project, cmd, this)); break;
 		case Cmd::MoveEvent: evt_dialog.reset(make_evt_dialog<MoveEventWidget>(m_project, cmd, this)); break;
 		case Cmd::Wait: evt_dialog.reset(make_evt_dialog<WaitWidget>(m_project, cmd, this)); break;
-		//case Cmd::PlayBGM: evt_dialog.reset(make_evt_dialog<PlayBgmWidget>(m_project, cmd, this)); break;
-		//case Cmd::FadeOutBGM: evt_dialog.reset(make_evt_dialog<FadeOutBgmWidget>(m_project, cmd, this)); break;
-		//case Cmd::PlaySound: evt_dialog.reset(make_evt_dialog<PlaySoundWidget>(m_project, cmd, this)); break;
+		case Cmd::PlayBGM: evt_dialog.reset(make_evt_dialog<PlayBgmWidget>(m_project, cmd, this)); break;
+		case Cmd::FadeOutBGM: evt_dialog.reset(make_evt_dialog<FadeOutBgmWidget>(m_project, cmd, this)); break;
+		case Cmd::PlaySound: evt_dialog.reset(make_evt_dialog<PlaySoundWidget>(m_project, cmd, this)); break;
 		//case Cmd::PlayMovie: evt_dialog.reset(make_evt_dialog<PlayMovieWidget>(m_project, cmd, this)); break;
 		//case Cmd::KeyInputProc: evt_dialog.reset(make_evt_dialog<KeyInputProcWidget>(m_project, cmd, this)); break;
 		//case Cmd::ChangeMapTileset: evt_dialog.reset(make_evt_dialog<ChangeMapTilesetWidget>(m_project, cmd, this)); break;
@@ -243,7 +243,7 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		//case Cmd::ConditionalBranch: evt_dialog.reset(make_evt_dialog<ConditionalBranchWidget>(m_project, cmd, this)); break;
 		//case Cmd::Label: evt_dialog.reset(make_evt_dialog<LabelWidget>(m_project, cmd, this)); break;
 		//case Cmd::JumpToLabel: evt_dialog.reset(make_evt_dialog<JumpToLabelWidget>(m_project, cmd, this)); break;
-		//case Cmd::CallEvent: evt_dialog.reset(make_evt_dialog<CallEventWidget>(m_project, cmd, this)); break;
+		case Cmd::CallEvent: evt_dialog.reset(make_evt_dialog<CallEventWidget>(m_project, cmd, this)); break;
 		//case Cmd::Comment: evt_dialog.reset(make_evt_dialog<CommentWidget>(m_project, cmd, this)); break;
 		//case Cmd::ChangeMonsterHP: evt_dialog.reset(make_evt_dialog<ChangeMonsterHPWidget>(m_project, cmd, this)); break;
 		//case Cmd::ChangeMonsterMP: evt_dialog.reset(make_evt_dialog<ChangeMonsterMPWidget>(m_project, cmd, this)); break;

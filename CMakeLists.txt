@@ -110,6 +110,9 @@ set(EDITOR_SOURCES
 	src/stringizer.h
 	src/version.h
 	src/ui/commands/all_commands.h
+	src/ui/commands/call_event_widget.cpp
+	src/ui/commands/call_event_widget.h
+	src/ui/commands/call_event_widget.ui
 	src/ui/commands/change_actor_face_widget.cpp
 	src/ui/commands/change_actor_face_widget.h
 	src/ui/commands/change_actor_face_widget.ui
@@ -149,6 +152,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/face_graphics_widget.cpp
 	src/ui/commands/face_graphics_widget.h
 	src/ui/commands/face_graphics_widget.ui
+	src/ui/commands/fade_out_bgm_widget.cpp
+	src/ui/commands/fade_out_bgm_widget.h
+	src/ui/commands/fade_out_bgm_widget.ui
 	src/ui/commands/flash_screen_widget.cpp
 	src/ui/commands/flash_screen_widget.h
 	src/ui/commands/flash_screen_widget.ui
@@ -164,6 +170,12 @@ set(EDITOR_SOURCES
 	src/ui/commands/message_options_widget.cpp
 	src/ui/commands/message_options_widget.h
 	src/ui/commands/message_options_widget.ui
+	src/ui/commands/play_audio_widget.cpp
+	src/ui/commands/play_audio_widget.h
+	src/ui/commands/play_audio_widget.ui
+	src/ui/commands/screen_transition_widget.cpp
+	src/ui/commands/screen_transition_widget.h
+	src/ui/commands/screen_transition_widget.ui
 	src/ui/commands/shake_screen_widget.cpp
 	src/ui/commands/shake_screen_widget.h
 	src/ui/commands/shake_screen_widget.ui
