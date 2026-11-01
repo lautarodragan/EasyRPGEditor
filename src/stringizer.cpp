@@ -16,6 +16,7 @@
  */
 
 #include <QObject>
+#include <algorithm>
 #include "stringizer.h"
 #include "model/move_route_codec.h"
 #include "common/dbstring.h"
@@ -93,6 +94,31 @@ namespace
 		return QString("%1M %2S").arg(seconds / 60).arg(seconds % 60, 2, 10, QChar('0'));
 	}
 
+	// A parameter, 0 when the command has fewer parameters
+	int32_t param(const lcf::rpg::EventCommand& com, size_t index)
+	{
+		return index < com.parameters.size() ? com.parameters[index] : 0;
+	}
+
+	// Battle commands count the members of the troop from 0
+	QString monster(int index)
+	{
+		return Stringizer::tr("Monster %1").arg(index + 1);
+	}
+
+	QString comparison(int op)
+	{
+		switch (op) {
+			case 0: return "==";
+			case 1: return ">=";
+			case 2: return "<=";
+			case 3: return ">";
+			case 4: return "<";
+			case 5: return "!=";
+			default: return "?";
+		}
+	}
+
 	// Stringizers
 	QString stringizeCallCommonEvent(const lcf::rpg::EventCommand& com)
 	{
@@ -101,17 +127,24 @@ namespace
 
 	QString stringizeForceFlee(const lcf::rpg::EventCommand& com)
 	{
-		Q_UNUSED(com)
-		// TODO
-		return Stringizer::tr("Force Flee");
+		QString who;
+		switch (param(com, 0))
+		{
+			case 0: who = Stringizer::tr("Party"); break;
+			case 1: who = Stringizer::tr("All Monsters"); break;
+			case 2: who = monster(param(com, 1)); break;
+			default: who = Stringizer::tr("Unknown");
+		}
+		return Stringizer::tr("Force Flee") + ": " + who
+			+ (param(com, 2) ? ", " + Stringizer::tr("Ignore Battle Condition") : "");
 	}
 
 	QString stringizeEnableCombo(const lcf::rpg::EventCommand& com)
 	{
 		return Stringizer::tr("Enable Combo") + ": "
 			+ Stringizer::heroName(com.parameters[0]) + ", "
-			+ QString::number(com.parameters[2]) + "x"
-			+ Stringizer::battleCommandName(com.parameters[1]);
+			+ Stringizer::battleCommandName(com.parameters[1]) + " x"
+			+ QString::number(com.parameters[2]);
 	}
 
 	QString stringizeChangeClass(const lcf::rpg::EventCommand& com)
@@ -640,15 +673,26 @@ namespace
 
 	QString stringizeEnemyEncounter(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Enemy Encounter") + ": "
-			+ (com.parameters[0] ? Stringizer::tr("Troop") + " " + variable(com.parameters[1])
-								 : Stringizer::troopName(com.parameters[1]));
+		QString text = Stringizer::tr("Enemy Encounter") + ": "
+			+ (param(com, 0) ? Stringizer::tr("Troop") + " " + variable(param(com, 1))
+							 : QString("%1:%2").arg(param(com, 1), 4, 10, QChar('0')).arg(Stringizer::troopName(param(com, 1))));
+		switch (param(com, 2))
+		{
+			case 1: text += ", " + Stringizer::tr("Background") + " " + ToQString(com.string); break;
+			case 2: text += ", " + Stringizer::tr("Background of %1").arg(Stringizer::terrainName(param(com, 8))); break;
+			default: break;
+		}
+		if (param(com, 3) == 0)
+			text += ", " + Stringizer::tr("No Escape");
+		if (param(com, 5))
+			text += ", " + Stringizer::tr("First Strike");
+		return text;
 	}
 
 	QString stringizeOpenShop(const lcf::rpg::EventCommand& com)
 	{
 		QString buysell;
-		switch (com.parameters[0])
+		switch (param(com, 0))
 		{
 			case 0:
 				buysell = Stringizer::tr("Buy") + "/" + Stringizer::tr("Sell");
@@ -658,13 +702,24 @@ namespace
 				break;
 			case 2:
 				buysell = Stringizer::tr("Sell");
+				break;
+			default:
+				buysell = Stringizer::tr("Unknown");
 		}
-		return Stringizer::tr("Open Shop") + ": " + buysell;
+		QStringList goods;
+		for (size_t i = 4; i < com.parameters.size(); ++i)
+			goods << Stringizer::itemName(com.parameters[i]);
+		QString style = QString(QChar('A' + std::clamp(param(com, 1), 0, 25)));
+		return Stringizer::tr("Open Shop") + ": " + buysell + ", "
+			+ Stringizer::tr("Shop %1").arg(style)
+			+ (goods.isEmpty() ? QString() : ", " + goods.join(", "));
 	}
 
 	QString stringizeShowInn(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Show Inn") + ": " + Stringizer::tr("Price") + " " + QString::number(com.parameters[1]);
+		QString style = QString(QChar('A' + std::clamp(param(com, 0), 0, 25)));
+		return Stringizer::tr("Show Inn") + ": " + Stringizer::tr("Inn %1").arg(style) + ", "
+			+ Stringizer::tr("Price") + " " + QString::number(param(com, 1));
 	}
 
 	QString stringizeEnterHeroName(const lcf::rpg::EventCommand& com)
@@ -1002,7 +1057,8 @@ namespace
 
 	QString stringizeKeyInputProc(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Key Input Proc") + ": " + variable(com.parameters[0]);
+		return Stringizer::tr("Key Input Proc") + ": " + variable(param(com, 0))
+			+ (param(com, 1) ? ", " + Stringizer::tr("Wait") : "");
 	}
 
 	QString stringizeChangeMapTileset(const lcf::rpg::EventCommand& com)
@@ -1239,30 +1295,43 @@ namespace
 		return Stringizer::tr("Comment") + ": " + ToQString(com.string);
 	}
 
+	// Increase or decrease by a constant, variable or percentage
+	QString monsterAmount(const lcf::rpg::EventCommand& com)
+	{
+		QString amount = param(com, 1) ? "-" : "+";
+		switch (param(com, 2))
+		{
+			case 0: amount += QString::number(param(com, 3)); break;
+			case 1: amount += variable(param(com, 3)); break;
+			case 2: amount += QString::number(param(com, 3)) + "%"; break;
+			default: amount += "?";
+		}
+		return amount;
+	}
+
 	QString stringizeChangeMonsterHP(const lcf::rpg::EventCommand& com)
 	{
-		Q_UNUSED(com)
-		// TODO
-		return "ChangeMonsterHP";
+		return Stringizer::tr("Change Monster HP") + ": " + monster(param(com, 0)) + ", "
+			+ monsterAmount(com)
+			+ (param(com, 4) ? ", " + Stringizer::tr("Can Kill") : "");
 	}
 
 	QString stringizeChangeMonsterMP(const lcf::rpg::EventCommand& com)
 	{
-		Q_UNUSED(com)
-		// TODO
-		return "ChangeMonsterMP";
+		return Stringizer::tr("Change Monster MP") + ": " + monster(param(com, 0)) + ", "
+			+ monsterAmount(com);
 	}
 
 	QString stringizeChangeMonsterCondition(const lcf::rpg::EventCommand& com)
 	{
-		Q_UNUSED(com)
-		// TODO
-		return "ChangeMonsterCondition";
+		return Stringizer::tr("Change Monster Condition") + ": " + monster(param(com, 0)) + ", "
+			+ (param(com, 1) ? Stringizer::tr("Remove") : Stringizer::tr("Inflict")) + " "
+			+ Stringizer::conditionName(param(com, 2));
 	}
 
 	QString stringizeShowHiddenMonster(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Show Hidden Monster") + ": " + QString::number(com.parameters[0]);
+		return Stringizer::tr("Show Hidden Monster") + ": " + monster(param(com, 0));
 	}
 
 	QString stringizeChangeBattleBG(const lcf::rpg::EventCommand& com)
@@ -1272,16 +1341,50 @@ namespace
 
 	QString stringizeShowBattleAnimation_B(const lcf::rpg::EventCommand& com)
 	{
-		Q_UNUSED(com)
-		// TODO
-		return "ShowBattleAnimation_B";
+		// -1 targets everyone, monsters are counted from 0 and party members from 1
+		const bool party = param(com, 3) != 0;
+		const int target = param(com, 1);
+		QString who;
+		if (target < 0)
+			who = party ? Stringizer::tr("Entire Party") : Stringizer::tr("All Monsters");
+		else
+			who = party ? Stringizer::tr("Party Member %1").arg(target) : monster(target);
+		return Stringizer::tr("Show Battle Animation") + ": "
+			+ Stringizer::animationName(param(com, 0)) + ", " + who
+			+ (param(com, 2) ? ", " + Stringizer::tr("Wait") : "");
 	}
 
 	QString stringizeConditionalBranch_B(const lcf::rpg::EventCommand& com)
 	{
-		Q_UNUSED(com)
-		// TODO
-		return "ConditionalBranch_B";
+		QString condition;
+		switch (param(com, 0))
+		{
+		case 0: // Switch
+			condition = QString("S[%1:%2]").arg(param(com, 1), 4, 10, QChar('0'))
+										   .arg(Stringizer::switchName(param(com, 1))) + " "
+				+ (param(com, 2) == 0 ? Stringizer::tr("ON") : Stringizer::tr("OFF"));
+			break;
+		case 1: // Variable
+			condition = variable(param(com, 1), true) + " " + comparison(param(com, 4)) + " "
+				+ valueOrVariable(param(com, 2), param(com, 3));
+			break;
+		case 2:
+			condition = Stringizer::tr("%1 can act").arg(Stringizer::heroName(param(com, 1)));
+			break;
+		case 3:
+			condition = Stringizer::tr("%1 can act").arg(monster(param(com, 1)));
+			break;
+		case 4:
+			condition = Stringizer::tr("%1 is targeted").arg(monster(param(com, 1)));
+			break;
+		case 5:
+			condition = Stringizer::tr("%1 uses %2").arg(Stringizer::heroName(param(com, 1)),
+				Stringizer::battleCommandName(param(com, 2)));
+			break;
+		default:
+			condition = Stringizer::tr("Unknown");
+		}
+		return Stringizer::tr("Branch if") + " " + condition;
 	}
 
 	QString stringizeShowMessage_2(const lcf::rpg::EventCommand& com)
