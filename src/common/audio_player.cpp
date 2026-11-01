@@ -244,9 +244,11 @@ void AudioPlayer::startMidi() {
 void AudioPlayer::startMidiProcess() {
 	// aplaymidi does not handle signals: killing it leaves notes playing in
 	// the synthesizer. This shell stops it on SIGTERM and turns all notes off.
+	// "-d 0": aplaymidi waits two seconds after each file by default, which
+	// delayed the next song and left a gap when looping.
 	static const QString script = QStringLiteral(
-		"trap 'kill $pid 2>/dev/null; wait $pid; aplaymidi -p \"$1\" \"$3\"; exit 143' TERM\n"
-		"aplaymidi -p \"$1\" \"$2\" & pid=$!\n"
+		"trap 'kill $pid 2>/dev/null; wait $pid; aplaymidi -d 0 -p \"$1\" \"$3\"; exit 143' TERM\n"
+		"aplaymidi -d 0 -p \"$1\" \"$2\" & pid=$!\n"
 		"wait $pid\n");
 	m_midi->start("sh", { "-c", script, "sh", m_midi_port, m_midi_path, m_notes_off_path });
 }
