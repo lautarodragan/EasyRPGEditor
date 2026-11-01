@@ -62,3 +62,6 @@ install/
 
 # Mac
 .DS_Store
+
+# vcpkg binary cache in CI
+/vcpkg-cache/

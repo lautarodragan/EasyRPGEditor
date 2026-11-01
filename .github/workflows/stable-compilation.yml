@@ -69,11 +69,14 @@ jobs:
           version: '6.10.1'
           install-deps: 'nosudo'
           modules: 'qtmultimedia qtshadertools qtwaylandcompositor'
+          cache: true
 
       - &vcpkg
         name: Install vcpkg
+        id: vcpkg
         run: |
           git clone https://github.com/Microsoft/vcpkg.git ../vcpkg
+          echo "commit=$(git -C ../vcpkg rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - &clone
         name: Clone Repository
@@ -87,12 +90,24 @@ jobs:
         with:
           ref: ${{ github.event.inputs.git-ref }}
 
+      - &vcpkgcache
+        name: Cache vcpkg packages
+        uses: actions/cache@v4
+        with:
+          path: vcpkg-cache
+          key: vcpkg-${{ github.job }}-${{ runner.arch }}-${{ hashFiles('vcpkg.json') }}-${{ steps.vcpkg.outputs.commit }}
+          restore-keys: |
+            vcpkg-${{ github.job }}-${{ runner.arch }}-${{ hashFiles('vcpkg.json') }}-
+            vcpkg-${{ github.job }}-${{ runner.arch }}-
+
       - name: Use gcc problem matcher
         run: echo "::add-matcher::.github/gcc_comment_matcher.json"
 
       - name: Compile
         run: |
           export VCPKG_ROOT=$PWD/../vcpkg
+          export VCPKG_BINARY_SOURCES="clear;files,$PWD/vcpkg-cache,readwrite"
+          mkdir -p vcpkg-cache
           export Qt6_Path=$QT_ROOT_DIR
           cmake --preset vcpkg-liblcf-release -DCMAKE_INSTALL_PREFIX=/usr \
             -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR -DLIBLCF_WITH_ICU=OFF
@@ -124,6 +139,7 @@ jobs:
       - *vcpkg
       - *clone
       - *cloneref
+      - *vcpkgcache
 
       - name: Download linuxdeploy
         run: |
@@ -138,25 +154,16 @@ jobs:
       - name: Compile
         run: |
           export VCPKG_ROOT=$PWD/../vcpkg
+          export VCPKG_BINARY_SOURCES="clear;files,$PWD/vcpkg-cache,readwrite"
+          mkdir -p vcpkg-cache
           export Qt6_Path=$QT_ROOT_DIR
-          cmake --preset vcpkg-liblcf-release -DCMAKE_INSTALL_PREFIX=AppDir \
+          cmake --preset vcpkg-liblcf-release -DCMAKE_INSTALL_PREFIX=AppDir/usr \
             -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR
           cmake --build --preset vcpkg-liblcf-release
 
       - name: Install
         run: |
           cmake --build --preset vcpkg-liblcf-release --target install
-
-      - name: Download SoundFont
-        run: |
-          # FluidR3Mono (MIT), compressed FluidR3, for playing MIDI in the Jukebox
-          dir=AppDir/usr/share/easyrpg-editor/soundfonts
-          url=https://raw.githubusercontent.com/musescore/MuseScore/v3.6.2/share/sound
-          mkdir -p $dir
-          curl -L -o $dir/FluidR3Mono_GM.sf3 $url/FluidR3Mono_GM.sf3
-          curl -L -o $dir/FluidR3Mono_License.md $url/FluidR3Mono_License.md
-          echo "2aacd036d7058d40a371846ef2f5dc5f130d648ab3837fe2626591ba49a71254  $dir/FluidR3Mono_GM.sf3" | sha256sum -c
-          echo "cf1889febeafd2b0a20c2c82359245524fc7dba29ded336cc3b51e0bcfdc8b84  $dir/FluidR3Mono_License.md" | sha256sum -c
 
       - name: Build AppImage
         run: |
@@ -165,9 +172,9 @@ jobs:
           export QML_SOURCES_PATHS="$PWD/src/ui"
           ./linuxdeploy-x86_64.AppImage \
             --appdir AppDir \
-            --executable AppDir/bin/easyrpg-editor \
-            --desktop-file AppDir/share/applications/easyrpg-editor.desktop \
-            --icon-file AppDir/share/icons/hicolor/48x48/apps/easyrpg-editor.png \
+            --executable AppDir/usr/bin/easyrpg-editor \
+            --desktop-file AppDir/usr/share/applications/easyrpg-editor.desktop \
+            --icon-file AppDir/usr/share/icons/hicolor/48x48/apps/easyrpg-editor.png \
             --output appimage \
             --plugin qt
 
