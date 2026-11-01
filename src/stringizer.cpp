@@ -117,16 +117,18 @@ namespace
 	QString stringizeChangeClass(const lcf::rpg::EventCommand& com)
 	{
 		return Stringizer::tr("Change Class") + ": "
-			+ Stringizer::heroName(com.parameters[1]) + ", "
-			+ Stringizer::className(com.parameters[2]);
+			+ heroes(com.parameters[0], com.parameters[1]) + ", "
+			+ (com.parameters[2] == 0 ? Stringizer::tr("None") : Stringizer::className(com.parameters[2]))
+			+ (com.parameters[3] ? ", " + Stringizer::tr("Level 1") : QString());
 	}
 
 	QString stringizeChangeBattleCommands(const lcf::rpg::EventCommand& com)
 	{
 		return Stringizer::tr("Change Battle Commands") + ": "
-			+ Stringizer::heroName(com.parameters[1]) + ", "
+			+ heroes(com.parameters[0], com.parameters[1]) + ", "
 			+ (com.parameters[3] ? Stringizer::tr("Add") : Stringizer::tr("Remove")) + " "
-			+ Stringizer::battleCommandName(com.parameters[4]);
+			+ (com.parameters[2] == 0 && !com.parameters[3] ? Stringizer::tr("All")
+				: Stringizer::battleCommandName(com.parameters[2]));
 	}
 
 	QString stringizeShowMessage(const lcf::rpg::EventCommand& com)
@@ -454,45 +456,46 @@ namespace
 	{
 		return Stringizer::tr("Change Skills") + ": "
 			+ heroes(com.parameters[0], com.parameters[1])+ ", "
-			+ (com.parameters[2] ? Stringizer::tr("Remove") : Stringizer::tr("Add"))
-			+ (com.parameters[3] ? variable(com.parameters[4])
+			+ (com.parameters[2] ? Stringizer::tr("Remove") : Stringizer::tr("Add")) + " "
+			+ (com.parameters[3] ? Stringizer::tr("Skill") + " " + variable(com.parameters[4])
 								 : Stringizer::skillName(com.parameters[4]));
 	}
 
 	QString stringizeChangeEquipment(const lcf::rpg::EventCommand& com)
 	{
-		QString item, action;
-		if (com.parameters[2])
+		QString action;
+		if (com.parameters[2] == 0)
 		{
-			action = Stringizer::tr("Equip");
-			switch (com.parameters[4])
-			{
-			case 0:
-				item = Stringizer::tr("Weapon"); break;
-			case 1:
-				item = Stringizer::tr("Shield"); break;
-			case 2:
-				item = Stringizer::tr("Armor"); break;
-			case 3:
-				item = Stringizer::tr("Helmet"); break;
-			case 4:
-				item = Stringizer::tr("Accesory"); break;
-			case 5:
-				item = Stringizer::tr("All"); break;
-			default:
-				item = Stringizer::tr("Unknown");
-			}
+			action = Stringizer::tr("Equip") + " "
+				+ (com.parameters[3] ? Stringizer::tr("Item") + " " + variable(com.parameters[4])
+									 : Stringizer::itemName(com.parameters[4]));
 		}
 		else
 		{
-			Stringizer::tr("Unequip");
-			item = com.parameters[3] ? variable(com.parameters[4])
-									 : Stringizer::itemName(com.parameters[4]);
+			QString slot;
+			switch (com.parameters[3])
+			{
+			case 0:
+				slot = Stringizer::tr("Weapon"); break;
+			case 1:
+				slot = Stringizer::tr("Shield"); break;
+			case 2:
+				slot = Stringizer::tr("Armor"); break;
+			case 3:
+				slot = Stringizer::tr("Helmet"); break;
+			case 4:
+				slot = Stringizer::tr("Accessory"); break;
+			case 5:
+				slot = Stringizer::tr("All"); break;
+			default:
+				slot = Stringizer::tr("Unknown");
+			}
+			action = Stringizer::tr("Unequip") + " " + slot;
 		}
 
 		return Stringizer::tr("Change Equipment") + ": "
 				+ heroes(com.parameters[0], com.parameters[1]) + ", "
-				+ action + " " + item;
+				+ action;
 	}
 
 	QString stringizeChangeHP(const lcf::rpg::EventCommand& com)
@@ -500,7 +503,9 @@ namespace
 		return Stringizer::tr("Change HP") + ": "
 			+ heroes(com.parameters[0], com.parameters[1])+ ", "
 			+ (com.parameters[2] ? "-" : "+")
-			+ valueOrVariable(com.parameters[3], com.parameters[4]);
+			+ valueOrVariable(com.parameters[3], com.parameters[4])
+			+ (com.parameters[2] && com.parameters.size() > 5 && com.parameters[5]
+				? " (" + Stringizer::tr("can kill") + ")" : QString());
 	}
 
 	QString stringizeChangeSP(const lcf::rpg::EventCommand& com)
@@ -515,7 +520,7 @@ namespace
 	{
 		return Stringizer::tr("Change Condition") + ": "
 			+ heroes(com.parameters[0], com.parameters[1])+ ", "
-			+ (com.parameters[2] ? Stringizer::tr("Add") : Stringizer::tr("Remove")) + " "
+			+ (com.parameters[2] ? Stringizer::tr("Remove") : Stringizer::tr("Inflict")) + " "
 			+ Stringizer::stateName(com.parameters[3]);
 	}
 
