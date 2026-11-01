@@ -119,6 +119,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/EasyRPG/liblcf.git
+        commit: 6854310c3432e553fd4ae672ce861899c80c3bd0
     cleanup:
       - /share
   - name: editor
