@@ -877,26 +877,43 @@ void Core::setCurrentMapEvents(QMap<int, lcf::rpg::Event *> *events)
 		if (ev->pages.empty())
 			continue;
 
-		lcf::rpg::EventPage& evp = ev->pages[0];
-		if (evp.character_name.empty())
-			continue;
-
-		QString char_name = ToQString(evp.character_name);
-
-		QPixmap charset(ImageLoader::Load(project()->findFile(CHARSET,char_name, FileFinder::FileType::Image)));
-		if (!charset)
-			charset = ImageLoader::Load(rtpPath(CHARSET,char_name));
-		if (!charset)
-		{
-			qWarning()<<"CharSet"<<char_name<<"not found.";
-			charset = createDummyPixmap(288,256);
-		}
-
-		int char_index = evp.character_index;
-		int src_x = (char_index%4)*72 + evp.character_pattern * 24;
-		int src_y = (char_index/4)*128 + evp.character_direction * 32;
-		m_eventCache[it.key()] = charset.copy(src_x, src_y, 24, 32);
+		QPixmap graphic = eventGraphic(ev->pages[0]);
+		if (!graphic.isNull())
+			m_eventCache[it.key()] = graphic;
 	}
+}
+
+QPixmap Core::eventGraphic(const lcf::rpg::EventPage& page)
+{
+	if (page.character_name.empty())
+		return QPixmap();
+
+	QString char_name = ToQString(page.character_name);
+
+	bool dummy = false;
+	QPixmap charset(ImageLoader::Load(project()->findFile(CHARSET,char_name, FileFinder::FileType::Image)));
+	if (!charset)
+		charset = ImageLoader::Load(rtpPath(CHARSET,char_name));
+	if (!charset)
+	{
+		qWarning()<<"CharSet"<<char_name<<"not found.";
+		charset = createDummyPixmap(288,256);
+		dummy = true;
+	}
+
+	int char_index = page.character_index;
+	int src_x = (char_index%4)*72 + page.character_pattern * 24;
+	int src_y = (char_index/4)*128 + page.character_direction * 32;
+	QPixmap frame = charset.copy(src_x, src_y, 24, 32);
+
+	if (dummy)
+		return frame;
+
+	// Like the chipset: the first palette color is transparent
+	QImage image = charset.toImage();
+	QColor keycolor = image.colorCount() > 0 ? QColor(image.color(0)) : QColor(image.pixel(0, 0));
+	frame.setMask(frame.createMaskFromColor(keycolor));
+	return frame;
 }
 
 QPixmap Core::createDummyPixmap(int width, int height)

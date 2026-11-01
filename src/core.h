@@ -84,6 +84,8 @@ public:
 	void beginPainting(QPixmap &dest);
 	void renderTile(const short &tile_id, const QRect &dest_rect);
 	void renderEvent(const lcf::rpg::Event& event, const QRect &dest_rect);
+	/** Returns the 24x32 CharSet frame of an event page, or a null pixmap for tile graphics */
+	QPixmap eventGraphic(const lcf::rpg::EventPage& page);
 	void endPainting();
 
 	QColor keycolor();
