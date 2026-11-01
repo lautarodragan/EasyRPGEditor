@@ -16,6 +16,7 @@
  */
 
 #include "audio_player.h"
+#include "midi_loop.h"
 #include <QAudioFormat>
 #include <QAudioOutput>
 #include <QAudioSink>
@@ -50,6 +51,8 @@ struct Synth {
 	// Shared output: creating one per song added seconds before it sounded
 	QAudioSink* sink = nullptr;
 	SynthDevice* device = nullptr;
+	// Tick of the RPG Maker loop point of the playing MIDI file
+	int loop_tick = -1;
 };
 
 Synth& synth() {
@@ -80,6 +83,31 @@ QString findSoundFont() {
 		}
 	}
 	return {};
+}
+
+// RPG Maker loops MIDI files from the loop point (Control Change 111) instead
+// of the start. Called by FluidSynth as the song plays: when the song is over,
+// FluidSynth reloads it right after this call, and a seek requested here is
+// done during that reload, so the song starts over from the loop point.
+int loopFromLoopPoint(void* data, int tick) {
+	auto* player = static_cast<fluid_player_t*>(data);
+	int total = fluid_player_get_total_ticks(player);
+	if (tick >= total) {
+		if (synth().loop_tick < total) {
+			fluid_player_seek(player, synth().loop_tick);
+		} else {
+			// Loop point at the end: stays silent, like RPG Maker
+			fluid_player_set_loop(player, 0);
+		}
+	}
+	return FLUID_OK;
+}
+
+// Seeking when the song starts over only works as above since FluidSynth 2.3
+bool canLoopFromLoopPoint() {
+	int major, minor, micro;
+	fluid_version(&major, &minor, &micro);
+	return major > 2 || (major == 2 && minor >= 3);
 }
 
 // Starts loading the SoundFont, unless already loaded or loading
@@ -304,6 +332,15 @@ void AudioPlayer::startMidi() {
 		return;
 	}
 	fluid_player_set_loop(player, m_looping ? -1 : 1);
+	s.loop_tick = -1;
+	QFile file(path);
+	if (m_looping && canLoopFromLoopPoint() && file.open(QIODevice::ReadOnly)) {
+		QByteArray data = file.readAll();
+		s.loop_tick = midiLoopTick(reinterpret_cast<const unsigned char*>(data.constData()), data.size());
+		if (s.loop_tick > 0) {
+			fluid_player_set_tick_callback(player, loopFromLoopPoint, player);
+		}
+	}
 	fluid_player_set_tempo(player, FLUID_PLAYER_TEMPO_INTERNAL, m_tempo / 100.0);
 	fluid_player_play(player);
 	m_midi_player = player;
