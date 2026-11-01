@@ -59,7 +59,7 @@ jobs:
           apt-get install -yqq --no-install-recommends --no-install-suggests \
             ca-certificates build-essential cmake ninja-build git \
             libicu-dev curl zip unzip tar tzdata \
-            autoconf autoconf-archive automake libtool pkg-config
+            autoconf autoconf-archive automake libtool pkg-config ccache
 
       - &qt6
         name: Install Qt6
@@ -99,6 +99,15 @@ jobs:
             vcpkg-${{ github.job }}-${{ runner.arch }}-${{ hashFiles('vcpkg.json') }}-
             vcpkg-${{ github.job }}-${{ runner.arch }}-
 
+      - &ccache
+        name: Cache compiled objects (ccache)
+        uses: actions/cache@v4
+        with:
+          path: .ccache
+          key: ccache-${{ github.job }}-${{ runner.arch }}-${{ github.sha }}
+          restore-keys: |
+            ccache-${{ github.job }}-${{ runner.arch }}-
+
       - name: Use gcc problem matcher
         run: echo "::add-matcher::.github/gcc_comment_matcher.json"
 
@@ -108,9 +117,13 @@ jobs:
           export VCPKG_BINARY_SOURCES="clear;files,$PWD/vcpkg-cache,readwrite"
           mkdir -p vcpkg-cache
           export Qt6_Path=$QT_ROOT_DIR
+          export CCACHE_DIR=$PWD/.ccache CCACHE_BASEDIR=$PWD CCACHE_MAXSIZE=500M
+          ccache -z
           cmake --preset vcpkg-liblcf-release -DCMAKE_INSTALL_PREFIX=/usr \
-            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR -DLIBLCF_WITH_ICU=OFF
+            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR -DLIBLCF_WITH_ICU=OFF \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           cmake --build --preset vcpkg-liblcf-release
+          ccache -s
 
       - name: Install
         run: |
@@ -139,6 +152,7 @@ jobs:
       - *clone
       - *cloneref
       - *vcpkgcache
+      - *ccache
 
       - name: Download linuxdeploy
         run: |
@@ -156,9 +170,13 @@ jobs:
           export VCPKG_BINARY_SOURCES="clear;files,$PWD/vcpkg-cache,readwrite"
           mkdir -p vcpkg-cache
           export Qt6_Path=$QT_ROOT_DIR
+          export CCACHE_DIR=$PWD/.ccache CCACHE_BASEDIR=$PWD CCACHE_MAXSIZE=500M
+          ccache -z
           cmake --preset vcpkg-liblcf-release -DCMAKE_INSTALL_PREFIX=AppDir/usr \
-            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR
+            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
           cmake --build --preset vcpkg-liblcf-release
+          ccache -s
 
       - name: Install
         run: |
