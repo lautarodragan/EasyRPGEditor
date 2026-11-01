@@ -18,6 +18,7 @@
       </item>
       <item>
        <widget class="RpgSpinBox" name="spinNumber">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
         <property name="minimum"><number>1</number></property>
         <property name="maximum"><number>99999</number></property>
        </widget>
@@ -47,49 +48,61 @@
        <widget class="QRadioButton" name="radioConstant"><property name="text"><string>Constant</string></property></widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLabel" name="labelX"><property name="text"><string>X:</string></property></widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="RpgSpinBox" name="spinX">
-        <property name="minimum"><number>-9999</number></property>
-        <property name="maximum"><number>9999</number></property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QLabel" name="labelY"><property name="text"><string>Y:</string></property></widget>
-      </item>
-      <item row="0" column="4">
-       <widget class="RpgSpinBox" name="spinY">
-        <property name="minimum"><number>-9999</number></property>
-        <property name="maximum"><number>9999</number></property>
-       </widget>
+       <layout class="QHBoxLayout" name="layoutConstant">
+        <item>
+         <widget class="QLabel" name="labelX"><property name="text"><string>X:</string></property></widget>
+        </item>
+        <item>
+         <widget class="RpgSpinBox" name="spinX">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
+          <property name="minimum"><number>-9999</number></property>
+          <property name="maximum"><number>9999</number></property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="labelY"><property name="text"><string>Y:</string></property></widget>
+        </item>
+        <item>
+         <widget class="RpgSpinBox" name="spinY">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
+          <property name="minimum"><number>-9999</number></property>
+          <property name="maximum"><number>9999</number></property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="spacerConstant">
+          <property name="orientation"><enum>Qt::Horizontal</enum></property>
+          <property name="sizeHint" stdset="0"><size><width>0</width><height>20</height></size></property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item row="1" column="0">
        <widget class="QRadioButton" name="radioVariable"><property name="text"><string>Variables</string></property></widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLabel" name="labelVarX"><property name="text"><string>X:</string></property></widget>
+       <layout class="QFormLayout" name="layoutVariables">
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelVarX"><property name="text"><string>X:</string></property></widget>
+        </item>
+        <item row="0" column="1"><widget class="VariableRpgComboBox" name="comboVarX"/></item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelVarY"><property name="text"><string>Y:</string></property></widget>
+        </item>
+        <item row="1" column="1"><widget class="VariableRpgComboBox" name="comboVarY"/></item>
+       </layout>
       </item>
-      <item row="1" column="2" colspan="3">
-       <widget class="VariableRpgComboBox" name="comboVarX"/>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="labelVarY"><property name="text"><string>Y:</string></property></widget>
-      </item>
-      <item row="2" column="2" colspan="3">
-       <widget class="VariableRpgComboBox" name="comboVarY"/>
-      </item>
-      <item row="3" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="labelOrigin">
         <property name="text"><string>Origin:</string></property>
        </widget>
       </item>
-      <item row="3" column="1" colspan="4">
+      <item row="2" column="1">
        <widget class="QComboBox" name="comboOrigin">
         <property name="toolTip"><string>Point of the picture placed at the position (Maniac Patch)</string></property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="5">
+      <item row="3" column="0" colspan="2">
        <widget class="QCheckBox" name="checkScroll">
         <property name="text"><string>Scroll with the map</string></property>
        </widget>
@@ -149,6 +162,7 @@
       </item>
       <item row="0" column="1">
        <widget class="RpgSpinBox" name="spinMagnify">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
         <property name="suffix"><string>%</string></property>
         <property name="maximum"><number>2000</number></property>
        </widget>
@@ -158,6 +172,7 @@
       </item>
       <item row="1" column="1">
        <widget class="RpgSpinBox" name="spinTop">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
         <property name="suffix"><string>%</string></property>
         <property name="maximum"><number>100</number></property>
        </widget>
@@ -167,6 +182,7 @@
       </item>
       <item row="2" column="1">
        <widget class="RpgSpinBox" name="spinBottom">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
         <property name="suffix"><string>%</string></property>
         <property name="maximum"><number>100</number></property>
        </widget>
@@ -194,6 +210,7 @@
         </item>
         <item row="1" column="1">
          <widget class="RpgSpinBox" name="spinPower">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
           <property name="maximum"><number>10</number></property>
          </widget>
         </item>
@@ -208,9 +225,12 @@
          <widget class="QLabel" name="labelDuration"><property name="text"><string>Time:</string></property></widget>
         </item>
         <item row="0" column="1">
-         <widget class="RpgSpinBox" name="spinDuration">
-          <property name="suffix"><string> × 0.1 s</string></property>
-          <property name="maximum"><number>10000</number></property>
+         <widget class="QDoubleSpinBox" name="spinDuration">
+          <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
+          <property name="suffix"><string> s</string></property>
+          <property name="decimals"><number>1</number></property>
+          <property name="maximum"><double>1000.0</double></property>
+          <property name="singleStep"><double>0.1</double></property>
          </widget>
         </item>
         <item row="1" column="0" colspan="2">

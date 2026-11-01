@@ -116,6 +116,9 @@ PictureWidget::PictureWidget(ProjectData& project, QWidget* parent, Kind kind) :
 	ui->checkScroll->setVisible(show);
 	ui->checkTransparentColor->setVisible(show);
 	ui->groupDuration->setVisible(!show);
+	if (!show) {
+		ui->layoutPicture->addStretch();
+	}
 	ui->groupPosition->setTitle(show ? tr("Position") : tr("Destination"));
 }
 
@@ -313,7 +316,14 @@ void PictureWidget::setData(lcf::rpg::EventCommand* cmd) {
 	});
 
 	if (!show) {
-		bindSpin(ui->spinDuration, 14);
+		// Tenths of a second
+		{
+			QSignalBlocker blocker(ui->spinDuration);
+			ui->spinDuration->setValue(param(14) / 10.0);
+		}
+		connect(ui->spinDuration, qOverload<double>(&QDoubleSpinBox::valueChanged), this, [this](double value) {
+			setParam(14, qRound(value * 10));
+		});
 		// The Maniac Patch adds more options in the other bits
 		{
 			QSignalBlocker blocker(ui->checkWait);

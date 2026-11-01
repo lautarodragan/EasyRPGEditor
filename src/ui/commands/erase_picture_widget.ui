@@ -18,6 +18,7 @@
       </item>
       <item row="0" column="1">
        <widget class="RpgSpinBox" name="spinNumber">
+        <property name="sizePolicy"><sizepolicy hsizetype="Fixed" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
         <property name="minimum"><number>1</number></property>
         <property name="maximum"><number>99999</number></property>
        </widget>
