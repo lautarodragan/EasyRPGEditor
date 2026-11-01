@@ -218,8 +218,7 @@ int EventCommandsWidget::openEditor(int index) {
 		}
 		if (static_cast<Cmd>((*m_commands)[index].code) != first_line) {
 			// Additional lines without a first line: Only the raw editor can handle them
-			editRawEvent(item, column, true);
-			return;
+			return NoEditor;
 		}
 		code = first_line;
 	}
