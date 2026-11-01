@@ -267,7 +267,7 @@ namespace
 			operand = Stringizer::tr("Random %1-%2").arg(com.parameters[5], com.parameters[6]);
 			break;
 		case 4: // Items
-			operand = com.parameters[6] ? Stringizer::tr("Number Equipped") : Stringizer::tr("Number Possessed") + " "
+			operand = (com.parameters[6] ? Stringizer::tr("Number Equipped") : Stringizer::tr("Number Possessed")) + " "
 				+ Stringizer::itemName(com.parameters[5]);
 			break;
 		case 5: // Hero
