@@ -31,9 +31,10 @@ namespace Stringizer {
 	Q_DECLARE_TR_FUNCTIONS(Stringizer)
 #else
 	// This is normally copied from qcoreapplication.h by the macro...
+	// The context must be "Stringizer" to match what lupdate extracts from Stringizer::tr.
 	static inline QString tr(const char *sourceText, const char *disambiguation = nullptr, int n = -1)
 	{
-		return QCoreApplication::translate("stringizer", sourceText, disambiguation, n);
+		return QCoreApplication::translate("Stringizer", sourceText, disambiguation, n);
 	}
 #endif
 	QString stringize(const lcf::rpg::EventCommand& com);

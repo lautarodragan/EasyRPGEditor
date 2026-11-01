@@ -95,11 +95,11 @@ OperandWidget<LCF>::OperandWidget(QWidget *parent) :
 {
 	auto* gridLayout = new QGridLayout(this);
 
-	// FIXME: translation does not work without QCoreApplication::translate
+	// Qualified so that lupdate and the runtime agree on the context (the template has no Q_OBJECT)
 	m_radioValue = new QRadioButton(this);
-	m_radioValue->setText(QCoreApplication::translate("OperandWidget", "Specific") + ":");
+	m_radioValue->setText(OperandWidgetBase::tr("Specific:"));
 	m_radioVar = new QRadioButton(this);
-	m_radioVar->setText(QCoreApplication::translate("OperandWidget", "By Variable") + ":");
+	m_radioVar->setText(OperandWidgetBase::tr("By Variable:"));
 	m_buttonGroup = new QButtonGroup(this);
 	m_buttonGroup->addButton(m_radioValue);
 	m_buttonGroup->setId(m_radioValue, 0);
@@ -226,17 +226,17 @@ OperationOperandWidget<LCF>::OperationOperandWidget(QWidget *parent) :
 {
 	auto* gridLayout = new QGridLayout(this);
 
-	// FIXME: translation does not work without QCoreApplication::translate
+	// Qualified so that lupdate and the runtime agree on the context (the template has no Q_OBJECT)
 	m_radioValue = new QRadioButton(this);
-	m_radioValue->setText(QCoreApplication::translate("OperationOperandWidget", "Specific") + ":");
+	m_radioValue->setText(OperandWidgetBase::tr("Specific:"));
 	m_radioBatch = new QRadioButton(this);
-	m_radioBatch->setText(QCoreApplication::translate("OperationOperandWidget", "Range") + ":");
+	m_radioBatch->setText(OperandWidgetBase::tr("Range:"));
 	m_radioVar = new QRadioButton(this);
-	m_radioVar->setText(QCoreApplication::translate("OperationOperandWidget", "By Variable") + ":");
+	m_radioVar->setText(OperandWidgetBase::tr("By Variable:"));
 	m_spinBatchMin = new RpgSpinBox(this);
-	m_spinBatchMin->setPrefix(QCoreApplication::translate("OperationOperandWidget", "From") + " ");
+	m_spinBatchMin->setPrefix(OperandWidgetBase::tr("From") + " ");
 	m_spinBatchMax = new RpgSpinBox(this);
-	m_spinBatchMax->setPrefix(QCoreApplication::translate("OperationOperandWidget", "To") + " ");
+	m_spinBatchMax->setPrefix(OperandWidgetBase::tr("To") + " ");
 	m_buttonGroup = new QButtonGroup(this);
 	m_buttonGroup->addButton(m_radioValue);
 	m_buttonGroup->setId(m_radioValue, 0);
