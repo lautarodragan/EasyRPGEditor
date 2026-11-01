@@ -35,6 +35,8 @@ EventCommandsWidget::EventCommandsWidget(QWidget* parent) :
 	QTreeWidget(parent)
 {
 	setHeaderHidden(true);
+	// Double click edits a command, it must not also fold a branch
+	setExpandsOnDoubleClick(false);
 
 	setContextMenuPolicy(Qt::CustomContextMenu);
 
@@ -304,7 +306,7 @@ int EventCommandsWidget::openEditor(int index) {
 		case Cmd::ChangeEscapeAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeSaveAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeMainMenuAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;
-		//case Cmd::ConditionalBranch: evt_dialog.reset(make_evt_dialog<ConditionalBranchWidget>(m_project, cmd, this)); break;
+		case Cmd::ConditionalBranch: evt_dialog.reset(make_complex_evt_dialog<ConditionalBranchWidget>(m_project, evt_lst, this)); break;
 		//case Cmd::Label: evt_dialog.reset(make_evt_dialog<LabelWidget>(m_project, cmd, this)); break;
 		//case Cmd::JumpToLabel: evt_dialog.reset(make_evt_dialog<JumpToLabelWidget>(m_project, cmd, this)); break;
 		case Cmd::CallEvent: evt_dialog.reset(make_evt_dialog<CallEventWidget>(m_project, cmd, this)); break;

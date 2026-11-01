@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConditionalBranchWidget</class>
+ <widget class="QWidget" name="ConditionalBranchWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>560</width><height>420</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Conditional Branch</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex"><number>0</number></property>
+     <widget class="QWidget" name="tabValues">
+      <attribute name="title"><string>Switch / Variable / Timer</string></attribute>
+      <layout class="QGridLayout" name="layoutValues">
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="radioSwitch"><property name="text"><string>Switch</string></property></widget>
+       </item>
+       <item row="0" column="1" colspan="3"><widget class="SwitchRpgComboBox" name="comboSwitch"/></item>
+       <item row="0" column="4">
+        <widget class="QComboBox" name="comboSwitchState">
+         <item><property name="text"><string>is ON</string></property></item>
+         <item><property name="text"><string>is OFF</string></property></item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="radioVariable"><property name="text"><string>Variable</string></property></widget>
+       </item>
+       <item row="1" column="1" colspan="3"><widget class="VariableRpgComboBox" name="comboVariable"/></item>
+       <item row="1" column="4">
+        <widget class="QComboBox" name="comboVariableOp">
+         <item><property name="text"><string>Equal to</string></property></item>
+         <item><property name="text"><string>Greater than or equal to</string></property></item>
+         <item><property name="text"><string>Less than or equal to</string></property></item>
+         <item><property name="text"><string>Greater than</string></property></item>
+         <item><property name="text"><string>Less than</string></property></item>
+         <item><property name="text"><string>Not equal to</string></property></item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QRadioButton" name="radioVariableConstant"><property name="text"><string>Constant</string></property></widget>
+       </item>
+       <item row="2" column="2" colspan="3">
+        <widget class="RpgSpinBox" name="spinVariableValue">
+         <property name="minimum"><number>-9999999</number></property>
+         <property name="maximum"><number>9999999</number></property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QRadioButton" name="radioVariableVariable"><property name="text"><string>Variable</string></property></widget>
+       </item>
+       <item row="3" column="2" colspan="3"><widget class="VariableRpgComboBox" name="comboVariableOperand"/></item>
+       <item row="4" column="0">
+        <widget class="QRadioButton" name="radioTimer1"><property name="text"><string>Timer 1</string></property></widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="RpgSpinBox" name="spinTimer1Min">
+         <property name="suffix"><string> min</string></property>
+         <property name="maximum"><number>99</number></property>
+        </widget>
+       </item>
+       <item row="4" column="2">
+        <widget class="RpgSpinBox" name="spinTimer1Sec">
+         <property name="suffix"><string> s</string></property>
+         <property name="maximum"><number>59</number></property>
+        </widget>
+       </item>
+       <item row="4" column="3" colspan="2">
+        <widget class="QComboBox" name="comboTimer1Op">
+         <item><property name="text"><string>or more</string></property></item>
+         <item><property name="text"><string>or less</string></property></item>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QRadioButton" name="radioTimer2"><property name="text"><string>Timer 2</string></property></widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="RpgSpinBox" name="spinTimer2Min">
+         <property name="suffix"><string> min</string></property>
+         <property name="maximum"><number>99</number></property>
+        </widget>
+       </item>
+       <item row="5" column="2">
+        <widget class="RpgSpinBox" name="spinTimer2Sec">
+         <property name="suffix"><string> s</string></property>
+         <property name="maximum"><number>59</number></property>
+        </widget>
+       </item>
+       <item row="5" column="3" colspan="2">
+        <widget class="QComboBox" name="comboTimer2Op">
+         <item><property name="text"><string>or more</string></property></item>
+         <item><property name="text"><string>or less</string></property></item>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="5">
+        <spacer name="spacerValues">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabParty">
+      <attribute name="title"><string>Gold / Item / Actor</string></attribute>
+      <layout class="QGridLayout" name="layoutParty">
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="radioGold"><property name="text"><string>Gold</string></property></widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="RpgSpinBox" name="spinGold"><property name="maximum"><number>9999999</number></property></widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QComboBox" name="comboGoldOp">
+         <item><property name="text"><string>or more</string></property></item>
+         <item><property name="text"><string>or less</string></property></item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="radioItem"><property name="text"><string>Item</string></property></widget>
+       </item>
+       <item row="1" column="1"><widget class="ItemRpgComboBox" name="comboItem"/></item>
+       <item row="1" column="2">
+        <widget class="QComboBox" name="comboItemState">
+         <item><property name="text"><string>Possessed</string></property></item>
+         <item><property name="text"><string>Not possessed</string></property></item>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QRadioButton" name="radioActor"><property name="text"><string>Actor</string></property></widget>
+       </item>
+       <item row="2" column="1" colspan="2"><widget class="ActorRpgComboBox" name="comboActor"/></item>
+       <item row="3" column="1" colspan="2">
+        <widget class="QWidget" name="widgetActor">
+         <layout class="QGridLayout" name="layoutActor">
+          <property name="leftMargin"><number>0</number></property>
+          <property name="topMargin"><number>0</number></property>
+          <property name="rightMargin"><number>0</number></property>
+          <property name="bottomMargin"><number>0</number></property>
+          <item row="0" column="0" colspan="2">
+           <widget class="QRadioButton" name="radioActorInParty"><property name="text"><string>Is in the party</string></property></widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QRadioButton" name="radioActorName"><property name="text"><string>Name is</string></property></widget>
+          </item>
+          <item row="1" column="1"><widget class="QLineEdit" name="lineActorName"/></item>
+          <item row="2" column="0">
+           <widget class="QRadioButton" name="radioActorLevel"><property name="text"><string>Level is at least</string></property></widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="RpgSpinBox" name="spinActorLevel">
+            <property name="minimum"><number>1</number></property>
+            <property name="maximum"><number>99</number></property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QRadioButton" name="radioActorHp"><property name="text"><string>HP is at least</string></property></widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="RpgSpinBox" name="spinActorHp"><property name="maximum"><number>9999</number></property></widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QRadioButton" name="radioActorSkill"><property name="text"><string>Can use skill</string></property></widget>
+          </item>
+          <item row="4" column="1"><widget class="SkillRpgComboBox" name="comboActorSkill"/></item>
+          <item row="5" column="0">
+           <widget class="QRadioButton" name="radioActorEquipment"><property name="text"><string>Has equipped</string></property></widget>
+          </item>
+          <item row="5" column="1"><widget class="ItemRpgComboBox" name="comboActorEquipment"/></item>
+          <item row="6" column="0">
+           <widget class="QRadioButton" name="radioActorState"><property name="text"><string>Has condition</string></property></widget>
+          </item>
+          <item row="6" column="1"><widget class="StateRpgComboBox" name="comboActorState"/></item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="3">
+        <spacer name="spacerParty">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tabOther">
+      <attribute name="title"><string>Event / Other</string></attribute>
+      <layout class="QGridLayout" name="layoutOther">
+       <item row="0" column="0">
+        <widget class="QRadioButton" name="radioEvent"><property name="text"><string>Event</string></property></widget>
+       </item>
+       <item row="0" column="1"><widget class="QComboBox" name="comboEvent"/></item>
+       <item row="0" column="2">
+        <widget class="QComboBox" name="comboEventDirection">
+         <item><property name="text"><string>faces up</string></property></item>
+         <item><property name="text"><string>faces right</string></property></item>
+         <item><property name="text"><string>faces down</string></property></item>
+         <item><property name="text"><string>faces left</string></property></item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QRadioButton" name="radioVehicle"><property name="text"><string>Vehicle in use</string></property></widget>
+       </item>
+       <item row="1" column="1" colspan="2">
+        <widget class="QComboBox" name="comboVehicle">
+         <item><property name="text"><string>Boat</string></property></item>
+         <item><property name="text"><string>Ship</string></property></item>
+         <item><property name="text"><string>Airship</string></property></item>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="3">
+        <widget class="QRadioButton" name="radioActionKey"><property name="text"><string>Event started with the action key</string></property></widget>
+       </item>
+       <item row="3" column="0" colspan="3">
+        <widget class="QRadioButton" name="radioBgmLooped"><property name="text"><string>BGM has played through once</string></property></widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QRadioButton" name="radioOther"><property name="text"><string>Other</string></property></widget>
+       </item>
+       <item row="4" column="1" colspan="2">
+        <widget class="QComboBox" name="comboOther">
+         <item><property name="text"><string>A savegame exists</string></property></item>
+         <item><property name="text"><string>Test play is running</string></property></item>
+         <item><property name="text"><string>ATB wait mode is on</string></property></item>
+         <item><property name="text"><string>Fullscreen is active</string></property></item>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="3">
+        <spacer name="spacerOther">
+         <property name="orientation"><enum>Qt::Vertical</enum></property>
+         <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelUnsupported">
+     <property name="wordWrap"><bool>true</bool></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkElse">
+     <property name="text"><string>Execute custom handler when the condition does not apply</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelElseWarning">
+     <property name="wordWrap"><bool>true</bool></property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SwitchRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>VariableRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ItemRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ActorRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SkillRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>StateRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -151,6 +151,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/comment_widget.cpp
 	src/ui/commands/comment_widget.h
 	src/ui/commands/comment_widget.ui
+	src/ui/commands/conditional_branch_widget.cpp
+	src/ui/commands/conditional_branch_widget.h
+	src/ui/commands/conditional_branch_widget.ui
 	src/ui/commands/enable_disable_widget.cpp
 	src/ui/commands/enable_disable_widget.h
 	src/ui/commands/enable_disable_widget.ui
