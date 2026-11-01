@@ -66,6 +66,14 @@ QPixmap renderMap(const lcf::rpg::Map& map) {
 			}
 		}
 	}
+
+	// Events with a tile graphic need the chipset of the map
+	for (const auto& event : map.events) {
+		if (!event.pages.empty() && event.pages[0].character_name.empty() && event.pages[0].character_index != 0) {
+			QRect rect(event.x * tile, event.y * tile, tile, tile);
+			core().renderTile(static_cast<short>(event.pages[0].character_index + 10000), rect);
+		}
+	}
 	core().endPainting();
 
 	if (old_chipset != 0) {
@@ -73,12 +81,29 @@ QPixmap renderMap(const lcf::rpg::Map& map) {
 	}
 	core().LoadBackground(old_background);
 
-	// Mark the events, like RPG Maker does
+	// Draw the CharSet frame of the first page standing on the tile, like the
+	// game does. Lower events are drawn last, so they overlap the ones behind.
+	std::vector<const lcf::rpg::Event*> events;
+	for (const auto& event : map.events) {
+		events.push_back(&event);
+	}
+	std::stable_sort(events.begin(), events.end(), [](const auto* a, const auto* b) { return a->y < b->y; });
+
 	QPainter painter(&pixmap);
 	painter.setPen(Qt::white);
 	painter.setBrush(QColor(0, 0, 0, 96));
-	for (const auto& event : map.events) {
-		painter.drawRect(event.x * tile + 2, event.y * tile + 2, tile - 5, tile - 5);
+	for (const auto* event : events) {
+		QRect rect(event->x * tile, event->y * tile, tile, tile);
+		QPixmap graphic = event->pages.empty() ? QPixmap() : core().eventGraphic(event->pages[0]);
+		if (!graphic.isNull()) {
+			// The frame is 24x32 game pixels, where a tile is 16 pixels
+			const int w = 24 * tile / 16;
+			const int h = 32 * tile / 16;
+			painter.drawPixmap(QRect(rect.x() + (tile - w) / 2, rect.bottom() + 1 - h, w, h), graphic);
+		} else if (event->pages.empty() || event->pages[0].character_index == 0) {
+			// No graphic: mark the event, like RPG Maker does
+			painter.drawRect(rect.adjusted(2, 2, -3, -3));
+		}
 	}
 
 	return pixmap;
@@ -115,7 +140,7 @@ MapLocationDialog::MapLocationDialog(ProjectData& project, int map_id, int x, in
 	auto* zoom_group = new QButtonGroup(this);
 	auto* bottom = new QHBoxLayout();
 	bottom->addWidget(m_label, 1);
-	for (auto [text, zoom] : { std::pair{ "1/1", 1.0 }, { "1/2", 0.5 }, { "1/4", 0.25 } }) {
+	for (auto [text, zoom] : { std::pair{ "2/1", 2.0 }, { "1/1", 1.0 }, { "1/2", 0.5 }, { "1/4", 0.25 } }) {
 		auto* button = new QToolButton(this);
 		button->setText(text);
 		button->setCheckable(true);
@@ -216,6 +241,8 @@ void MapLocationDialog::selectTile(int x, int y) {
 
 void MapLocationDialog::setZoom(double zoom) {
 	m_view->setTransform(QTransform::fromScale(zoom, zoom));
+	// Smooth when zoomed out, sharp pixels when zoomed in
+	m_view->setRenderHint(QPainter::SmoothPixmapTransform, zoom < 1.0);
 	m_view->centerOn(m_cursor);
 }
 
@@ -235,12 +262,22 @@ void MapLocationDialog::updateLabel() {
 	m_buttons->button(QDialogButtonBox::Ok)->setEnabled(m_map_id != 0);
 }
 
+void MapLocationDialog::showEvent(QShowEvent* event) {
+	QDialog::showEvent(event);
+	// The view has its size now
+	m_view->centerOn(m_cursor);
+}
+
 bool MapLocationDialog::eventFilter(QObject* watched, QEvent* event) {
 	if (watched == m_view->viewport()
 		&& (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonDblClick)) {
 		auto* mouse = static_cast<QMouseEvent*>(event);
 		if (mouse->button() == Qt::LeftButton && m_width > 0) {
 			QPointF pos = m_view->mapToScene(mouse->position().toPoint());
+			if (!m_scene->sceneRect().contains(pos)) {
+				// Clicked beside a map smaller than the view
+				return true;
+			}
 			const int tile = core().tileSize();
 			selectTile(static_cast<int>(pos.x()) / tile, static_cast<int>(pos.y()) / tile);
 			if (event->type() == QEvent::MouseButtonDblClick) {
