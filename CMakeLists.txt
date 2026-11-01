@@ -129,6 +129,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/change_actor_title_widget.cpp
 	src/ui/commands/change_actor_title_widget.h
 	src/ui/commands/change_actor_title_widget.ui
+	src/ui/commands/change_encounter_steps_widget.cpp
+	src/ui/commands/change_encounter_steps_widget.h
+	src/ui/commands/change_encounter_steps_widget.ui
 	src/ui/commands/change_event_location_widget.cpp
 	src/ui/commands/change_event_location_widget.h
 	src/ui/commands/change_event_location_widget.ui
@@ -141,15 +144,28 @@ set(EDITOR_SOURCES
 	src/ui/commands/change_level_widget.cpp
 	src/ui/commands/change_level_widget.h
 	src/ui/commands/change_level_widget.ui
+	src/ui/commands/change_map_tileset_widget.cpp
+	src/ui/commands/change_map_tileset_widget.h
+	src/ui/commands/change_map_tileset_widget.ui
 	src/ui/commands/change_money_widget.cpp
 	src/ui/commands/change_money_widget.h
 	src/ui/commands/change_money_widget.ui
 	src/ui/commands/change_party_widget.cpp
 	src/ui/commands/change_party_widget.h
 	src/ui/commands/change_party_widget.ui
+	src/ui/commands/change_pbg_widget.cpp
+	src/ui/commands/change_pbg_widget.h
+	src/ui/commands/change_pbg_widget.ui
+	src/ui/commands/change_screen_transitions_widget.cpp
+	src/ui/commands/change_screen_transitions_widget.h
+	src/ui/commands/change_screen_transitions_widget.ui
+	src/ui/commands/change_system_graphics_widget.cpp
+	src/ui/commands/change_system_graphics_widget.h
+	src/ui/commands/change_system_graphics_widget.ui
 	src/ui/commands/change_vehicle_graphic_widget.cpp
 	src/ui/commands/change_vehicle_graphic_widget.h
 	src/ui/commands/change_vehicle_graphic_widget.ui
+	src/ui/commands/param_bindings.h
 	src/ui/commands/comment_widget.cpp
 	src/ui/commands/comment_widget.h
 	src/ui/commands/comment_widget.ui
@@ -171,27 +187,45 @@ set(EDITOR_SOURCES
 	src/ui/commands/flash_screen_widget.cpp
 	src/ui/commands/flash_screen_widget.h
 	src/ui/commands/flash_screen_widget.ui
+	src/ui/commands/flash_sprite_widget.cpp
+	src/ui/commands/flash_sprite_widget.h
+	src/ui/commands/flash_sprite_widget.ui
 	src/ui/commands/full_heal_widget.cpp
 	src/ui/commands/full_heal_widget.h
 	src/ui/commands/full_heal_widget.ui
 	src/ui/commands/input_number_widget.cpp
 	src/ui/commands/input_number_widget.h
 	src/ui/commands/input_number_widget.ui
+	src/ui/commands/label_widget.cpp
+	src/ui/commands/label_widget.h
+	src/ui/commands/label_widget.ui
+	src/ui/commands/location_variables_widget.cpp
+	src/ui/commands/location_variables_widget.h
+	src/ui/commands/location_variables_widget.ui
 	src/ui/commands/move_event_widget.cpp
 	src/ui/commands/move_event_widget.h
 	src/ui/commands/move_event_widget.ui
 	src/ui/commands/message_options_widget.cpp
 	src/ui/commands/message_options_widget.h
 	src/ui/commands/message_options_widget.ui
+	src/ui/commands/pan_screen_widget.cpp
+	src/ui/commands/pan_screen_widget.h
+	src/ui/commands/pan_screen_widget.ui
 	src/ui/commands/play_audio_widget.cpp
 	src/ui/commands/play_audio_widget.h
 	src/ui/commands/play_audio_widget.ui
+	src/ui/commands/player_visibility_widget.cpp
+	src/ui/commands/player_visibility_widget.h
+	src/ui/commands/player_visibility_widget.ui
 	src/ui/commands/screen_transition_widget.cpp
 	src/ui/commands/screen_transition_widget.h
 	src/ui/commands/screen_transition_widget.ui
 	src/ui/commands/picture_widget.cpp
 	src/ui/commands/picture_widget.h
 	src/ui/commands/picture_widget.ui
+	src/ui/commands/set_vehicle_location_widget.cpp
+	src/ui/commands/set_vehicle_location_widget.h
+	src/ui/commands/set_vehicle_location_widget.ui
 	src/ui/commands/shake_screen_widget.cpp
 	src/ui/commands/shake_screen_widget.h
 	src/ui/commands/shake_screen_widget.ui
@@ -220,9 +254,15 @@ set(EDITOR_SOURCES
 	src/ui/commands/show_message_widget.cpp
 	src/ui/commands/show_message_widget.h
 	src/ui/commands/show_message_widget.ui
+	src/ui/commands/store_tile_info_widget.cpp
+	src/ui/commands/store_tile_info_widget.h
+	src/ui/commands/store_tile_info_widget.ui
 	src/ui/commands/switch_operations_widget.cpp
 	src/ui/commands/switch_operations_widget.h
 	src/ui/commands/switch_operations_widget.ui
+	src/ui/commands/tile_substitution_widget.cpp
+	src/ui/commands/tile_substitution_widget.h
+	src/ui/commands/tile_substitution_widget.ui
 	src/ui/commands/timer_operation_widget.cpp
 	src/ui/commands/timer_operation_widget.h
 	src/ui/commands/timer_operation_widget.ui
@@ -232,6 +272,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/tint_screen_widget.cpp
 	src/ui/commands/tint_screen_widget.h
 	src/ui/commands/tint_screen_widget.ui
+	src/ui/commands/trade_event_locations_widget.cpp
+	src/ui/commands/trade_event_locations_widget.h
+	src/ui/commands/trade_event_locations_widget.ui
 	src/ui/commands/variable_operations_widget.cpp
 	src/ui/commands/variable_operations_widget.h
 	src/ui/commands/variable_operations_widget.ui

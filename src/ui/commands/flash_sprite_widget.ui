@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FlashSpriteWidget</class>
+ <widget class="QWidget" name="FlashSpriteWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>400</width><height>320</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Flash Sprite</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupTarget">
+     <property name="title"><string>Character</string></property>
+     <layout class="QVBoxLayout" name="layoutTarget">
+      <item><widget class="QComboBox" name="comboTarget"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupColor">
+     <property name="title"><string>Flash Color</string></property>
+     <layout class="QGridLayout" name="layoutColor">
+      <item row="0" column="0"><widget class="QLabel" name="labelRed"><property name="text"><string>Red:</string></property></widget></item>
+      <item row="0" column="1">
+       <widget class="RpgSlider" name="sliderRed">
+        <property name="maximum"><number>31</number></property>
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="RpgSpinBox" name="spinRed"><property name="maximum"><number>31</number></property></widget>
+      </item>
+      <item row="1" column="0"><widget class="QLabel" name="labelGreen"><property name="text"><string>Green:</string></property></widget></item>
+      <item row="1" column="1">
+       <widget class="RpgSlider" name="sliderGreen">
+        <property name="maximum"><number>31</number></property>
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="RpgSpinBox" name="spinGreen"><property name="maximum"><number>31</number></property></widget>
+      </item>
+      <item row="2" column="0"><widget class="QLabel" name="labelBlue"><property name="text"><string>Blue:</string></property></widget></item>
+      <item row="2" column="1">
+       <widget class="RpgSlider" name="sliderBlue">
+        <property name="maximum"><number>31</number></property>
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="RpgSpinBox" name="spinBlue"><property name="maximum"><number>31</number></property></widget>
+      </item>
+      <item row="3" column="0"><widget class="QLabel" name="labelStrength"><property name="text"><string>Strength:</string></property></widget></item>
+      <item row="3" column="1">
+       <widget class="RpgSlider" name="sliderStrength">
+        <property name="maximum"><number>31</number></property>
+        <property name="orientation"><enum>Qt::Horizontal</enum></property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="RpgSpinBox" name="spinStrength"><property name="maximum"><number>31</number></property></widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupDuration">
+     <property name="title"><string>Duration</string></property>
+     <layout class="QHBoxLayout" name="layoutDuration">
+      <item>
+       <widget class="RpgSpinBox" name="spinTime">
+        <property name="maximum"><number>1000</number></property>
+       </widget>
+      </item>
+      <item><widget class="QLabel" name="labelTime"><property name="text"><string>x0.1 sec</string></property></widget></item>
+      <item>
+       <widget class="QCheckBox" name="checkWait">
+        <property name="text"><string>Wait for Completion</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>RpgSlider</class>
+   <extends>QSlider</extends>
+   <header>ui/common/rpg_slider.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

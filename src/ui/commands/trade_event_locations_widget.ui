@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TradeEventLocationsWidget</class>
+ <widget class="QWidget" name="TradeEventLocationsWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>340</width><height>160</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Trade Event Locations</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupFirst">
+     <property name="title"><string>First Event</string></property>
+     <layout class="QVBoxLayout" name="layoutFirst">
+      <item><widget class="QComboBox" name="comboFirst"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupSecond">
+     <property name="title"><string>Second Event</string></property>
+     <layout class="QVBoxLayout" name="layoutSecond">
+      <item><widget class="QComboBox" name="comboSecond"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

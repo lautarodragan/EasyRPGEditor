@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PlayerVisibilityWidget</class>
+ <widget class="QWidget" name="PlayerVisibilityWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>320</width><height>120</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Player Visibility</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupVisibility">
+     <property name="title"><string>Hero</string></property>
+     <layout class="QHBoxLayout" name="layoutVisibility">
+      <item>
+       <widget class="QRadioButton" name="radioHide">
+        <property name="text"><string>Hide</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupVisible</string></attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioShow">
+        <property name="text"><string>Show</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupVisible</string></attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="groupVisible"/>
+ </buttongroups>
+</ui>

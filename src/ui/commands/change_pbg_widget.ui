@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChangePBGWidget</class>
+ <widget class="QWidget" name="ChangePBGWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>380</width><height>220</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Change Parallax Background</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupFile">
+     <property name="title"><string>Parallax Background</string></property>
+     <layout class="QHBoxLayout" name="layoutFile">
+      <item>
+       <widget class="QLineEdit" name="lineFile">
+        <property name="readOnly"><bool>true</bool></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushPick">
+        <property name="sizePolicy"><sizepolicy hsizetype="Maximum" vsizetype="Fixed"><horstretch>0</horstretch><verstretch>0</verstretch></sizepolicy></property>
+        <property name="toolTip"><string>Choose the image</string></property>
+        <property name="text"><string>...</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="layoutScroll">
+      <item>
+       <widget class="QGroupBox" name="groupHorizontal">
+        <property name="title"><string>Horizontal Scroll</string></property>
+        <layout class="QVBoxLayout" name="layoutHorizontal">
+         <item><widget class="QCheckBox" name="checkHorizontal"><property name="text"><string>Scroll</string></property></widget></item>
+         <item><widget class="QCheckBox" name="checkHorizontalAuto"><property name="text"><string>Autoscroll</string></property></widget></item>
+         <item>
+          <layout class="QHBoxLayout" name="layoutHorizontalSpeed">
+           <item><widget class="QLabel" name="labelHorizontalSpeed"><property name="text"><string>Speed:</string></property></widget></item>
+           <item>
+            <widget class="RpgSpinBox" name="spinHorizontalSpeed">
+             <property name="minimum"><number>-8</number></property>
+             <property name="maximum"><number>8</number></property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupVertical">
+        <property name="title"><string>Vertical Scroll</string></property>
+        <layout class="QVBoxLayout" name="layoutVertical">
+         <item><widget class="QCheckBox" name="checkVertical"><property name="text"><string>Scroll</string></property></widget></item>
+         <item><widget class="QCheckBox" name="checkVerticalAuto"><property name="text"><string>Autoscroll</string></property></widget></item>
+         <item>
+          <layout class="QHBoxLayout" name="layoutVerticalSpeed">
+           <item><widget class="QLabel" name="labelVerticalSpeed"><property name="text"><string>Speed:</string></property></widget></item>
+           <item>
+            <widget class="RpgSpinBox" name="spinVerticalSpeed">
+             <property name="minimum"><number>-8</number></property>
+             <property name="maximum"><number>8</number></property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -18,18 +18,30 @@
 #include "play_audio_widget.h"
 #include "ui_play_audio_widget.h"
 #include "defines.h"
+#include "param_bindings.h"
+#include "stringizer.h"
 #include "common/dbstring.h"
 #include "ui/picker/picker_audio_widget.h"
 #include "ui/picker/picker_dialog.h"
 #include <lcf/rpg/music.h>
 #include <lcf/rpg/sound.h>
 
-PlayAudioWidget::PlayAudioWidget(ProjectData& project, QWidget *parent, bool music) :
+PlayAudioWidget::PlayAudioWidget(ProjectData& project, QWidget *parent, bool music, bool system) :
 	EventCommandBaseWidget(project, parent),
 	ui(new Ui::PlayAudioWidget),
-	m_music(music) {
+	m_music(music),
+	m_system(system) {
 
 	ui->setupUi(this);
+
+	if (system) {
+		int count = music ? Stringizer::systemBgmCount : Stringizer::systemSfxCount;
+		for (int id = 0; id < count; ++id) {
+			ui->comboContext->addItem(music ? Stringizer::systemBgmName(id) : Stringizer::systemSfxName(id), id);
+		}
+	} else {
+		ui->groupContext->hide();
+	}
 
 	if (!music) {
 		ui->groupFile->setTitle(tr("Sound effect"));
@@ -45,14 +57,19 @@ PlayAudioWidget::~PlayAudioWidget() {
 }
 
 void PlayAudioWidget::setData(lcf::rpg::EventCommand* cmd) {
-	// Volume, tempo and balance follow the fade-in time of Play BGM
-	int first = m_music ? 1 : 0;
+	// Volume, tempo and balance follow the fade-in time of Play BGM.
+	// Change System BGM and SFX have the music or sound effect changed before them.
+	int context = m_system ? 1 : 0;
+	int first = context + (m_music ? 1 : 0);
 	EventCommandBaseWidget::setData(cmd);
 	resizeCommandList(first + 2);
 
 	ui->lineFile->setText(ToQString(m_cmd->string));
+	if (m_system) {
+		ParamBindings::bindComboData(ui->comboContext, m_cmd, 0);
+	}
 	if (m_music) {
-		bindSpin(ui->spinFadeIn, 0, 1000);
+		bindSpin(ui->spinFadeIn, context, 1000);
 	}
 	bindSpin(ui->spinVolume, first);
 	bindSpin(ui->spinTempo, first + 1);

@@ -34,7 +34,7 @@ class PlayAudioWidget : public EventCommandBaseWidget
 	Q_OBJECT
 
 public:
-	PlayAudioWidget(ProjectData& project, QWidget *parent, bool music);
+	PlayAudioWidget(ProjectData& project, QWidget *parent, bool music, bool system = false);
 	~PlayAudioWidget() override;
 
 	void setData(lcf::rpg::EventCommand* cmd) override;
@@ -45,6 +45,8 @@ private:
 
 	Ui::PlayAudioWidget *ui;
 	bool m_music;
+	// Change System BGM and SFX: the first parameter is the music or sound effect changed
+	bool m_system;
 };
 
 class PlayBgmWidget : public PlayAudioWidget
@@ -61,4 +63,20 @@ class PlaySoundWidget : public PlayAudioWidget
 
 public:
 	PlaySoundWidget(ProjectData& project, QWidget *parent) : PlayAudioWidget(project, parent, false) {}
+};
+
+class ChangeSystemBgmWidget : public PlayAudioWidget
+{
+	Q_OBJECT
+
+public:
+	ChangeSystemBgmWidget(ProjectData& project, QWidget *parent) : PlayAudioWidget(project, parent, true, true) {}
+};
+
+class ChangeSystemSfxWidget : public PlayAudioWidget
+{
+	Q_OBJECT
+
+public:
+	ChangeSystemSfxWidget(ProjectData& project, QWidget *parent) : PlayAudioWidget(project, parent, false, true) {}
 };

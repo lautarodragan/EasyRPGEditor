@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TileSubstitutionWidget</class>
+ <widget class="QWidget" name="TileSubstitutionWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>320</width><height>180</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tile Substitution</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupLayer">
+     <property name="title"><string>Layer</string></property>
+     <layout class="QHBoxLayout" name="layoutLayer">
+      <item>
+       <widget class="QRadioButton" name="radioLower">
+        <property name="text"><string>Lower Layer</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupLayerButtons</string></attribute>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="radioUpper">
+        <property name="text"><string>Upper Layer</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupLayerButtons</string></attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupTiles">
+     <property name="title"><string>Tiles</string></property>
+     <layout class="QFormLayout" name="layoutTiles">
+      <item row="0" column="0"><widget class="QLabel" name="labelOld"><property name="text"><string>Replace tile:</string></property></widget></item>
+      <item row="0" column="1">
+       <widget class="RpgSpinBox" name="spinOld">
+        <property name="toolTip"><string>Position of the tile in the chipset palette of the layer, starting at 0</string></property>
+       </widget>
+      </item>
+      <item row="1" column="0"><widget class="QLabel" name="labelNew"><property name="text"><string>With tile:</string></property></widget></item>
+      <item row="1" column="1">
+       <widget class="RpgSpinBox" name="spinNew">
+        <property name="toolTip"><string>Position of the tile in the chipset palette of the layer, starting at 0</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="groupLayerButtons"/>
+ </buttongroups>
+</ui>

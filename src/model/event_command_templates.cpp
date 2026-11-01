@@ -166,7 +166,7 @@ const std::vector<Template>& all() {
 		// strength 3, speed 5 for 1 second, wait, the last parameter (start/stop) is RPG Maker 2003 only
 		{ Cmd::ShakeScreen, Cat::Screen, Everywhere, QT_TRANSLATE_NOOP("Stringizer", "Shake Screen"), {3, 5, 10, 1, 0}, "", 4 },
 		// lock
-		{ Cmd::PanScreen, Cat::Screen, Map, QT_TRANSLATE_NOOP("Stringizer", "Pan Screen"), {0, 0, 0, 0, 0} },
+		{ Cmd::PanScreen, Cat::Screen, Map, QT_TRANSLATE_NOOP("Stringizer", "Pan Screen"), {0, 0, 1, 4, 0} },
 		{ Cmd::WeatherEffects, Cat::Screen, Map, QT_TRANSLATE_NOOP("Stringizer", "Weather Effects"), {0, 0} },
 		// animation 1 on this event
 		{ Cmd::ShowBattleAnimation, Cat::Screen, Map, QT_TRANSLATE_NOOP("Stringizer", "Show Battle Animation"), {1, 10005, 0, 0} },

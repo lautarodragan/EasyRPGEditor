@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PanScreenWidget</class>
+ <widget class="QWidget" name="PanScreenWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>360</width><height>260</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Pan Screen</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupOperation">
+     <property name="title"><string>Operation</string></property>
+     <layout class="QGridLayout" name="layoutOperation">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioLock">
+        <property name="text"><string>Lock Pan State</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QRadioButton" name="radioUnlock">
+        <property name="text"><string>Unlock Pan State</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="radioPan">
+        <property name="text"><string>Pan Screen</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QRadioButton" name="radioReset">
+        <property name="text"><string>Return to Origin</string></property>
+        <attribute name="buttonGroup"><string notr="true">groupMode</string></attribute>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupOptions">
+     <property name="title"><string>Options</string></property>
+     <layout class="QFormLayout" name="layoutOptions">
+      <item row="0" column="0"><widget class="QLabel" name="labelDirection"><property name="text"><string>Direction:</string></property></widget></item>
+      <item row="0" column="1"><widget class="QComboBox" name="comboDirection"/></item>
+      <item row="1" column="0"><widget class="QLabel" name="labelDistance"><property name="text"><string>Distance:</string></property></widget></item>
+      <item row="1" column="1">
+       <widget class="RpgSpinBox" name="spinDistance">
+        <property name="suffix"><string> tiles</string></property>
+        <property name="maximum"><number>9999</number></property>
+       </widget>
+      </item>
+      <item row="2" column="0"><widget class="QLabel" name="labelSpeed"><property name="text"><string>Speed:</string></property></widget></item>
+      <item row="2" column="1"><widget class="QComboBox" name="comboSpeed"/></item>
+      <item row="3" column="1">
+       <widget class="QCheckBox" name="checkWait">
+        <property name="text"><string>Wait for Completion</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+ <buttongroups>
+  <buttongroup name="groupMode"/>
+ </buttongroups>
+</ui>

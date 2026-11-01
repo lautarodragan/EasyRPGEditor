@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LocationVariablesWidget</class>
+ <widget class="QWidget" name="LocationVariablesWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>380</width><height>160</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Location Variables</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupVariables">
+     <property name="title"><string>Variables</string></property>
+     <layout class="QFormLayout" name="layoutVariables">
+      <item row="0" column="0"><widget class="QLabel" name="labelMap"><property name="text"><string>Map ID:</string></property></widget></item>
+      <item row="0" column="1"><widget class="VariableRpgComboBox" name="comboMap"/></item>
+      <item row="1" column="0"><widget class="QLabel" name="labelX"><property name="text"><string>Map X:</string></property></widget></item>
+      <item row="1" column="1"><widget class="VariableRpgComboBox" name="comboX"/></item>
+      <item row="2" column="0"><widget class="QLabel" name="labelY"><property name="text"><string>Map Y:</string></property></widget></item>
+      <item row="2" column="1"><widget class="VariableRpgComboBox" name="comboY"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>VariableRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
