@@ -83,6 +83,8 @@ QPixmap renderMap(const lcf::rpg::Map& map) {
 
 	// Draw the CharSet frame of the first page standing on the tile, like the
 	// game does. Lower events are drawn last, so they overlap the ones behind.
+	// TODO: Respect the event layer (below/same as/above the hero): all events
+	// are drawn above both tile layers for now.
 	std::vector<const lcf::rpg::Event*> events;
 	for (const auto& event : map.events) {
 		events.push_back(&event);
