@@ -30,7 +30,6 @@ jobs:
       with:
         bundle: EasyRPG-Editor.flatpak
         manifest-path: builds/flatpak/org.easyrpg.editor.yml
-        cache-key: flatpak-builder-${{ github.sha }}
 
   docker:
     name: ${{ matrix.image }} (${{ matrix.os.arch }})
