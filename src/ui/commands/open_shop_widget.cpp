@@ -84,6 +84,7 @@ OpenShopWidget::OpenShopWidget(ProjectData& project, QWidget* parent) :
 	m_filter->setClearButtonEnabled(true);
 	goods_layout->addWidget(m_filter);
 	m_items = new QListWidget;
+	m_items->setMinimumSize(260, 300);
 	goods_layout->addWidget(m_items);
 	layout->addWidget(goods_box, 1);
 
