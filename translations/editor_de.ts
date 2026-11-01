@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>ActorCommandWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="140"/>
+        <source>Other (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="171"/>
+        <source>Target</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="177"/>
+        <source>Entire party</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="178"/>
+        <source>Actor:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="179"/>
+        <source>Actor ID from variable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="265"/>
+        <source>Constant:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="266"/>
+        <source>Variable:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ActorDelegate</name>
     <message>
         <location filename="../src/ui/database/actor_delegate.cpp" line="32"/>
@@ -924,6 +962,14 @@
     </message>
 </context>
 <context>
+    <name>BlockCommandWidget</name>
+    <message>
+        <location filename="../src/ui/commands/block_command_widget.cpp" line="59"/>
+        <source>The commands of the branch &quot;%1&quot; will be deleted.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CallEventWidget</name>
     <message>
         <location filename="../src/ui/commands/call_event_widget.ui" line="9"/>
@@ -1045,6 +1091,194 @@
     </message>
 </context>
 <context>
+    <name>ChangeBattleCommandsWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="492"/>
+        <source>Battle command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="494"/>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="498"/>
+        <source>All (only to remove)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="502"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="502"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="502"/>
+        <source>Add</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeClassWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="457"/>
+        <source>Class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="460"/>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="464"/>
+        <source>None</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="468"/>
+        <source>Reset the level to 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="478"/>
+        <source>Skills:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="478"/>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="480"/>
+        <source>Don&apos;t change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="478"/>
+        <source>Replace with the skills of the class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="479"/>
+        <source>Add the skills of the class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="480"/>
+        <source>Parameters:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="480"/>
+        <source>Halve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="481"/>
+        <source>Base values of the class at level 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="481"/>
+        <source>Base values of the class at the current level</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="484"/>
+        <source>Show a message for the level and learned skills</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeConditionWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="445"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="445"/>
+        <source>Inflict</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="445"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="447"/>
+        <source>Condition</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeEncounterStepsWidget</name>
+    <message>
+        <location filename="../src/ui/commands/change_encounter_steps_widget.ui" line="9"/>
+        <source>Change Encounter Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_encounter_steps_widget.ui" line="14"/>
+        <source>Encounter Rate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_encounter_steps_widget.ui" line="18"/>
+        <source>Average steps between random encounters, 0 for none</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_encounter_steps_widget.ui" line="19"/>
+        <source> steps</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeEquipmentWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="382"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="384"/>
+        <source>Equip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="385"/>
+        <source>Unequip:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="409"/>
+        <source>Weapon</source>
+        <translation type="unfinished">Waffe</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="409"/>
+        <source>Shield</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="409"/>
+        <source>Armor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="409"/>
+        <source>Helmet</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="409"/>
+        <source>Accessory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="409"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChangeEventLocationWidget</name>
     <message>
         <location filename="../src/ui/commands/change_event_location_widget.ui" line="9"/>
@@ -1146,6 +1380,34 @@
     </message>
 </context>
 <context>
+    <name>ChangeHPWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="322"/>
+        <source>Can kill (HP can reach 0)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="323"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="323"/>
+        <source>Increase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="323"/>
+        <source>Decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="328"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChangeItemWidget</name>
     <message>
         <location filename="../src/ui/commands/change_item_widget.ui" line="14"/>
@@ -1217,6 +1479,19 @@
     </message>
 </context>
 <context>
+    <name>ChangeMapTilesetWidget</name>
+    <message>
+        <location filename="../src/ui/commands/change_map_tileset_widget.ui" line="9"/>
+        <source>Change Map Tileset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_map_tileset_widget.ui" line="14"/>
+        <source>Chipset</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChangeMoneyWidget</name>
     <message>
         <location filename="../src/ui/commands/change_money_widget.ui" line="14"/>
@@ -1240,6 +1515,194 @@
     </message>
     <message>
         <location filename="../src/ui/commands/change_money_widget.ui" line="52"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeMonsterConditionWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="245"/>
+        <source>Monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="246"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="246"/>
+        <source>Inflict</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="246"/>
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="248"/>
+        <source>Condition</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeMonsterHPWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="214"/>
+        <source>Monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="215"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="215"/>
+        <source>Increase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="215"/>
+        <source>Decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="217"/>
+        <source>Can kill the monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeMonsterMPWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="231"/>
+        <source>Monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="232"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="232"/>
+        <source>Increase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="232"/>
+        <source>Decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangePBGWidget</name>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="9"/>
+        <source>Change Parallax Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="14"/>
+        <source>Parallax Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="24"/>
+        <source>Choose the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="25"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="35"/>
+        <source>Horizontal Scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="37"/>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="57"/>
+        <source>Scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="38"/>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="58"/>
+        <source>Autoscroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="41"/>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="61"/>
+        <source>Speed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_pbg_widget.ui" line="55"/>
+        <source>Vertical Scroll</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeParametersWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="352"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="352"/>
+        <source>Increase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="352"/>
+        <source>Decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="354"/>
+        <source>Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="356"/>
+        <source>Max HP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="356"/>
+        <source>Max SP</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="356"/>
+        <source>Attack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="356"/>
+        <source>Defense</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="356"/>
+        <source>Spirit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="356"/>
+        <source>Agility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="360"/>
         <source>Amount</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1269,6 +1732,123 @@
     <message>
         <location filename="../src/ui/commands/change_party_widget.ui" line="52"/>
         <source>Select Actor</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeSPWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="341"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="341"/>
+        <source>Increase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="341"/>
+        <source>Decrease</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="343"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeScreenTransitionsWidget</name>
+    <message>
+        <location filename="../src/ui/commands/change_screen_transitions_widget.ui" line="9"/>
+        <source>Change Screen Transitions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_screen_transitions_widget.ui" line="14"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_screen_transitions_widget.ui" line="22"/>
+        <source>Transition</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeSkillsWidget</name>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="369"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="369"/>
+        <source>Learn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="369"/>
+        <source>Forget</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/actor_commands_widget.cpp" line="371"/>
+        <source>Skill</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ChangeSystemGraphicsWidget</name>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="9"/>
+        <source>Change System Graphics</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="14"/>
+        <source>System Graphic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="24"/>
+        <source>Choose the image</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="25"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="33"/>
+        <source>Window Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="37"/>
+        <source>Stretch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="43"/>
+        <source>Tile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="52"/>
+        <source>Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="56"/>
+        <source>Font 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/change_system_graphics_widget.ui" line="62"/>
+        <source>Font 2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1542,6 +2122,14 @@
     </message>
 </context>
 <context>
+    <name>CommandBindings</name>
+    <message>
+        <location filename="../src/ui/commands/param_bindings.h" line="76"/>
+        <source>Unknown (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CommentWidget</name>
     <message>
         <location filename="../src/ui/commands/comment_widget.ui" line="14"/>
@@ -1584,6 +2172,95 @@
     <message>
         <location filename="../src/ui/database/common_event_widget.cpp" line="31"/>
         <source>Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConditionalBranchBattleWidget</name>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="94"/>
+        <source>is ON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="94"/>
+        <source>is OFF</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="95"/>
+        <source>Switch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="101"/>
+        <source>equal to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="101"/>
+        <source>greater than or equal to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="101"/>
+        <source>less than or equal to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="102"/>
+        <source>greater than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="102"/>
+        <source>less than</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="102"/>
+        <source>not equal to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="103"/>
+        <source>Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="106"/>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="121"/>
+        <source>Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="126"/>
+        <source>Actor can act</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="130"/>
+        <source>Monster can act</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="134"/>
+        <source>Monster is targeted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="143"/>
+        <source>Actor uses command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="151"/>
+        <source>Execute custom handler when the condition is not met (else branch)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/conditional_branch_battle_widget.cpp" line="214"/>
+        <source>This editor does not support the condition type %1. Its parameters are kept unless another condition is selected.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1847,12 +2524,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/conditional_branch_widget.cpp" line="306"/>
+        <location filename="../src/ui/commands/conditional_branch_widget.cpp" line="266"/>
         <source>This editor does not support the condition type %1. Its parameters are kept unless another condition is selected.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/conditional_branch_widget.cpp" line="467"/>
+        <location filename="../src/ui/commands/conditional_branch_widget.cpp" line="425"/>
         <source>The commands of the else branch will be deleted.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2265,6 +2942,24 @@
     </message>
 </context>
 <context>
+    <name>EnableComboWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="332"/>
+        <source>Actor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="334"/>
+        <source>Battle command</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="337"/>
+        <source>Number of times</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EnableDisableWidget</name>
     <message>
         <location filename="../src/ui/commands/enable_disable_widget.ui" line="14"/>
@@ -2279,6 +2974,120 @@
     <message>
         <location filename="../src/ui/commands/enable_disable_widget.ui" line="35"/>
         <source>Forbid</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>EnemyEncounterWidget</name>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="67"/>
+        <source>Troop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="70"/>
+        <source>Specific troop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="71"/>
+        <source>Troop ID from variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="84"/>
+        <source>Battle background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="87"/>
+        <source>Same as the map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="88"/>
+        <source>Specific background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="89"/>
+        <source>Background of terrain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="99"/>
+        <source>Formation of the terrain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="100"/>
+        <source>Loose formation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="101"/>
+        <source>Tight formation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="115"/>
+        <source>Escape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="118"/>
+        <source>Disallow</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="119"/>
+        <source>End event processing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="120"/>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="126"/>
+        <source>Execute custom handler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="122"/>
+        <source>Defeat</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="125"/>
+        <source>Game over</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="133"/>
+        <source>First strike</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="136"/>
+        <source>No special condition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="137"/>
+        <source>Initiative</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="138"/>
+        <source>Back attack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="139"/>
+        <source>Surround attack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/enemy_encounter_widget.cpp" line="140"/>
+        <source>Pincers attack</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2504,6 +3313,34 @@
     </message>
 </context>
 <context>
+    <name>EnterHeroNameWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="194"/>
+        <source>Actor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="196"/>
+        <source>Letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="197"/>
+        <source>Symbols</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="198"/>
+        <source>Initial page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="199"/>
+        <source>Show the current name</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ErasePictureWidget</name>
     <message>
         <location filename="../src/ui/commands/erase_picture_widget.ui" line="9"/>
@@ -2559,33 +3396,33 @@
 <context>
     <name>EventCommandsWidget</name>
     <message>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="499"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="501"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="501"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="503"/>
         <source>Insert command</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="507"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="509"/>
         <source>Add raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="509"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="511"/>
         <source>Edit raw</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="512"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="514"/>
         <source>Delete</source>
         <translation type="unfinished">Löschen</translation>
     </message>
     <message>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="563"/>
-        <location filename="../src/ui/event/event_commands_widget.cpp" line="601"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="565"/>
+        <location filename="../src/ui/event/event_commands_widget.cpp" line="603"/>
         <source>Line</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2973,6 +3810,92 @@
     </message>
 </context>
 <context>
+    <name>FlashSpriteWidget</name>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="9"/>
+        <source>Flash Sprite</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="14"/>
+        <source>Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="22"/>
+        <source>Flash Color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="24"/>
+        <source>Red:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="34"/>
+        <source>Green:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="44"/>
+        <source>Blue:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="54"/>
+        <source>Strength:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="69"/>
+        <source>Duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="76"/>
+        <source>x0.1 sec</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/flash_sprite_widget.ui" line="79"/>
+        <source>Wait for Completion</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ForceFleeWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="349"/>
+        <source>Flees</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="349"/>
+        <source>Party</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="349"/>
+        <source>All monsters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="349"/>
+        <source>One monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="351"/>
+        <source>Monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="352"/>
+        <source>Also in a pincers attack (party) or surround attack (monsters)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>FullHealWidget</name>
     <message>
         <location filename="../src/ui/commands/full_heal_widget.ui" line="14"/>
@@ -3232,6 +4155,120 @@
     <message>
         <location filename="../src/ui/database/item_widget.ui" line="185"/>
         <source>Effective on unconscious</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>KeyInputProcWidget</name>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="105"/>
+        <source>Store key code in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="108"/>
+        <source>Wait until a key is pressed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="111"/>
+        <source>Keys</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="113"/>
+        <source>Down (1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="114"/>
+        <source>Left (2)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="115"/>
+        <source>Right (3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="116"/>
+        <source>Up (4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="117"/>
+        <source>Directions (1-4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="118"/>
+        <source>Decision (5)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="119"/>
+        <source>Cancel (6)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="120"/>
+        <source>Shift (7)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="121"/>
+        <source>Numbers 0-9 (10-19)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="122"/>
+        <source>Symbols + - * / . (20-24)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/key_input_proc_widget.cpp" line="136"/>
+        <source>Store the time until the key press (1/10 s) in</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LabelWidget</name>
+    <message>
+        <location filename="../src/ui/commands/label_widget.ui" line="9"/>
+        <source>Label</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/label_widget.ui" line="14"/>
+        <source>Label number</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LocationVariablesWidget</name>
+    <message>
+        <location filename="../src/ui/commands/location_variables_widget.ui" line="9"/>
+        <source>Location Variables</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/location_variables_widget.ui" line="14"/>
+        <source>Variables</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/location_variables_widget.ui" line="16"/>
+        <source>Map ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/location_variables_widget.ui" line="18"/>
+        <source>Map X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/location_variables_widget.ui" line="20"/>
+        <source>Map Y:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4628,6 +5665,64 @@ This cannot be undone. Do you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>OpenShopWidget</name>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="54"/>
+        <source>Shop type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="58"/>
+        <source>Buy and sell</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="58"/>
+        <source>Buy only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="58"/>
+        <source>Sell only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="65"/>
+        <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="68"/>
+        <source>Shop A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="69"/>
+        <source>Shop B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="70"/>
+        <source>Shop C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="74"/>
+        <source>Handlers for transaction and no transaction</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="80"/>
+        <source>Goods</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/open_shop_widget.cpp" line="83"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OperandWidgetBase</name>
     <message>
         <location filename="../src/ui/common/operand_widget.h" line="100"/>
@@ -4654,6 +5749,95 @@ This cannot be undone. Do you want to continue?</source>
     <message>
         <location filename="../src/ui/common/operand_widget.h" line="239"/>
         <source>To</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PanScreenWidget</name>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="9"/>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="30"/>
+        <source>Pan Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="14"/>
+        <source>Operation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="18"/>
+        <source>Lock Pan State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="24"/>
+        <source>Unlock Pan State</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="36"/>
+        <source>Return to Origin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="45"/>
+        <source>Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="47"/>
+        <source>Direction:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="49"/>
+        <source>Distance:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="52"/>
+        <source> tiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="56"/>
+        <source>Speed:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.ui" line="60"/>
+        <source>Wait for Completion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.cpp" line="41"/>
+        <source>1: 1/8x Slower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.cpp" line="41"/>
+        <source>2: 1/4x Slower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.cpp" line="41"/>
+        <source>3: 1/2x Slower</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.cpp" line="42"/>
+        <source>4: Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.cpp" line="42"/>
+        <source>5: 2x Faster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/pan_screen_widget.cpp" line="42"/>
+        <source>6: 4x Faster</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5190,63 +6374,91 @@ This cannot be undone. Do you want to continue?</source>
     <name>PlayAudioWidget</name>
     <message>
         <location filename="../src/ui/commands/play_audio_widget.ui" line="9"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="17"/>
         <source>Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="19"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="27"/>
         <source>Choose the file and listen to it</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="20"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="28"/>
         <source>...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="28"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="36"/>
         <source>Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="30"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="38"/>
         <source>Fade in:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="33"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="41"/>
         <source> s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="37"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="45"/>
         <source>Volume:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="40"/>
         <location filename="../src/ui/commands/play_audio_widget.ui" line="48"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="56"/>
         <source>%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="45"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="53"/>
         <source>Tempo:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="54"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="62"/>
         <source>Balance:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.ui" line="57"/>
+        <location filename="../src/ui/commands/play_audio_widget.ui" line="65"/>
         <source>0: left, 50: center, 100: right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/commands/play_audio_widget.cpp" line="35"/>
+        <location filename="../src/ui/commands/play_audio_widget.cpp" line="47"/>
         <source>Sound effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PlayerVisibilityWidget</name>
+    <message>
+        <location filename="../src/ui/commands/player_visibility_widget.ui" line="9"/>
+        <source>Player Visibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/player_visibility_widget.ui" line="14"/>
+        <source>Hero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/player_visibility_widget.ui" line="18"/>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/player_visibility_widget.ui" line="24"/>
+        <source>Show</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5372,6 +6584,39 @@ This cannot be undone. Do you want to continue?</source>
     <message>
         <location filename="../src/ui/event/event_page_widget.ui" line="466"/>
         <source>Move Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../src/ui/commands/command_bindings.cpp" line="161"/>
+        <source>Monster %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="104"/>
+        <source>Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="110"/>
+        <source>Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="116"/>
+        <source>Percentage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="124"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="183"/>
+        <source>Background</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6038,6 +7283,79 @@ This cannot be undone. Do you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>SetVehicleLocationWidget</name>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="9"/>
+        <source>Set Vehicle Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="14"/>
+        <source>Vehicle</source>
+        <translation type="unfinished">Fahrzeug</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="22"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="25"/>
+        <source>Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="35"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="36"/>
+        <source>Pick the map and the location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="40"/>
+        <source>Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="44"/>
+        <source>From Variables</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="46"/>
+        <source>Map ID:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="48"/>
+        <source>Map X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.ui" line="50"/>
+        <source>Map Y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.cpp" line="34"/>
+        <source>Boat</source>
+        <translation type="unfinished">Boot</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.cpp" line="35"/>
+        <source>Ship</source>
+        <translation type="unfinished">Schiff</translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/set_vehicle_location_widget.cpp" line="36"/>
+        <source>Airship</source>
+        <translation type="unfinished">Luftschiff</translation>
+    </message>
+</context>
+<context>
     <name>ShakeScreenWidget</name>
     <message>
         <location filename="../src/ui/commands/shake_screen_widget.ui" line="14"/>
@@ -6099,6 +7417,44 @@ This cannot be undone. Do you want to continue?</source>
     <message>
         <location filename="../src/ui/commands/shake_screen_widget.ui" line="143"/>
         <source>Speed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShowBattleAnimationBattleWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="281"/>
+        <source>Animation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="282"/>
+        <source>Target the party</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="286"/>
+        <source>Target</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="287"/>
+        <source>Wait until done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="295"/>
+        <source>Entire party</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="296"/>
+        <source>Party member %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="298"/>
+        <source>All monsters</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6220,6 +7576,47 @@ This cannot be undone. Do you want to continue?</source>
     <message>
         <location filename="../src/ui/commands/show_choices_widget.cpp" line="182"/>
         <source>The options of this Show Choice are missing and will be added.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShowHiddenMonsterWidget</name>
+    <message>
+        <location filename="../src/ui/commands/simple_command_widgets.cpp" line="260"/>
+        <source>Monster</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ShowInnWidget</name>
+    <message>
+        <location filename="../src/ui/commands/show_inn_widget.cpp" line="44"/>
+        <source>Inn A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/show_inn_widget.cpp" line="45"/>
+        <source>Inn B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/show_inn_widget.cpp" line="46"/>
+        <source>Messages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/show_inn_widget.cpp" line="49"/>
+        <source>An inn for free doesn&apos;t ask whether to stay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/show_inn_widget.cpp" line="50"/>
+        <source>Price</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/show_inn_widget.cpp" line="52"/>
+        <source>Handlers for stay and no stay</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6682,602 +8079,670 @@ This cannot be undone. Do you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>StoreTileInfoWidget</name>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="9"/>
+        <source>Store Tile Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="14"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="17"/>
+        <source>Constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="19"/>
+        <source>X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="21"/>
+        <source>Y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="25"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="26"/>
+        <source>Pick the location on the map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="30"/>
+        <source>Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="34"/>
+        <source>From Variables</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="36"/>
+        <source>Map X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="38"/>
+        <source>Map Y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/store_tile_info_widget.ui" line="48"/>
+        <source>Store in Variable</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Stringizer</name>
     <message>
-        <location filename="../src/stringizer.cpp" line="52"/>
+        <location filename="../src/stringizer.cpp" line="53"/>
+        <location filename="../src/stringizer.cpp" line="1334"/>
         <source>Entire Party</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="56"/>
-        <location filename="../src/stringizer.cpp" line="77"/>
-        <location filename="../src/stringizer.cpp" line="405"/>
+        <location filename="../src/stringizer.cpp" line="57"/>
+        <location filename="../src/stringizer.cpp" line="78"/>
+        <location filename="../src/stringizer.cpp" line="440"/>
         <source>Hero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="58"/>
-        <location filename="../src/stringizer.cpp" line="149"/>
-        <location filename="../src/stringizer.cpp" line="213"/>
-        <location filename="../src/stringizer.cpp" line="308"/>
-        <location filename="../src/stringizer.cpp" line="328"/>
-        <location filename="../src/stringizer.cpp" line="354"/>
-        <location filename="../src/stringizer.cpp" line="358"/>
-        <location filename="../src/stringizer.cpp" line="381"/>
-        <location filename="../src/stringizer.cpp" line="443"/>
-        <location filename="../src/stringizer.cpp" line="483"/>
-        <location filename="../src/stringizer.cpp" line="569"/>
-        <location filename="../src/stringizer.cpp" line="591"/>
-        <location filename="../src/stringizer.cpp" line="617"/>
-        <location filename="../src/stringizer.cpp" line="711"/>
-        <location filename="../src/stringizer.cpp" line="849"/>
-        <location filename="../src/stringizer.cpp" line="860"/>
-        <location filename="../src/stringizer.cpp" line="1142"/>
-        <location filename="../src/stringizer.cpp" line="1153"/>
-        <location filename="../src/stringizer.cpp" line="1181"/>
-        <location filename="../src/stringizer.cpp" line="1185"/>
-        <location filename="../src/stringizer.cpp" line="1226"/>
-        <location filename="../src/stringizer.cpp" line="1420"/>
-        <location filename="../src/stringizer.cpp" line="1471"/>
-        <location filename="../src/stringizer.cpp" line="1531"/>
-        <location filename="../src/stringizer.cpp" line="1566"/>
+        <location filename="../src/stringizer.cpp" line="59"/>
+        <location filename="../src/stringizer.cpp" line="136"/>
+        <location filename="../src/stringizer.cpp" line="184"/>
+        <location filename="../src/stringizer.cpp" line="248"/>
+        <location filename="../src/stringizer.cpp" line="343"/>
+        <location filename="../src/stringizer.cpp" line="363"/>
+        <location filename="../src/stringizer.cpp" line="389"/>
+        <location filename="../src/stringizer.cpp" line="393"/>
+        <location filename="../src/stringizer.cpp" line="416"/>
+        <location filename="../src/stringizer.cpp" line="478"/>
+        <location filename="../src/stringizer.cpp" line="524"/>
+        <location filename="../src/stringizer.cpp" line="607"/>
+        <location filename="../src/stringizer.cpp" line="679"/>
+        <location filename="../src/stringizer.cpp" line="743"/>
+        <location filename="../src/stringizer.cpp" line="884"/>
+        <location filename="../src/stringizer.cpp" line="895"/>
+        <location filename="../src/stringizer.cpp" line="1188"/>
+        <location filename="../src/stringizer.cpp" line="1199"/>
+        <location filename="../src/stringizer.cpp" line="1227"/>
+        <location filename="../src/stringizer.cpp" line="1231"/>
+        <location filename="../src/stringizer.cpp" line="1272"/>
+        <location filename="../src/stringizer.cpp" line="1370"/>
+        <location filename="../src/stringizer.cpp" line="1512"/>
+        <location filename="../src/stringizer.cpp" line="1535"/>
+        <location filename="../src/stringizer.cpp" line="1552"/>
+        <location filename="../src/stringizer.cpp" line="1578"/>
+        <location filename="../src/stringizer.cpp" line="1629"/>
+        <location filename="../src/stringizer.cpp" line="1689"/>
+        <location filename="../src/stringizer.cpp" line="1724"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="79"/>
-        <location filename="../src/stringizer.cpp" line="567"/>
-        <location filename="../src/stringizer.cpp" line="583"/>
-        <location filename="../src/stringizer.cpp" line="709"/>
-        <location filename="../src/stringizer.cpp" line="1151"/>
+        <location filename="../src/stringizer.cpp" line="80"/>
+        <location filename="../src/stringizer.cpp" line="605"/>
+        <location filename="../src/stringizer.cpp" line="741"/>
+        <location filename="../src/stringizer.cpp" line="1197"/>
+        <location filename="../src/stringizer.cpp" line="1505"/>
         <source>Boat</source>
         <translation>Boot</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="81"/>
-        <location filename="../src/stringizer.cpp" line="568"/>
-        <location filename="../src/stringizer.cpp" line="584"/>
-        <location filename="../src/stringizer.cpp" line="710"/>
-        <location filename="../src/stringizer.cpp" line="1152"/>
+        <location filename="../src/stringizer.cpp" line="82"/>
+        <location filename="../src/stringizer.cpp" line="606"/>
+        <location filename="../src/stringizer.cpp" line="742"/>
+        <location filename="../src/stringizer.cpp" line="1198"/>
+        <location filename="../src/stringizer.cpp" line="1506"/>
         <source>Ship</source>
         <translation>Schiff</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="83"/>
-        <location filename="../src/stringizer.cpp" line="569"/>
-        <location filename="../src/stringizer.cpp" line="585"/>
-        <location filename="../src/stringizer.cpp" line="711"/>
-        <location filename="../src/stringizer.cpp" line="1153"/>
+        <location filename="../src/stringizer.cpp" line="84"/>
+        <location filename="../src/stringizer.cpp" line="607"/>
+        <location filename="../src/stringizer.cpp" line="743"/>
+        <location filename="../src/stringizer.cpp" line="1199"/>
+        <location filename="../src/stringizer.cpp" line="1507"/>
         <source>Airship</source>
         <translation>Luftschiff</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="85"/>
+        <location filename="../src/stringizer.cpp" line="86"/>
         <source>This Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="66"/>
-        <location filename="../src/stringizer.cpp" line="99"/>
+        <location filename="../src/stringizer.cpp" line="125"/>
         <source>Call Common Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="206"/>
-        <location filename="../src/stringizer.cpp" line="106"/>
+        <location filename="../src/stringizer.cpp" line="138"/>
         <source>Force Flee</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="208"/>
-        <location filename="../src/stringizer.cpp" line="111"/>
+        <location filename="../src/stringizer.cpp" line="144"/>
         <source>Enable Combo</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="102"/>
-        <location filename="../src/stringizer.cpp" line="119"/>
+        <location filename="../src/stringizer.cpp" line="152"/>
         <source>Change Class</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="104"/>
-        <location filename="../src/stringizer.cpp" line="126"/>
+        <location filename="../src/stringizer.cpp" line="160"/>
         <source>Change Battle Commands</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="128"/>
-        <location filename="../src/stringizer.cpp" line="404"/>
-        <location filename="../src/stringizer.cpp" line="457"/>
-        <location filename="../src/stringizer.cpp" line="518"/>
-        <location filename="../src/stringizer.cpp" line="1035"/>
+        <location filename="../src/stringizer.cpp" line="162"/>
+        <location filename="../src/stringizer.cpp" line="439"/>
+        <location filename="../src/stringizer.cpp" line="492"/>
+        <location filename="../src/stringizer.cpp" line="1081"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="128"/>
-        <location filename="../src/stringizer.cpp" line="404"/>
-        <location filename="../src/stringizer.cpp" line="457"/>
-        <location filename="../src/stringizer.cpp" line="518"/>
-        <location filename="../src/stringizer.cpp" line="1032"/>
+        <location filename="../src/stringizer.cpp" line="162"/>
+        <location filename="../src/stringizer.cpp" line="439"/>
+        <location filename="../src/stringizer.cpp" line="492"/>
+        <location filename="../src/stringizer.cpp" line="556"/>
+        <location filename="../src/stringizer.cpp" line="1078"/>
+        <location filename="../src/stringizer.cpp" line="1313"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="38"/>
-        <location filename="../src/stringizer.cpp" line="134"/>
+        <location filename="../src/stringizer.cpp" line="169"/>
         <source>Show Message</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="143"/>
+        <location filename="../src/stringizer.cpp" line="178"/>
         <source>Top</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="145"/>
+        <location filename="../src/stringizer.cpp" line="180"/>
         <source>Center</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="147"/>
+        <location filename="../src/stringizer.cpp" line="182"/>
         <source>Bottom</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="40"/>
-        <location filename="../src/stringizer.cpp" line="151"/>
+        <location filename="../src/stringizer.cpp" line="186"/>
         <source>Message Options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="152"/>
+        <location filename="../src/stringizer.cpp" line="187"/>
         <source>Transp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="152"/>
+        <location filename="../src/stringizer.cpp" line="187"/>
         <source>Normal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="154"/>
+        <location filename="../src/stringizer.cpp" line="189"/>
+        <location filename="../src/stringizer.cpp" line="1053"/>
         <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="154"/>
+        <location filename="../src/stringizer.cpp" line="189"/>
         <source>Fixed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="155"/>
+        <location filename="../src/stringizer.cpp" line="190"/>
         <source>Continue Processes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="155"/>
+        <location filename="../src/stringizer.cpp" line="190"/>
         <source>Halt Processes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="42"/>
-        <location filename="../src/stringizer.cpp" line="162"/>
-        <location filename="../src/stringizer.cpp" line="165"/>
+        <location filename="../src/stringizer.cpp" line="197"/>
+        <location filename="../src/stringizer.cpp" line="200"/>
         <source>Change Face Graphic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="168"/>
-        <location filename="../src/stringizer.cpp" line="1415"/>
+        <location filename="../src/stringizer.cpp" line="203"/>
+        <location filename="../src/stringizer.cpp" line="1573"/>
         <source>Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="168"/>
-        <location filename="../src/stringizer.cpp" line="1413"/>
+        <location filename="../src/stringizer.cpp" line="203"/>
+        <location filename="../src/stringizer.cpp" line="1571"/>
         <source>Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="169"/>
+        <location filename="../src/stringizer.cpp" line="204"/>
         <source>Flipped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="44"/>
-        <location filename="../src/stringizer.cpp" line="174"/>
+        <location filename="../src/stringizer.cpp" line="209"/>
         <source>Show Choice</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="46"/>
-        <location filename="../src/stringizer.cpp" line="179"/>
+        <location filename="../src/stringizer.cpp" line="214"/>
         <source>Input Number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="180"/>
+        <location filename="../src/stringizer.cpp" line="215"/>
         <source>%1 Digits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="207"/>
-        <location filename="../src/stringizer.cpp" line="1079"/>
+        <location filename="../src/stringizer.cpp" line="242"/>
+        <location filename="../src/stringizer.cpp" line="1125"/>
+        <location filename="../src/stringizer.cpp" line="1350"/>
         <source>ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="209"/>
-        <location filename="../src/stringizer.cpp" line="1079"/>
+        <location filename="../src/stringizer.cpp" line="244"/>
+        <location filename="../src/stringizer.cpp" line="1125"/>
+        <location filename="../src/stringizer.cpp" line="1350"/>
         <source>OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="211"/>
+        <location filename="../src/stringizer.cpp" line="246"/>
         <source>Toggle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="50"/>
-        <location filename="../src/stringizer.cpp" line="215"/>
+        <location filename="../src/stringizer.cpp" line="250"/>
         <source>Control Switches</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="267"/>
+        <location filename="../src/stringizer.cpp" line="302"/>
         <source>Random %1-%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="270"/>
+        <location filename="../src/stringizer.cpp" line="305"/>
         <source>Number Equipped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="270"/>
+        <location filename="../src/stringizer.cpp" line="305"/>
         <source>Number Possessed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="278"/>
+        <location filename="../src/stringizer.cpp" line="313"/>
         <source>Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="280"/>
+        <location filename="../src/stringizer.cpp" line="315"/>
         <source>Experience</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="282"/>
+        <location filename="../src/stringizer.cpp" line="317"/>
         <source>HP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="284"/>
+        <location filename="../src/stringizer.cpp" line="319"/>
         <source>MP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="286"/>
-        <location filename="../src/stringizer.cpp" line="431"/>
+        <location filename="../src/stringizer.cpp" line="321"/>
+        <location filename="../src/stringizer.cpp" line="466"/>
         <source>Max HP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="288"/>
-        <location filename="../src/stringizer.cpp" line="433"/>
+        <location filename="../src/stringizer.cpp" line="323"/>
+        <location filename="../src/stringizer.cpp" line="468"/>
         <source>Max MP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="290"/>
-        <location filename="../src/stringizer.cpp" line="435"/>
+        <location filename="../src/stringizer.cpp" line="325"/>
+        <location filename="../src/stringizer.cpp" line="470"/>
         <source>Attack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="292"/>
-        <location filename="../src/stringizer.cpp" line="437"/>
+        <location filename="../src/stringizer.cpp" line="327"/>
+        <location filename="../src/stringizer.cpp" line="472"/>
         <source>Defense</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="294"/>
+        <location filename="../src/stringizer.cpp" line="329"/>
         <source>Intelligence</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="296"/>
-        <location filename="../src/stringizer.cpp" line="441"/>
+        <location filename="../src/stringizer.cpp" line="331"/>
+        <location filename="../src/stringizer.cpp" line="476"/>
         <source>Agility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="298"/>
+        <location filename="../src/stringizer.cpp" line="333"/>
         <source>Weapon ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="300"/>
+        <location filename="../src/stringizer.cpp" line="335"/>
         <source>Shield ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="302"/>
+        <location filename="../src/stringizer.cpp" line="337"/>
         <source>Armor ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="304"/>
+        <location filename="../src/stringizer.cpp" line="339"/>
         <source>Helmet ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="306"/>
+        <location filename="../src/stringizer.cpp" line="341"/>
         <source>Accesory ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="316"/>
+        <location filename="../src/stringizer.cpp" line="351"/>
         <source>Map ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="318"/>
+        <location filename="../src/stringizer.cpp" line="353"/>
         <source>X Coordinate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="320"/>
+        <location filename="../src/stringizer.cpp" line="355"/>
         <source>Y Coordinate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="322"/>
+        <location filename="../src/stringizer.cpp" line="357"/>
         <source>Orientation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="324"/>
+        <location filename="../src/stringizer.cpp" line="359"/>
         <source>Screen X</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="326"/>
+        <location filename="../src/stringizer.cpp" line="361"/>
         <source>Screen Y</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="334"/>
+        <location filename="../src/stringizer.cpp" line="369"/>
         <source>Gold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="336"/>
+        <location filename="../src/stringizer.cpp" line="371"/>
         <source>Timer 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="338"/>
+        <location filename="../src/stringizer.cpp" line="373"/>
         <source>Size of Party</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="340"/>
+        <location filename="../src/stringizer.cpp" line="375"/>
         <source>Number of Saves</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="342"/>
+        <location filename="../src/stringizer.cpp" line="377"/>
         <source>Number of Battles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="344"/>
+        <location filename="../src/stringizer.cpp" line="379"/>
         <source>Number of Won Battles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="346"/>
+        <location filename="../src/stringizer.cpp" line="381"/>
         <source>Number of Lost Battles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="348"/>
+        <location filename="../src/stringizer.cpp" line="383"/>
         <source>Number of Escapes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="350"/>
+        <location filename="../src/stringizer.cpp" line="385"/>
         <source>MIDI Play Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="352"/>
+        <location filename="../src/stringizer.cpp" line="387"/>
         <source>Timer 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="361"/>
+        <location filename="../src/stringizer.cpp" line="396"/>
         <source>Control Vars</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="368"/>
+        <location filename="../src/stringizer.cpp" line="403"/>
         <source>Timer %1 Operation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="373"/>
+        <location filename="../src/stringizer.cpp" line="408"/>
         <source>Set</source>
         <translation type="unfinished">&gt;</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="377"/>
-        <location filename="../src/stringizer.cpp" line="781"/>
-        <location filename="../src/stringizer.cpp" line="800"/>
+        <location filename="../src/stringizer.cpp" line="412"/>
+        <location filename="../src/stringizer.cpp" line="816"/>
+        <location filename="../src/stringizer.cpp" line="835"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="379"/>
-        <location filename="../src/stringizer.cpp" line="783"/>
-        <location filename="../src/stringizer.cpp" line="802"/>
+        <location filename="../src/stringizer.cpp" line="414"/>
+        <location filename="../src/stringizer.cpp" line="818"/>
+        <location filename="../src/stringizer.cpp" line="837"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="74"/>
-        <location filename="../src/stringizer.cpp" line="387"/>
+        <location filename="../src/stringizer.cpp" line="422"/>
         <source>Change Gold</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="76"/>
-        <location filename="../src/stringizer.cpp" line="394"/>
+        <location filename="../src/stringizer.cpp" line="429"/>
         <source>Change Items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="397"/>
+        <location filename="../src/stringizer.cpp" line="432"/>
+        <location filename="../src/stringizer.cpp" line="503"/>
         <source>Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="78"/>
-        <location filename="../src/stringizer.cpp" line="403"/>
+        <location filename="../src/stringizer.cpp" line="438"/>
         <source>Change Party Members</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="85"/>
-        <location filename="../src/stringizer.cpp" line="411"/>
+        <location filename="../src/stringizer.cpp" line="446"/>
         <source>Change Exp</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="86"/>
-        <location filename="../src/stringizer.cpp" line="419"/>
+        <location filename="../src/stringizer.cpp" line="454"/>
         <source>Change Level</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="439"/>
+        <location filename="../src/stringizer.cpp" line="474"/>
         <source>Spirit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="87"/>
-        <location filename="../src/stringizer.cpp" line="446"/>
+        <location filename="../src/stringizer.cpp" line="481"/>
         <source>Change Parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="88"/>
-        <location filename="../src/stringizer.cpp" line="455"/>
+        <location filename="../src/stringizer.cpp" line="490"/>
         <source>Change Skills</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="467"/>
+        <location filename="../src/stringizer.cpp" line="502"/>
         <source>Equip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="471"/>
+        <location filename="../src/stringizer.cpp" line="512"/>
         <source>Weapon</source>
         <translation>Waffe</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="473"/>
+        <location filename="../src/stringizer.cpp" line="514"/>
         <source>Shield</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="475"/>
+        <location filename="../src/stringizer.cpp" line="516"/>
         <source>Armor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="477"/>
+        <location filename="../src/stringizer.cpp" line="518"/>
         <source>Helmet</source>
         <translation>Helm</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="479"/>
-        <source>Accesory</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="481"/>
+        <location filename="../src/stringizer.cpp" line="163"/>
+        <location filename="../src/stringizer.cpp" line="522"/>
         <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="488"/>
+        <location filename="../src/stringizer.cpp" line="526"/>
         <source>Unequip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="90"/>
-        <location filename="../src/stringizer.cpp" line="493"/>
+        <location filename="../src/stringizer.cpp" line="529"/>
         <source>Change Equipment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="91"/>
-        <location filename="../src/stringizer.cpp" line="500"/>
+        <location filename="../src/stringizer.cpp" line="536"/>
         <source>Change HP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="92"/>
-        <location filename="../src/stringizer.cpp" line="508"/>
+        <location filename="../src/stringizer.cpp" line="546"/>
         <source>Change SP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="94"/>
-        <location filename="../src/stringizer.cpp" line="516"/>
+        <location filename="../src/stringizer.cpp" line="554"/>
         <source>Change Condition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="95"/>
-        <location filename="../src/stringizer.cpp" line="524"/>
+        <location filename="../src/stringizer.cpp" line="562"/>
         <source>Full Heal</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="96"/>
-        <location filename="../src/stringizer.cpp" line="530"/>
+        <location filename="../src/stringizer.cpp" line="568"/>
         <source>Simulated Attack</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="97"/>
-        <location filename="../src/stringizer.cpp" line="536"/>
+        <location filename="../src/stringizer.cpp" line="574"/>
         <source>Change Hero Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="98"/>
-        <location filename="../src/stringizer.cpp" line="543"/>
+        <location filename="../src/stringizer.cpp" line="581"/>
         <source>Change Hero Title</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="99"/>
-        <location filename="../src/stringizer.cpp" line="550"/>
+        <location filename="../src/stringizer.cpp" line="588"/>
         <source>Change Sprite Association</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="100"/>
-        <location filename="../src/stringizer.cpp" line="558"/>
+        <location filename="../src/stringizer.cpp" line="596"/>
         <source>Change Actor Face</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7308,1211 +8773,1370 @@ This cannot be undone. Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="137"/>
-        <location filename="../src/stringizer.cpp" line="570"/>
+        <location filename="../src/stringizer.cpp" line="608"/>
         <source>Change Vehicle Graphic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="580"/>
+        <location filename="../src/stringizer.cpp" line="1502"/>
         <source>Battle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="581"/>
-        <location filename="../src/stringizer.cpp" line="1683"/>
+        <location filename="../src/stringizer.cpp" line="1503"/>
+        <location filename="../src/stringizer.cpp" line="1841"/>
         <source>Victory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="582"/>
+        <location filename="../src/stringizer.cpp" line="1504"/>
         <source>Inn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="119"/>
-        <location filename="../src/stringizer.cpp" line="586"/>
-        <location filename="../src/stringizer.cpp" line="1670"/>
+        <location filename="../src/stringizer.cpp" line="1508"/>
+        <location filename="../src/stringizer.cpp" line="1828"/>
         <source>Game Over</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="107"/>
-        <location filename="../src/stringizer.cpp" line="594"/>
+        <location filename="../src/stringizer.cpp" line="616"/>
         <source>Change System BGM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="602"/>
+        <location filename="../src/stringizer.cpp" line="1520"/>
         <source>Cursor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="603"/>
+        <location filename="../src/stringizer.cpp" line="1521"/>
         <source>Decision</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="604"/>
-        <location filename="../src/stringizer.cpp" line="1289"/>
+        <location filename="../src/stringizer.cpp" line="1382"/>
+        <location filename="../src/stringizer.cpp" line="1522"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="605"/>
+        <location filename="../src/stringizer.cpp" line="1523"/>
         <source>Buzzer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="606"/>
+        <location filename="../src/stringizer.cpp" line="1524"/>
         <source>Begin Battle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="607"/>
-        <location filename="../src/stringizer.cpp" line="1684"/>
+        <location filename="../src/stringizer.cpp" line="1525"/>
+        <location filename="../src/stringizer.cpp" line="1842"/>
         <source>Escape</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="608"/>
+        <location filename="../src/stringizer.cpp" line="1526"/>
         <source>Enemy Attacks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="609"/>
+        <location filename="../src/stringizer.cpp" line="1527"/>
         <source>Enemy Damage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="610"/>
+        <location filename="../src/stringizer.cpp" line="1528"/>
         <source>Ally Damage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="611"/>
+        <location filename="../src/stringizer.cpp" line="1529"/>
         <source>Evasion</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="612"/>
+        <location filename="../src/stringizer.cpp" line="1530"/>
         <source>Enemy Defeated</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="613"/>
+        <location filename="../src/stringizer.cpp" line="1531"/>
         <source>Use Item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="108"/>
-        <location filename="../src/stringizer.cpp" line="620"/>
+        <location filename="../src/stringizer.cpp" line="622"/>
         <source>Change System SFX</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="109"/>
-        <location filename="../src/stringizer.cpp" line="626"/>
+        <location filename="../src/stringizer.cpp" line="628"/>
         <source>Change System Graphics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="110"/>
-        <location filename="../src/stringizer.cpp" line="631"/>
+        <location filename="../src/stringizer.cpp" line="640"/>
         <source>Change Screen Transitions</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="196"/>
-        <location filename="../src/stringizer.cpp" line="638"/>
+        <location filename="../src/stringizer.cpp" line="648"/>
         <source>Enemy Encounter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="639"/>
+        <location filename="../src/stringizer.cpp" line="649"/>
         <source>Troop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="649"/>
-        <location filename="../src/stringizer.cpp" line="652"/>
+        <location filename="../src/stringizer.cpp" line="670"/>
+        <location filename="../src/stringizer.cpp" line="673"/>
         <source>Buy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="649"/>
-        <location filename="../src/stringizer.cpp" line="655"/>
+        <location filename="../src/stringizer.cpp" line="670"/>
+        <location filename="../src/stringizer.cpp" line="676"/>
         <source>Sell</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="80"/>
-        <location filename="../src/stringizer.cpp" line="657"/>
+        <location filename="../src/stringizer.cpp" line="685"/>
         <source>Open Shop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="82"/>
-        <location filename="../src/stringizer.cpp" line="662"/>
+        <location filename="../src/stringizer.cpp" line="693"/>
         <source>Show Inn</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="662"/>
+        <location filename="../src/stringizer.cpp" line="694"/>
         <source>Price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="118"/>
-        <location filename="../src/stringizer.cpp" line="667"/>
+        <location filename="../src/stringizer.cpp" line="699"/>
         <source>Enter Hero Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="680"/>
+        <location filename="../src/stringizer.cpp" line="712"/>
         <source>Retain Facing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="130"/>
-        <location filename="../src/stringizer.cpp" line="683"/>
+        <location filename="../src/stringizer.cpp" line="715"/>
         <source>Teleport</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="132"/>
-        <location filename="../src/stringizer.cpp" line="692"/>
+        <location filename="../src/stringizer.cpp" line="724"/>
         <source>Memorize Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="133"/>
-        <location filename="../src/stringizer.cpp" line="700"/>
+        <location filename="../src/stringizer.cpp" line="732"/>
         <source>Recall To Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="136"/>
-        <location filename="../src/stringizer.cpp" line="713"/>
-        <location filename="../src/stringizer.cpp" line="718"/>
+        <location filename="../src/stringizer.cpp" line="748"/>
+        <location filename="../src/stringizer.cpp" line="753"/>
         <source>Set Vehicle Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="139"/>
-        <location filename="../src/stringizer.cpp" line="726"/>
+        <location filename="../src/stringizer.cpp" line="761"/>
         <source>Change Event Location</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="140"/>
-        <location filename="../src/stringizer.cpp" line="734"/>
+        <location filename="../src/stringizer.cpp" line="769"/>
         <source>Trade Event Locations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="142"/>
-        <location filename="../src/stringizer.cpp" line="741"/>
+        <location filename="../src/stringizer.cpp" line="776"/>
         <source>Store Terrain ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="143"/>
-        <location filename="../src/stringizer.cpp" line="749"/>
+        <location filename="../src/stringizer.cpp" line="784"/>
         <source>Store Event ID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="148"/>
-        <location filename="../src/stringizer.cpp" line="918"/>
+        <location filename="../src/stringizer.cpp" line="953"/>
         <source>Player Visibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="151"/>
-        <location filename="../src/stringizer.cpp" line="1017"/>
+        <location filename="../src/stringizer.cpp" line="1063"/>
         <source>Change Encounter Steps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="160"/>
-        <location filename="../src/stringizer.cpp" line="757"/>
+        <location filename="../src/stringizer.cpp" line="792"/>
         <source>Erase Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="161"/>
-        <location filename="../src/stringizer.cpp" line="762"/>
+        <location filename="../src/stringizer.cpp" line="797"/>
         <source>Show Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="163"/>
-        <location filename="../src/stringizer.cpp" line="767"/>
+        <location filename="../src/stringizer.cpp" line="802"/>
         <source>Tint Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="773"/>
-        <location filename="../src/stringizer.cpp" line="792"/>
-        <location filename="../src/stringizer.cpp" line="809"/>
-        <location filename="../src/stringizer.cpp" line="825"/>
-        <location filename="../src/stringizer.cpp" line="829"/>
-        <location filename="../src/stringizer.cpp" line="895"/>
-        <location filename="../src/stringizer.cpp" line="912"/>
-        <location filename="../src/stringizer.cpp" line="927"/>
+        <location filename="../src/stringizer.cpp" line="808"/>
+        <location filename="../src/stringizer.cpp" line="827"/>
+        <location filename="../src/stringizer.cpp" line="844"/>
+        <location filename="../src/stringizer.cpp" line="860"/>
+        <location filename="../src/stringizer.cpp" line="864"/>
+        <location filename="../src/stringizer.cpp" line="930"/>
+        <location filename="../src/stringizer.cpp" line="947"/>
+        <location filename="../src/stringizer.cpp" line="963"/>
         <source>(Wait)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="165"/>
-        <location filename="../src/stringizer.cpp" line="781"/>
-        <location filename="../src/stringizer.cpp" line="783"/>
-        <location filename="../src/stringizer.cpp" line="786"/>
+        <location filename="../src/stringizer.cpp" line="816"/>
+        <location filename="../src/stringizer.cpp" line="818"/>
+        <location filename="../src/stringizer.cpp" line="821"/>
         <source>Flash Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="167"/>
-        <location filename="../src/stringizer.cpp" line="800"/>
-        <location filename="../src/stringizer.cpp" line="802"/>
-        <location filename="../src/stringizer.cpp" line="805"/>
+        <location filename="../src/stringizer.cpp" line="835"/>
+        <location filename="../src/stringizer.cpp" line="837"/>
+        <location filename="../src/stringizer.cpp" line="840"/>
         <source>Shake Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="806"/>
+        <location filename="../src/stringizer.cpp" line="841"/>
         <source>Strength</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="807"/>
-        <location filename="../src/stringizer.cpp" line="824"/>
-        <location filename="../src/stringizer.cpp" line="828"/>
+        <location filename="../src/stringizer.cpp" line="842"/>
+        <location filename="../src/stringizer.cpp" line="859"/>
+        <location filename="../src/stringizer.cpp" line="863"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="169"/>
-        <location filename="../src/stringizer.cpp" line="817"/>
-        <location filename="../src/stringizer.cpp" line="819"/>
-        <location filename="../src/stringizer.cpp" line="821"/>
-        <location filename="../src/stringizer.cpp" line="827"/>
+        <location filename="../src/stringizer.cpp" line="852"/>
+        <location filename="../src/stringizer.cpp" line="854"/>
+        <location filename="../src/stringizer.cpp" line="856"/>
+        <location filename="../src/stringizer.cpp" line="862"/>
         <source>Pan Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="817"/>
+        <location filename="../src/stringizer.cpp" line="852"/>
         <source>Lock Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="819"/>
+        <location filename="../src/stringizer.cpp" line="854"/>
         <source>Unlock Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="823"/>
+        <location filename="../src/stringizer.cpp" line="858"/>
         <source>Tiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="827"/>
+        <location filename="../src/stringizer.cpp" line="862"/>
         <source>Reset Position</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="839"/>
-        <location filename="../src/stringizer.cpp" line="1529"/>
-        <location filename="../src/stringizer.cpp" line="1564"/>
+        <location filename="../src/stringizer.cpp" line="154"/>
+        <location filename="../src/stringizer.cpp" line="874"/>
+        <location filename="../src/stringizer.cpp" line="1687"/>
+        <location filename="../src/stringizer.cpp" line="1722"/>
         <source>None</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="841"/>
+        <location filename="../src/stringizer.cpp" line="876"/>
         <source>Rain</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="843"/>
+        <location filename="../src/stringizer.cpp" line="878"/>
         <source>Snow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="845"/>
+        <location filename="../src/stringizer.cpp" line="880"/>
         <source>Fog</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="847"/>
+        <location filename="../src/stringizer.cpp" line="882"/>
         <source>Sandstorm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="854"/>
+        <location filename="../src/stringizer.cpp" line="889"/>
         <source>Weak</source>
         <translation>Leicht</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="856"/>
+        <location filename="../src/stringizer.cpp" line="891"/>
         <source>Medium</source>
         <translation>Mittel</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="858"/>
+        <location filename="../src/stringizer.cpp" line="893"/>
         <source>Strong</source>
         <translation>Stark</translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="170"/>
-        <location filename="../src/stringizer.cpp" line="863"/>
+        <location filename="../src/stringizer.cpp" line="898"/>
         <source>Weather Effects</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="178"/>
-        <location filename="../src/stringizer.cpp" line="880"/>
-        <location filename="../src/stringizer.cpp" line="881"/>
+        <location filename="../src/stringizer.cpp" line="915"/>
+        <location filename="../src/stringizer.cpp" line="916"/>
         <source>Show Picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="180"/>
-        <location filename="../src/stringizer.cpp" line="890"/>
-        <location filename="../src/stringizer.cpp" line="891"/>
+        <location filename="../src/stringizer.cpp" line="925"/>
+        <location filename="../src/stringizer.cpp" line="926"/>
         <source>Move Picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="181"/>
-        <location filename="../src/stringizer.cpp" line="901"/>
-        <location filename="../src/stringizer.cpp" line="902"/>
+        <location filename="../src/stringizer.cpp" line="936"/>
+        <location filename="../src/stringizer.cpp" line="937"/>
         <source>Erase Picture</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="172"/>
         <location filename="../src/model/event_command_templates.cpp" line="204"/>
-        <location filename="../src/stringizer.cpp" line="908"/>
-        <location filename="../src/stringizer.cpp" line="909"/>
+        <location filename="../src/stringizer.cpp" line="943"/>
+        <location filename="../src/stringizer.cpp" line="944"/>
+        <location filename="../src/stringizer.cpp" line="1337"/>
         <source>Show Battle Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="919"/>
-        <source>Opaque</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="919"/>
-        <source>Transparent</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../src/model/event_command_templates.cpp" line="174"/>
-        <location filename="../src/stringizer.cpp" line="924"/>
+        <location filename="../src/stringizer.cpp" line="959"/>
         <source>Flash Sprite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="145"/>
-        <location filename="../src/stringizer.cpp" line="939"/>
+        <location filename="../src/stringizer.cpp" line="975"/>
         <source>Move Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="70"/>
-        <location filename="../src/stringizer.cpp" line="946"/>
-        <location filename="../src/stringizer.cpp" line="948"/>
-        <location filename="../src/stringizer.cpp" line="1452"/>
+        <location filename="../src/stringizer.cpp" line="982"/>
+        <location filename="../src/stringizer.cpp" line="984"/>
+        <location filename="../src/stringizer.cpp" line="1037"/>
+        <location filename="../src/stringizer.cpp" line="1339"/>
+        <location filename="../src/stringizer.cpp" line="1610"/>
         <source>Wait</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="948"/>
+        <location filename="../src/stringizer.cpp" line="984"/>
         <source>Until Key Pressed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="184"/>
-        <location filename="../src/stringizer.cpp" line="978"/>
+        <location filename="../src/stringizer.cpp" line="1014"/>
         <source>Play BGM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="186"/>
-        <location filename="../src/stringizer.cpp" line="984"/>
+        <location filename="../src/stringizer.cpp" line="1020"/>
         <source>Fade Out BGM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="189"/>
-        <location filename="../src/stringizer.cpp" line="989"/>
+        <location filename="../src/stringizer.cpp" line="1025"/>
         <source>Play Sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="191"/>
-        <location filename="../src/stringizer.cpp" line="995"/>
+        <location filename="../src/stringizer.cpp" line="1031"/>
         <source>Play Movie</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="213"/>
-        <location filename="../src/stringizer.cpp" line="1000"/>
+        <location filename="../src/stringizer.cpp" line="1036"/>
         <source>Key Input Proc</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="149"/>
-        <location filename="../src/stringizer.cpp" line="1005"/>
+        <location filename="../src/stringizer.cpp" line="1042"/>
         <source>Change Map Tileset</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="150"/>
-        <location filename="../src/stringizer.cpp" line="1010"/>
+        <location filename="../src/stringizer.cpp" line="1056"/>
         <source>Change PBG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1011"/>
+        <location filename="../src/stringizer.cpp" line="1057"/>
         <source>Horz Scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1012"/>
+        <location filename="../src/stringizer.cpp" line="1058"/>
         <source>Vert Scroll</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="152"/>
-        <location filename="../src/stringizer.cpp" line="1022"/>
+        <location filename="../src/stringizer.cpp" line="1068"/>
         <source>Tile Substitution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1023"/>
+        <location filename="../src/stringizer.cpp" line="1069"/>
         <source>Upper Layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1023"/>
+        <location filename="../src/stringizer.cpp" line="1069"/>
         <source>Lower Layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="154"/>
-        <location filename="../src/stringizer.cpp" line="1031"/>
-        <location filename="../src/stringizer.cpp" line="1034"/>
+        <location filename="../src/stringizer.cpp" line="1077"/>
+        <location filename="../src/stringizer.cpp" line="1080"/>
         <source>Teleport Targets</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="111"/>
-        <location filename="../src/stringizer.cpp" line="1042"/>
+        <location filename="../src/stringizer.cpp" line="1088"/>
         <source>Change Teleport Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1043"/>
-        <location filename="../src/stringizer.cpp" line="1057"/>
-        <location filename="../src/stringizer.cpp" line="1063"/>
-        <location filename="../src/stringizer.cpp" line="1069"/>
+        <location filename="../src/stringizer.cpp" line="1089"/>
+        <location filename="../src/stringizer.cpp" line="1103"/>
+        <location filename="../src/stringizer.cpp" line="1109"/>
+        <location filename="../src/stringizer.cpp" line="1115"/>
         <source>Allow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1043"/>
-        <location filename="../src/stringizer.cpp" line="1057"/>
-        <location filename="../src/stringizer.cpp" line="1063"/>
-        <location filename="../src/stringizer.cpp" line="1069"/>
+        <location filename="../src/stringizer.cpp" line="1089"/>
+        <location filename="../src/stringizer.cpp" line="1103"/>
+        <location filename="../src/stringizer.cpp" line="1109"/>
+        <location filename="../src/stringizer.cpp" line="1115"/>
         <source>Forbid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="156"/>
-        <location filename="../src/stringizer.cpp" line="1048"/>
+        <location filename="../src/stringizer.cpp" line="1094"/>
         <source>Escape Target</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="112"/>
-        <location filename="../src/stringizer.cpp" line="1056"/>
+        <location filename="../src/stringizer.cpp" line="1102"/>
         <source>Change Escape Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="113"/>
-        <location filename="../src/stringizer.cpp" line="1062"/>
+        <location filename="../src/stringizer.cpp" line="1108"/>
         <source>Change Save Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="114"/>
-        <location filename="../src/stringizer.cpp" line="1068"/>
+        <location filename="../src/stringizer.cpp" line="1114"/>
         <source>Change Main Menu Access</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1103"/>
-        <location filename="../src/stringizer.cpp" line="1162"/>
+        <location filename="../src/stringizer.cpp" line="1149"/>
+        <location filename="../src/stringizer.cpp" line="1208"/>
         <source>Timer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1108"/>
+        <location filename="../src/stringizer.cpp" line="1154"/>
         <source>Money</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1114"/>
+        <location filename="../src/stringizer.cpp" line="1160"/>
         <source>Not Possessed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1114"/>
+        <location filename="../src/stringizer.cpp" line="1160"/>
         <source>Possessed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1121"/>
+        <location filename="../src/stringizer.cpp" line="1167"/>
         <source>In the Party</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1124"/>
+        <location filename="../src/stringizer.cpp" line="1170"/>
         <source>Name is %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1127"/>
+        <location filename="../src/stringizer.cpp" line="1173"/>
         <source>Level at least %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1133"/>
+        <location filename="../src/stringizer.cpp" line="1179"/>
         <source>Can use %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1136"/>
+        <location filename="../src/stringizer.cpp" line="1182"/>
         <source>%1 is Equipped</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1139"/>
+        <location filename="../src/stringizer.cpp" line="1185"/>
         <source>with Condition %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1147"/>
+        <location filename="../src/stringizer.cpp" line="1193"/>
         <source>Facing %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1150"/>
+        <location filename="../src/stringizer.cpp" line="1196"/>
         <source>Vehicle</source>
         <translation>Fahrzeug</translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1156"/>
+        <location filename="../src/stringizer.cpp" line="1202"/>
         <source>Event Started with Decision Key</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1159"/>
+        <location filename="../src/stringizer.cpp" line="1205"/>
         <source>BGM has Played Through Once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1185"/>
-        <location filename="../src/stringizer.cpp" line="1187"/>
+        <location filename="../src/stringizer.cpp" line="1231"/>
+        <location filename="../src/stringizer.cpp" line="1233"/>
+        <location filename="../src/stringizer.cpp" line="1372"/>
         <source>Branch if</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="62"/>
-        <location filename="../src/stringizer.cpp" line="1192"/>
+        <location filename="../src/stringizer.cpp" line="1238"/>
         <source>Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="63"/>
-        <location filename="../src/stringizer.cpp" line="1197"/>
+        <location filename="../src/stringizer.cpp" line="1243"/>
         <source>Jump To Label</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="65"/>
-        <location filename="../src/stringizer.cpp" line="1229"/>
+        <location filename="../src/stringizer.cpp" line="1275"/>
         <source>Call Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="214"/>
-        <location filename="../src/stringizer.cpp" line="1234"/>
+        <location filename="../src/stringizer.cpp" line="1280"/>
         <source>Comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="201"/>
-        <location filename="../src/stringizer.cpp" line="1260"/>
+        <location filename="../src/stringizer.cpp" line="1319"/>
         <source>Show Hidden Monster</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="202"/>
-        <location filename="../src/stringizer.cpp" line="1265"/>
+        <location filename="../src/stringizer.cpp" line="1324"/>
         <source>Change Battle BG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1412"/>
+        <location filename="../src/stringizer.cpp" line="1570"/>
         <source>Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1414"/>
+        <location filename="../src/stringizer.cpp" line="1572"/>
         <source>Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1416"/>
+        <location filename="../src/stringizer.cpp" line="1574"/>
         <source>Up/Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1417"/>
+        <location filename="../src/stringizer.cpp" line="1575"/>
         <source>Down/Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1418"/>
+        <location filename="../src/stringizer.cpp" line="1576"/>
         <source>Down/Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1419"/>
+        <location filename="../src/stringizer.cpp" line="1577"/>
         <source>Up/Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1429"/>
+        <location filename="../src/stringizer.cpp" line="1587"/>
         <source>Move Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1430"/>
+        <location filename="../src/stringizer.cpp" line="1588"/>
         <source>Move Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1431"/>
+        <location filename="../src/stringizer.cpp" line="1589"/>
         <source>Move Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1432"/>
+        <location filename="../src/stringizer.cpp" line="1590"/>
         <source>Move Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1433"/>
+        <location filename="../src/stringizer.cpp" line="1591"/>
         <source>Move Up/Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1434"/>
+        <location filename="../src/stringizer.cpp" line="1592"/>
         <source>Move Down/Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1435"/>
+        <location filename="../src/stringizer.cpp" line="1593"/>
         <source>Move Down/Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1436"/>
+        <location filename="../src/stringizer.cpp" line="1594"/>
         <source>Move Up/Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1437"/>
+        <location filename="../src/stringizer.cpp" line="1595"/>
         <source>Move Randomly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1438"/>
+        <location filename="../src/stringizer.cpp" line="1596"/>
         <source>Move Towards Hero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1439"/>
+        <location filename="../src/stringizer.cpp" line="1597"/>
         <source>Move Away from Hero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1440"/>
+        <location filename="../src/stringizer.cpp" line="1598"/>
         <source>Move Forward</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1441"/>
+        <location filename="../src/stringizer.cpp" line="1599"/>
         <source>Face Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1442"/>
+        <location filename="../src/stringizer.cpp" line="1600"/>
         <source>Face Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1443"/>
+        <location filename="../src/stringizer.cpp" line="1601"/>
         <source>Face Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1444"/>
+        <location filename="../src/stringizer.cpp" line="1602"/>
         <source>Face Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1445"/>
+        <location filename="../src/stringizer.cpp" line="1603"/>
         <source>Turn 90° Right</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1446"/>
+        <location filename="../src/stringizer.cpp" line="1604"/>
         <source>Turn 90° Left</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1447"/>
+        <location filename="../src/stringizer.cpp" line="1605"/>
         <source>Turn 180°</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1448"/>
+        <location filename="../src/stringizer.cpp" line="1606"/>
         <source>Turn 90° Randomly</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1449"/>
+        <location filename="../src/stringizer.cpp" line="1607"/>
         <source>Face Random Direction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1450"/>
+        <location filename="../src/stringizer.cpp" line="1608"/>
         <source>Face Hero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1451"/>
+        <location filename="../src/stringizer.cpp" line="1609"/>
         <source>Turn Away from Hero</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1453"/>
+        <location filename="../src/stringizer.cpp" line="1611"/>
         <source>Begin Jump</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1454"/>
+        <location filename="../src/stringizer.cpp" line="1612"/>
         <source>End Jump</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1455"/>
+        <location filename="../src/stringizer.cpp" line="1613"/>
         <source>Lock Facing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1456"/>
+        <location filename="../src/stringizer.cpp" line="1614"/>
         <source>Unlock Facing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1457"/>
+        <location filename="../src/stringizer.cpp" line="1615"/>
         <source>Increase Movement Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1458"/>
+        <location filename="../src/stringizer.cpp" line="1616"/>
         <source>Decrease Movement Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1459"/>
+        <location filename="../src/stringizer.cpp" line="1617"/>
         <source>Increase Movement Frequency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1460"/>
+        <location filename="../src/stringizer.cpp" line="1618"/>
         <source>Decrease Movement Frequency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1461"/>
+        <location filename="../src/stringizer.cpp" line="1619"/>
         <source>Switch ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1462"/>
+        <location filename="../src/stringizer.cpp" line="1620"/>
         <source>Switch OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1463"/>
+        <location filename="../src/stringizer.cpp" line="1621"/>
         <source>Change Graphic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1464"/>
+        <location filename="../src/stringizer.cpp" line="1622"/>
         <source>Play Sound Effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1465"/>
+        <location filename="../src/stringizer.cpp" line="1623"/>
         <source>Walk Everywhere ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1466"/>
+        <location filename="../src/stringizer.cpp" line="1624"/>
         <source>Walk Everywhere OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1467"/>
+        <location filename="../src/stringizer.cpp" line="1625"/>
         <source>Stop Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1468"/>
+        <location filename="../src/stringizer.cpp" line="1626"/>
         <source>Start Animation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1469"/>
+        <location filename="../src/stringizer.cpp" line="1627"/>
         <source>Increase Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1470"/>
+        <location filename="../src/stringizer.cpp" line="1628"/>
         <source>Decrease Transparency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1504"/>
+        <location filename="../src/stringizer.cpp" line="1662"/>
         <source>Fade Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1505"/>
-        <location filename="../src/stringizer.cpp" line="1541"/>
+        <location filename="../src/stringizer.cpp" line="1663"/>
+        <location filename="../src/stringizer.cpp" line="1699"/>
         <source>Random Blocks</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1507"/>
-        <location filename="../src/stringizer.cpp" line="1543"/>
+        <location filename="../src/stringizer.cpp" line="1665"/>
+        <location filename="../src/stringizer.cpp" line="1701"/>
         <source>Random Blocks Up</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1506"/>
-        <location filename="../src/stringizer.cpp" line="1542"/>
+        <location filename="../src/stringizer.cpp" line="1664"/>
+        <location filename="../src/stringizer.cpp" line="1700"/>
         <source>Random Blocks Down</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="162"/>
+        <location filename="../src/stringizer.cpp" line="106"/>
+        <source>Monster %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="133"/>
+        <location filename="../src/stringizer.cpp" line="745"/>
+        <source>Party</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="134"/>
+        <location filename="../src/stringizer.cpp" line="1334"/>
+        <source>All Monsters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="139"/>
+        <source>Ignore Battle Condition</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="155"/>
+        <source>Level 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="197"/>
         <source>Erase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="913"/>
+        <location filename="../src/stringizer.cpp" line="493"/>
+        <source>Skill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="520"/>
+        <source>Accessory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="541"/>
+        <source>can kill</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="556"/>
+        <location filename="../src/stringizer.cpp" line="1313"/>
+        <source>Inflict</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="630"/>
+        <source>Tiled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="630"/>
+        <source>Stretched</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="631"/>
+        <source>Font 2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="631"/>
+        <source>Font 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="653"/>
+        <source>Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="654"/>
+        <source>Background of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="658"/>
+        <source>No Escape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="660"/>
+        <source>First Strike</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="686"/>
+        <source>Shop %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="693"/>
+        <source>Inn %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="948"/>
         <source>(Whole Screen)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="962"/>
+        <location filename="../src/stringizer.cpp" line="954"/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="954"/>
+        <source>Hide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="998"/>
         <source>Fade In %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="964"/>
+        <location filename="../src/stringizer.cpp" line="1000"/>
         <source>Volume %1%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="966"/>
+        <location filename="../src/stringizer.cpp" line="1002"/>
         <source>Tempo %1%</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="968"/>
+        <location filename="../src/stringizer.cpp" line="1004"/>
         <source>Balance %1:%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1130"/>
+        <location filename="../src/stringizer.cpp" line="1176"/>
         <source>HP at least %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1169"/>
+        <location filename="../src/stringizer.cpp" line="1215"/>
         <source>Savegame Exists</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1172"/>
+        <location filename="../src/stringizer.cpp" line="1218"/>
         <source>Test Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1175"/>
+        <location filename="../src/stringizer.cpp" line="1221"/>
         <source>ATB Wait Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1178"/>
+        <location filename="../src/stringizer.cpp" line="1224"/>
         <source>Fullscreen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1206"/>
-        <location filename="../src/stringizer.cpp" line="1219"/>
-        <location filename="../src/stringizer.cpp" line="1223"/>
+        <location filename="../src/stringizer.cpp" line="1252"/>
+        <location filename="../src/stringizer.cpp" line="1265"/>
+        <location filename="../src/stringizer.cpp" line="1269"/>
         <source>Common Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1211"/>
+        <location filename="../src/stringizer.cpp" line="1257"/>
         <source>Page %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1214"/>
+        <location filename="../src/stringizer.cpp" line="1260"/>
         <source>Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1215"/>
+        <location filename="../src/stringizer.cpp" line="1261"/>
         <source>Page</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1508"/>
-        <source>Blind Close</source>
+        <location filename="../src/stringizer.cpp" line="1301"/>
+        <source>Can Kill</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1509"/>
-        <source>Vertical Stripes Out</source>
+        <location filename="../src/stringizer.cpp" line="1336"/>
+        <source>Party Member %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1510"/>
-        <source>Horizontal Stripes Out</source>
+        <location filename="../src/stringizer.cpp" line="1357"/>
+        <location filename="../src/stringizer.cpp" line="1360"/>
+        <source>%1 can act</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1511"/>
-        <source>Border to Center Out</source>
+        <location filename="../src/stringizer.cpp" line="1363"/>
+        <source>%1 is targeted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1512"/>
-        <source>Center to Border Out</source>
+        <location filename="../src/stringizer.cpp" line="1366"/>
+        <source>%1 uses %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1513"/>
-        <source>Scroll Up Out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1514"/>
-        <source>Scroll Down Out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1515"/>
-        <source>Scroll Left Out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1516"/>
-        <source>Scroll Right Out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1517"/>
-        <source>Vertical Division</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1518"/>
-        <source>Horizontal Division</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1519"/>
-        <source>Cross Division</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1520"/>
-        <source>Zoom In</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1521"/>
-        <source>Mosaic Out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1522"/>
-        <source>Wave Out</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1523"/>
-        <location filename="../src/stringizer.cpp" line="1559"/>
-        <source>Instant</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1527"/>
-        <location filename="../src/stringizer.cpp" line="1562"/>
-        <source>Use Default</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../src/stringizer.cpp" line="1540"/>
-        <source>Fade In</source>
+        <location filename="../src/stringizer.cpp" line="1543"/>
+        <source>Teleport, Erase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/stringizer.cpp" line="1544"/>
-        <source>Blind Open</source>
+        <source>Teleport, Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/stringizer.cpp" line="1545"/>
-        <source>Vertical Stripes In</source>
+        <source>Battle Start, Erase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/stringizer.cpp" line="1546"/>
-        <source>Horizontal Stripes In</source>
+        <source>Battle Start, Show</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/stringizer.cpp" line="1547"/>
-        <source>Border to Center In</source>
+        <source>Battle End, Erase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/stringizer.cpp" line="1548"/>
+        <source>Battle End, Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1666"/>
+        <source>Blind Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1667"/>
+        <source>Vertical Stripes Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1668"/>
+        <source>Horizontal Stripes Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1669"/>
+        <source>Border to Center Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1670"/>
+        <source>Center to Border Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1671"/>
+        <source>Scroll Up Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1672"/>
+        <source>Scroll Down Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1673"/>
+        <source>Scroll Left Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1674"/>
+        <source>Scroll Right Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1675"/>
+        <source>Vertical Division</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1676"/>
+        <source>Horizontal Division</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1677"/>
+        <source>Cross Division</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1678"/>
+        <source>Zoom In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1679"/>
+        <source>Mosaic Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1680"/>
+        <source>Wave Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1681"/>
+        <location filename="../src/stringizer.cpp" line="1717"/>
+        <source>Instant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1685"/>
+        <location filename="../src/stringizer.cpp" line="1720"/>
+        <source>Use Default</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1698"/>
+        <source>Fade In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1702"/>
+        <source>Blind Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1703"/>
+        <source>Vertical Stripes In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1704"/>
+        <source>Horizontal Stripes In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1705"/>
+        <source>Border to Center In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/stringizer.cpp" line="1706"/>
         <source>Center to Border In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1549"/>
+        <location filename="../src/stringizer.cpp" line="1707"/>
         <source>Scroll Up In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1550"/>
+        <location filename="../src/stringizer.cpp" line="1708"/>
         <source>Scroll Down In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1551"/>
+        <location filename="../src/stringizer.cpp" line="1709"/>
         <source>Scroll Left In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1552"/>
+        <location filename="../src/stringizer.cpp" line="1710"/>
         <source>Scroll Right In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1553"/>
+        <location filename="../src/stringizer.cpp" line="1711"/>
         <source>Vertical Combine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1554"/>
+        <location filename="../src/stringizer.cpp" line="1712"/>
         <source>Horizontal Combine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1555"/>
+        <location filename="../src/stringizer.cpp" line="1713"/>
         <source>Cross Combine</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1556"/>
+        <location filename="../src/stringizer.cpp" line="1714"/>
         <source>Zoom Out</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1557"/>
+        <location filename="../src/stringizer.cpp" line="1715"/>
         <source>Mosaic In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1558"/>
+        <location filename="../src/stringizer.cpp" line="1716"/>
         <source>Wave In</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="134"/>
-        <location filename="../src/stringizer.cpp" line="1619"/>
+        <location filename="../src/stringizer.cpp" line="1777"/>
         <source>Enter/Exit Vehicle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="146"/>
-        <location filename="../src/stringizer.cpp" line="1639"/>
+        <location filename="../src/stringizer.cpp" line="1797"/>
         <source>Proceed With Movement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="147"/>
-        <location filename="../src/stringizer.cpp" line="1640"/>
+        <location filename="../src/stringizer.cpp" line="1798"/>
         <source>Halt All Movement</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="187"/>
-        <location filename="../src/stringizer.cpp" line="1644"/>
+        <location filename="../src/stringizer.cpp" line="1802"/>
         <source>Memorize BGM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="188"/>
-        <location filename="../src/stringizer.cpp" line="1645"/>
+        <location filename="../src/stringizer.cpp" line="1803"/>
         <source>Play Memorized BGM</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="115"/>
-        <location filename="../src/stringizer.cpp" line="1657"/>
+        <location filename="../src/stringizer.cpp" line="1815"/>
         <source>Open Save Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="116"/>
-        <location filename="../src/stringizer.cpp" line="1659"/>
+        <location filename="../src/stringizer.cpp" line="1817"/>
         <source>Open Main Menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="60"/>
-        <location filename="../src/stringizer.cpp" line="1664"/>
+        <location filename="../src/stringizer.cpp" line="1822"/>
         <source>Loop</source>
         <translation type="unfinished"></translation>
     </message>
@@ -8534,92 +10158,95 @@ This cannot be undone. Do you want to continue?</source>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="61"/>
-        <location filename="../src/stringizer.cpp" line="1665"/>
+        <location filename="../src/stringizer.cpp" line="1823"/>
         <source>Break Loop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="67"/>
-        <location filename="../src/stringizer.cpp" line="1666"/>
+        <location filename="../src/stringizer.cpp" line="1824"/>
         <source>End Event Processing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="68"/>
-        <location filename="../src/stringizer.cpp" line="1667"/>
+        <location filename="../src/stringizer.cpp" line="1825"/>
         <source>Erase Event</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="120"/>
-        <location filename="../src/stringizer.cpp" line="1671"/>
+        <location filename="../src/stringizer.cpp" line="1829"/>
         <source>Return to Title Screen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="198"/>
+        <location filename="../src/stringizer.cpp" line="1299"/>
         <source>Change Monster HP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="199"/>
+        <location filename="../src/stringizer.cpp" line="1306"/>
         <source>Change Monster MP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="200"/>
+        <location filename="../src/stringizer.cpp" line="1312"/>
         <source>Change Monster Condition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/model/event_command_templates.cpp" line="209"/>
-        <location filename="../src/stringizer.cpp" line="1679"/>
+        <location filename="../src/stringizer.cpp" line="1837"/>
         <source>Terminate Battle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1682"/>
-        <location filename="../src/stringizer.cpp" line="1686"/>
-        <location filename="../src/stringizer.cpp" line="1689"/>
-        <location filename="../src/stringizer.cpp" line="1692"/>
-        <location filename="../src/stringizer.cpp" line="1694"/>
-        <location filename="../src/stringizer.cpp" line="1698"/>
+        <location filename="../src/stringizer.cpp" line="1840"/>
+        <location filename="../src/stringizer.cpp" line="1844"/>
+        <location filename="../src/stringizer.cpp" line="1847"/>
+        <location filename="../src/stringizer.cpp" line="1850"/>
+        <location filename="../src/stringizer.cpp" line="1852"/>
+        <location filename="../src/stringizer.cpp" line="1856"/>
         <source>End</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1685"/>
+        <location filename="../src/stringizer.cpp" line="1843"/>
         <source>Defeat</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1687"/>
+        <location filename="../src/stringizer.cpp" line="1845"/>
         <source>Transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1688"/>
+        <location filename="../src/stringizer.cpp" line="1846"/>
         <source>No Transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1690"/>
+        <location filename="../src/stringizer.cpp" line="1848"/>
         <source>Stay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1691"/>
+        <location filename="../src/stringizer.cpp" line="1849"/>
         <source>No Stay</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1693"/>
-        <location filename="../src/stringizer.cpp" line="1697"/>
+        <location filename="../src/stringizer.cpp" line="1851"/>
+        <location filename="../src/stringizer.cpp" line="1855"/>
         <source>Else</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/stringizer.cpp" line="1695"/>
+        <location filename="../src/stringizer.cpp" line="1853"/>
         <source>End Loop</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9146,24 +10773,68 @@ This cannot be undone. Do you want to continue?</source>
     </message>
 </context>
 <context>
+    <name>TileSubstitutionWidget</name>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="9"/>
+        <source>Tile Substitution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="14"/>
+        <source>Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="18"/>
+        <source>Lower Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="24"/>
+        <source>Upper Layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="33"/>
+        <source>Tiles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="35"/>
+        <source>Replace tile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="38"/>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="44"/>
+        <source>Position of the tile in the chipset palette of the layer, starting at 0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/tile_substitution_widget.ui" line="41"/>
+        <source>With tile:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TimerOperandWidget</name>
     <message>
-        <location filename="../src/ui/common/operand_widget.cpp" line="137"/>
+        <location filename="../src/ui/common/operand_widget.cpp" line="139"/>
         <source>Constant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/common/operand_widget.cpp" line="139"/>
+        <location filename="../src/ui/common/operand_widget.cpp" line="141"/>
         <source>By Variable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/common/operand_widget.cpp" line="146"/>
+        <location filename="../src/ui/common/operand_widget.cpp" line="148"/>
         <source>Seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/ui/common/operand_widget.cpp" line="148"/>
+        <location filename="../src/ui/common/operand_widget.cpp" line="150"/>
         <source>Minutes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9284,6 +10955,24 @@ This cannot be undone. Do you want to continue?</source>
     <message>
         <location filename="../src/ui/commands/tint_screen_widget.ui" line="178"/>
         <source>Wait for Completion</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TradeEventLocationsWidget</name>
+    <message>
+        <location filename="../src/ui/commands/trade_event_locations_widget.ui" line="9"/>
+        <source>Trade Event Locations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/trade_event_locations_widget.ui" line="14"/>
+        <source>First Event</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/ui/commands/trade_event_locations_widget.ui" line="22"/>
+        <source>Second Event</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
