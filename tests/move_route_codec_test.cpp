@@ -63,6 +63,43 @@ int main() {
 	MoveRouteCodec::Encode(encoded, route);
 	check(encoded == lcf::DBArray<int32_t>({10001, 3, 1, 1, 0}), "encoding keeps target, frequency, repeat and skip");
 
+	// Commands built from scratch, as the editor does when adding them
+	std::vector<lcf::rpg::MoveCommand> built(4);
+	built[0].command_id = static_cast<int>(Code::switch_off);
+	built[0].parameter_a = 12;
+	built[1].command_id = static_cast<int>(Code::change_graphic);
+	built[1].parameter_string = lcf::DBString("Hero");
+	built[1].parameter_a = 7;
+	built[2].command_id = static_cast<int>(Code::play_sound_effect);
+	built[2].parameter_string = lcf::DBString("Door");
+	built[2].parameter_a = 90;
+	built[2].parameter_b = 150;
+	built[2].parameter_c = 0;
+	built[3].command_id = static_cast<int>(Code::wait);
+	MoveRouteCodec::Encode(encoded, built);
+	check(encoded == lcf::DBArray<int32_t>({10001, 3, 1, 1,
+		33, 12,
+		34, 4, 'H', 'e', 'r', 'o', 7,
+		35, 4, 'D', 'o', 'o', 'r', 90, 150, 0,
+		23}), "switch, graphic and sound are encoded");
+	std::vector<lcf::rpg::MoveCommand> decoded;
+	check(MoveRouteCodec::Decode(encoded, decoded) && decoded.size() == 4
+		&& decoded[0].command_id == built[0].command_id && decoded[0].parameter_a == 12
+		&& decoded[1].parameter_string == "Hero" && decoded[1].parameter_a == 7
+		&& decoded[2].parameter_string == "Door" && decoded[2].parameter_a == 90
+		&& decoded[2].parameter_b == 150 && decoded[2].parameter_c == 0
+		&& decoded[3].command_id == built[3].command_id, "built commands round-trip");
+
+	// Names are stored in the game encoding, the route holds UTF-8
+	built.resize(1);
+	built[0].command_id = static_cast<int>(Code::change_graphic);
+	built[0].parameter_string = lcf::DBString("Caf\xc3\xa9");
+	built[0].parameter_a = 1;
+	MoveRouteCodec::Encode(encoded, built, "1252");
+	check(encoded == lcf::DBArray<int32_t>({10001, 3, 1, 1, 34, 4, 'C', 'a', 'f', 0xe9, 1}), "names are converted to the game encoding");
+	check(MoveRouteCodec::Decode(encoded, decoded, "1252") && decoded.size() == 1
+		&& decoded[0].parameter_string == "Caf\xc3\xa9", "names are converted to UTF-8");
+
 	lcf::DBArray<int32_t> truncated = {10001, 3, 0, 0, 34, 5, 'a'};
 	check(!MoveRouteCodec::Decode(truncated, route) && route.empty(), "truncated data is rejected");
 

@@ -16,6 +16,7 @@
  */
 
 #include "move_route_codec.h"
+#include <lcf/encoder.h>
 #include <algorithm>
 
 namespace {
@@ -29,7 +30,7 @@ bool ReadInt(const lcf::DBArray<int32_t>& parameters, size_t& i, int32_t& out) {
 	return true;
 }
 
-bool ReadString(const lcf::DBArray<int32_t>& parameters, size_t& i, lcf::DBString& out) {
+bool ReadString(const lcf::DBArray<int32_t>& parameters, size_t& i, lcf::DBString& out, lcf::Encoder& encoder) {
 	int32_t length;
 	if (!ReadInt(parameters, i, length) || length < 0 || i + length > parameters.size()) {
 		return false;
@@ -38,11 +39,14 @@ bool ReadString(const lcf::DBArray<int32_t>& parameters, size_t& i, lcf::DBStrin
 	for (int32_t j = 0; j < length; ++j) {
 		str.push_back(static_cast<char>(parameters[i++]));
 	}
+	encoder.Encode(str);
 	out = lcf::DBString(str);
 	return true;
 }
 
-void WriteString(std::vector<int32_t>& out, const lcf::DBString& str) {
+void WriteString(std::vector<int32_t>& out, const lcf::DBString& name, lcf::Encoder& encoder) {
+	std::string str(name.c_str(), name.size());
+	encoder.Decode(str);
 	out.push_back(static_cast<int32_t>(str.size()));
 	for (char c : str) {
 		out.push_back(static_cast<unsigned char>(c));
@@ -50,8 +54,9 @@ void WriteString(std::vector<int32_t>& out, const lcf::DBString& str) {
 }
 }
 
-bool MoveRouteCodec::Decode(const lcf::DBArray<int32_t>& parameters, std::vector<lcf::rpg::MoveCommand>& commands) {
+bool MoveRouteCodec::Decode(const lcf::DBArray<int32_t>& parameters, std::vector<lcf::rpg::MoveCommand>& commands, const std::string& encoding) {
 	commands.clear();
+	lcf::Encoder encoder(encoding);
 
 	for (size_t i = first_command; i < parameters.size();) {
 		lcf::rpg::MoveCommand cmd;
@@ -64,11 +69,11 @@ bool MoveRouteCodec::Decode(const lcf::DBArray<int32_t>& parameters, std::vector
 				ok = ReadInt(parameters, i, cmd.parameter_a);
 				break;
 			case Code::change_graphic:
-				ok = ReadString(parameters, i, cmd.parameter_string)
+				ok = ReadString(parameters, i, cmd.parameter_string, encoder)
 					&& ReadInt(parameters, i, cmd.parameter_a);
 				break;
 			case Code::play_sound_effect:
-				ok = ReadString(parameters, i, cmd.parameter_string)
+				ok = ReadString(parameters, i, cmd.parameter_string, encoder)
 					&& ReadInt(parameters, i, cmd.parameter_a)
 					&& ReadInt(parameters, i, cmd.parameter_b)
 					&& ReadInt(parameters, i, cmd.parameter_c);
@@ -87,7 +92,8 @@ bool MoveRouteCodec::Decode(const lcf::DBArray<int32_t>& parameters, std::vector
 	return true;
 }
 
-void MoveRouteCodec::Encode(lcf::DBArray<int32_t>& parameters, const std::vector<lcf::rpg::MoveCommand>& commands) {
+void MoveRouteCodec::Encode(lcf::DBArray<int32_t>& parameters, const std::vector<lcf::rpg::MoveCommand>& commands, const std::string& encoding) {
+	lcf::Encoder encoder(encoding);
 	std::vector<int32_t> out(parameters.begin(), parameters.begin() + std::min<size_t>(parameters.size(), first_command));
 	out.resize(first_command, 0);
 
@@ -100,11 +106,11 @@ void MoveRouteCodec::Encode(lcf::DBArray<int32_t>& parameters, const std::vector
 				out.push_back(cmd.parameter_a);
 				break;
 			case Code::change_graphic:
-				WriteString(out, cmd.parameter_string);
+				WriteString(out, cmd.parameter_string, encoder);
 				out.push_back(cmd.parameter_a);
 				break;
 			case Code::play_sound_effect:
-				WriteString(out, cmd.parameter_string);
+				WriteString(out, cmd.parameter_string, encoder);
 				out.push_back(cmd.parameter_a);
 				out.push_back(cmd.parameter_b);
 				out.push_back(cmd.parameter_c);
