@@ -906,9 +906,9 @@ namespace
 	{
 		QString movements;
 		std::vector<lcf::rpg::MoveCommand> route;
-		MoveRouteCodec::Decode(com.parameters, route);
+		MoveRouteCodec::Decode(com.parameters, route, core().project()->encoding().toStdString());
 		for (size_t i = 0; i < 4 && i < route.size(); ++i)
-			movements.append(", ").append(Stringizer::moveCommand(route[i].command_id));
+			movements.append(", ").append(Stringizer::moveCommand(route[i]));
 		if (route.size() > 4)
 			movements.append("...");
 		return Stringizer::tr("Move Event") + ": " + characterName(com.parameters[0]) + movements;
