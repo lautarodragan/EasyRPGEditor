@@ -1076,7 +1076,7 @@ namespace
 		case 0: // Switch
 			condition = QString("S[%1:%2]").arg(com.parameters[1], 4, 10, QChar('0'))
 										   .arg(Stringizer::switchName(com.parameters[1])) + " "
-				+ (com.parameters[2] ? Stringizer::tr("ON") : Stringizer::tr("OFF"));
+				+ (com.parameters[2] == 0 ? Stringizer::tr("ON") : Stringizer::tr("OFF"));
 			break;
 		case 1: // Variable
 			condition = variable(com.parameters[1], true) + " ";
@@ -1127,7 +1127,7 @@ namespace
 					condition += Stringizer::tr("Level at least %1").arg(QString::number(com.parameters[3]));
 					break;
 				case 3: // Higher or equal HP
-					condition += Stringizer::tr("HP over %1").arg(QString::number(com.parameters[3]));
+					condition += Stringizer::tr("HP at least %1").arg(QString::number(com.parameters[3]));
 					break;
 				case 4: // Is skill learned
 					condition += Stringizer::tr("Can use %1").arg(Stringizer::skillName(com.parameters[3]));
@@ -1163,11 +1163,26 @@ namespace
 				+ (com.parameters[2] ? "<=" : ">=") + " "
 				+ formatTime(com.parameters[1]);
 			break;
-		case 11:
-			// RPG Maker 2003 v1.11 features
-			// TODO
+		case 11: // RPG Maker 2003 v1.11 features
+			switch (com.parameters[1]) {
+				case 0:
+					condition = Stringizer::tr("Savegame Exists");
+					break;
+				case 1:
+					condition = Stringizer::tr("Test Play");
+					break;
+				case 2:
+					condition = Stringizer::tr("ATB Wait Mode");
+					break;
+				case 3:
+					condition = Stringizer::tr("Fullscreen");
+					break;
+				default:
+					condition = Stringizer::tr("Unknown");
+			}
+			break;
 		default:
-			return Stringizer::tr("Unknown");
+			return Stringizer::tr("Branch if") + " " + Stringizer::tr("Unknown") + " (" + QString::number(com.parameters[0]) + ")";
 		}
 		return Stringizer::tr("Branch if") + " " + condition;
 	}
