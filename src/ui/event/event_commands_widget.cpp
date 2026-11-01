@@ -78,12 +78,34 @@ WidgetAsDialogWrapper<T, EventCommandList>* make_complex_evt_dialog(ProjectData*
 namespace {
 using Cmd = lcf::rpg::EventCommand::Code;
 
+// Code of the additional lines of a command with several lines,
+// END when the command has a single line.
+// A ShowMessage is followed by one ShowMessage_2 per additional line,
+// a Comment by one Comment_2.
+Cmd continuationCode(Cmd code) {
+	switch (code) {
+		case Cmd::ShowMessage: return Cmd::ShowMessage_2;
+		case Cmd::Comment: return Cmd::Comment_2;
+		default: return Cmd::END;
+	}
+}
+
+// Code of the first line of a command with several lines
+// for the code of its additional lines, END for other codes.
+Cmd firstLineCode(Cmd code) {
+	switch (code) {
+		case Cmd::ShowMessage_2: return Cmd::ShowMessage;
+		case Cmd::Comment_2: return Cmd::Comment;
+		default: return Cmd::END;
+	}
+}
+
 // Index past the last line of the command at index.
-// A ShowMessage is followed by one ShowMessage_2 per additional line.
 size_t commandEnd(const std::vector<lcf::rpg::EventCommand>& commands, size_t index) {
 	size_t end = index + 1;
-	if (static_cast<Cmd>(commands[index].code) == Cmd::ShowMessage) {
-		while (end < commands.size() && static_cast<Cmd>(commands[end].code) == Cmd::ShowMessage_2) {
+	Cmd continuation = continuationCode(static_cast<Cmd>(commands[index].code));
+	if (continuation != Cmd::END) {
+		while (end < commands.size() && static_cast<Cmd>(commands[end].code) == continuation) {
 			++end;
 		}
 	}
@@ -168,8 +190,8 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		return;
 	}
 
-	if (m_commands->size() != old_size) {
-		// Lines were added to or removed from a message, the following items moved
+	if (m_commands->size() != old_size || static_cast<Cmd>((*m_commands)[index].code) == Cmd::ShowChoice) {
+		// Lines were added to or removed from a message, comment or choice, the following items moved
 		refreshList();
 		selectIndex(index);
 	} else {
@@ -184,16 +206,22 @@ int EventCommandsWidget::openEditor(int index) {
 
 	std::unique_ptr<QDialog> evt_dialog;
 
-	// The list shows a ShowMessage and its ShowMessage_2 lines as one item,
-	// but a stray ShowMessage_2 must still open the ShowMessage above it.
+	// The list shows a ShowMessage and its ShowMessage_2 lines as one item
+	// (likewise Comment and Comment_2), but a stray additional line must
+	// still open the first line above it.
 	// Only move the index: cmd refers to the command stored in the list.
 	auto code = static_cast<Cmd>(cmd.code);
-	if (code == Cmd::ShowMessage_2) {
-		while (index > 0 && static_cast<Cmd>((*m_commands)[index].code) == Cmd::ShowMessage_2) {
+	Cmd first_line = firstLineCode(code);
+	if (first_line != Cmd::END) {
+		while (index > 0 && static_cast<Cmd>((*m_commands)[index].code) == code) {
 			--index;
 		}
-		Q_ASSERT(static_cast<Cmd>((*m_commands)[index].code) == Cmd::ShowMessage && "Event list corrupted: ShowMessage_2 without ShowMessage");
-		code = Cmd::ShowMessage;
+		if (static_cast<Cmd>((*m_commands)[index].code) != first_line) {
+			// Additional lines without a first line: Only the raw editor can handle them
+			editRawEvent(item, column, true);
+			return;
+		}
+		code = first_line;
 	}
 
 	EventCommandList evt_lst(*m_commands, index);
@@ -206,8 +234,8 @@ int EventCommandsWidget::openEditor(int index) {
 		//case Cmd::ChangeBattleCommands: evt_dialog.reset(make_evt_dialog<ChangeBattleCommandsWidget>(m_project, cmd, this)); break;
 		case Cmd::ShowMessage: evt_dialog.reset(make_complex_evt_dialog<ShowMessageWidget>(m_project, evt_lst, this)); break;
 		case Cmd::MessageOptions: evt_dialog.reset(make_evt_dialog<MessageOptionsWidget>(m_project, cmd, this)); break;
-		//case Cmd::ChangeFaceGraphic: evt_dialog.reset(make_evt_dialog<ChangeFaceGraphicWidget>(m_project, cmd, this)); break;
-		//case Cmd::ShowChoice: evt_dialog.reset(make_evt_dialog<ShowChoiceWidget>(m_project, cmd, this)); break;
+		case Cmd::ChangeFaceGraphic: evt_dialog.reset(make_evt_dialog<FaceGraphicsWidget>(m_project, cmd, this)); break;
+		case Cmd::ShowChoice: evt_dialog.reset(make_complex_evt_dialog<ShowChoicesWidget>(m_project, evt_lst, this)); break;
 		//case Cmd::InputNumber: evt_dialog.reset(make_evt_dialog<InputNumberWidget>(m_project, cmd, this)); break;
 		case Cmd::ControlSwitches: evt_dialog.reset(make_evt_dialog<SwitchOperationsWidget>(m_project, cmd, this)); break;
 		case Cmd::ControlVars: evt_dialog.reset(make_evt_dialog<VariableOperationsWidget>(m_project, cmd, this)); break;
@@ -281,7 +309,7 @@ int EventCommandsWidget::openEditor(int index) {
 		//case Cmd::Label: evt_dialog.reset(make_evt_dialog<LabelWidget>(m_project, cmd, this)); break;
 		//case Cmd::JumpToLabel: evt_dialog.reset(make_evt_dialog<JumpToLabelWidget>(m_project, cmd, this)); break;
 		case Cmd::CallEvent: evt_dialog.reset(make_evt_dialog<CallEventWidget>(m_project, cmd, this)); break;
-		//case Cmd::Comment: evt_dialog.reset(make_evt_dialog<CommentWidget>(m_project, cmd, this)); break;
+		case Cmd::Comment: evt_dialog.reset(make_complex_evt_dialog<CommentWidget>(m_project, evt_lst, this)); break;
 		//case Cmd::ChangeMonsterHP: evt_dialog.reset(make_evt_dialog<ChangeMonsterHPWidget>(m_project, cmd, this)); break;
 		//case Cmd::ChangeMonsterMP: evt_dialog.reset(make_evt_dialog<ChangeMonsterMPWidget>(m_project, cmd, this)); break;
 		//case Cmd::ChangeMonsterCondition: evt_dialog.reset(make_evt_dialog<ChangeMonsterConditionWidget>(m_project, cmd, this)); break;
@@ -289,7 +317,6 @@ int EventCommandsWidget::openEditor(int index) {
 		//case Cmd::ChangeBattleBG: evt_dialog.reset(make_evt_dialog<ChangeBattleBGWidget>(m_project, cmd, this)); break;
 		//case Cmd::ShowBattleAnimation_B: evt_dialog.reset(make_evt_dialog<ShowBattleAnimation_BWidget>(m_project, cmd, this)); break;
 		//case Cmd::ConditionalBranch_B: evt_dialog.reset(make_evt_dialog<ConditionalBranch_BWidget>(m_project, cmd, this)); break;
-		//case Cmd::Comment_2: evt_dialog.reset(make_evt_dialog<Comment_2Widget>(m_project, cmd, this)); break;
 		//case Cmd::Maniac_GetSaveInfo: evt_dialog.reset(make_evt_dialog<Maniac_GetSaveInfoWidget>(m_project, cmd, this)); break;
 		//case Cmd::Maniac_Save: evt_dialog.reset(make_evt_dialog<Maniac_SaveWidget>(m_project, cmd, this)); break;
 		//case Cmd::Maniac_Load: evt_dialog.reset(make_evt_dialog<Maniac_LoadWidget>(m_project, cmd, this)); break;
@@ -559,7 +586,7 @@ void EventCommandsWidget::refreshList() {
 
 		prev_indent = indent;
 
-		// Skip the additional lines of a message, they are part of this item
+		// Skip the additional lines of a message or comment, they are part of this item
 		size_t end = commandEnd(*m_commands, i);
 		for (++i; i < end; ++i) {
 			(*m_commands)[i].indent = indent;

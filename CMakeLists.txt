@@ -148,6 +148,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/change_vehicle_graphic_widget.cpp
 	src/ui/commands/change_vehicle_graphic_widget.h
 	src/ui/commands/change_vehicle_graphic_widget.ui
+	src/ui/commands/comment_widget.cpp
+	src/ui/commands/comment_widget.h
+	src/ui/commands/comment_widget.ui
 	src/ui/commands/enable_disable_widget.cpp
 	src/ui/commands/enable_disable_widget.h
 	src/ui/commands/enable_disable_widget.ui

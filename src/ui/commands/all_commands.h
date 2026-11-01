@@ -27,6 +27,7 @@
 #include "change_level_widget.h"
 #include "change_party_widget.h"
 #include "change_vehicle_graphic_widget.h"
+#include "comment_widget.h"
 #include "enable_disable_widget.h"
 #include "fade_out_bgm_widget.h"
 #include "flash_screen_widget.h"

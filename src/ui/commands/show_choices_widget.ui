@@ -1,224 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>ShowChoicesWidget</class>
- <widget class="QDialog" name="ShowChoicesWidget">
-  <property name="windowModality">
-   <enum>Qt::WindowModal</enum>
-  </property>
+ <widget class="QWidget" name="ShowChoicesWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>530</width>
-    <height>438</height>
+    <width>560</width>
+    <height>260</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Show Choices</string>
+   <string>Show Choice</string>
   </property>
-  <property name="modal">
-   <bool>true</bool>
-  </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+  <layout class="QGridLayout" name="gridLayout" columnstretch="1,0">
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="groupChoices">
+     <property name="title">
+      <string>Choices</string>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <layout class="QGridLayout" name="gridLayoutChoices">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelChoice1">
+        <property name="text">
+         <string>Choice 1:</string>
+        </property>
+        <property name="buddy">
+         <cstring>editChoice1</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="editChoice1"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelChoice2">
+        <property name="text">
+         <string>Choice 2:</string>
+        </property>
+        <property name="buddy">
+         <cstring>editChoice2</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="editChoice2"/>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelChoice3">
+        <property name="text">
+         <string>Choice 3:</string>
+        </property>
+        <property name="buddy">
+         <cstring>editChoice3</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="editChoice3"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="labelChoice4">
+        <property name="text">
+         <string>Choice 4:</string>
+        </property>
+        <property name="buddy">
+         <cstring>editChoice4</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="editChoice4"/>
+      </item>
+      <item row="4" column="0" colspan="2">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>0</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QGroupBox" name="groupCancel">
+     <property name="title">
+      <string>When cancelled</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
+     <layout class="QVBoxLayout" name="verticalLayoutCancel">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="title">
-           <string>Choice 1</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-            <widget class="QLineEdit" name="lineEdit"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="title">
-           <string>Chocie 2</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_6">
-           <item>
-            <widget class="QLineEdit" name="lineEdit_2"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_4">
-          <property name="title">
-           <string>Choice 3</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QLineEdit" name="lineEdit_3"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="title">
-           <string>Choice 4</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QLineEdit" name="lineEdit_4"/>
-           </item>
-          </layout>
-         </widget>
-        </item>
-       </layout>
+       <widget class="QRadioButton" name="buttonCancelDisallow">
+        <property name="text">
+         <string>Disallow</string>
+        </property>
+       </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_5">
-        <property name="title">
-         <string>Cancellation behavoir</string>
+       <widget class="QRadioButton" name="buttonCancelChoice1">
+        <property name="text">
+         <string>Same as choice 1</string>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
-         <item>
-          <widget class="QRadioButton" name="radioButton">
-           <property name="text">
-            <string>Ignore</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_2">
-           <property name="text">
-            <string>Select choice 1</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_5">
-           <property name="text">
-            <string>Select choice 2</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_4">
-           <property name="text">
-            <string>Select choice 3</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_3">
-           <property name="text">
-            <string>Select choice 4</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radioButton_6">
-           <property name="text">
-            <string>Execute Handler</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="verticalSpacer">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="buttonCancelChoice2">
+        <property name="text">
+         <string>Same as choice 2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="buttonCancelChoice3">
+        <property name="text">
+         <string>Same as choice 3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="buttonCancelChoice4">
+        <property name="text">
+         <string>Same as choice 4</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="buttonCancelBranch">
+        <property name="text">
+         <string>Separate cancel branch</string>
+        </property>
        </widget>
       </item>
      </layout>
     </widget>
    </item>
-   <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+   <item row="1" column="0" colspan="2">
+    <widget class="QLabel" name="labelWarning">
+     <property name="text">
+      <string/>
      </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Help|QDialogButtonBox::Ok</set>
-     </property>
-     <property name="centerButtons">
-      <bool>false</bool>
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>accepted()</signal>
-   <receiver>ShowChoicesWidget</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>248</x>
-     <y>254</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>157</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>rejected()</signal>
-   <receiver>ShowChoicesWidget</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>316</x>
-     <y>260</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>286</x>
-     <y>274</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonBox</sender>
-   <signal>helpRequested()</signal>
-   <receiver>ShowChoicesWidget</receiver>
-   <slot>helpRequest()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>298</x>
-     <y>204</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>298</x>
-     <y>113</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
- <slots>
-  <slot>helpRequest()</slot>
-  <slot>textChanged()</slot>
- </slots>
+ <connections/>
 </ui>
