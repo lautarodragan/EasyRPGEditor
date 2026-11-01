@@ -53,6 +53,8 @@ set(EDITOR_SOURCES
 	src/common/filefinder.h
 	src/common/image_loader.cpp
 	src/common/image_loader.h
+	src/common/midi_loop.cpp
+	src/common/midi_loop.h
 	src/common/lcf_widget_binding.cpp
 	src/common/lcf_widget_binding.h
 	src/common/scope_guard.h
@@ -590,6 +592,12 @@ if(EDITOR_BUILD_TESTS)
 		target_link_libraries(move_route_codec_test PRIVATE liblcf::liblcf)
 	endif()
 	add_test(NAME move_route_codec_test COMMAND move_route_codec_test)
+
+	add_executable(midi_loop_test
+		tests/midi_loop_test.cpp
+		src/common/midi_loop.cpp)
+	target_include_directories(midi_loop_test PRIVATE src)
+	add_test(NAME midi_loop_test COMMAND midi_loop_test)
 endif()
 
 # Libraries
