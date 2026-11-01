@@ -16,6 +16,12 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QPlainTextEdit" name="comment">
+     <property name="minimumSize">
+      <size>
+       <width>480</width>
+       <height>160</height>
+      </size>
+     </property>
      <property name="lineWrapMode">
       <enum>QPlainTextEdit::NoWrap</enum>
      </property>
