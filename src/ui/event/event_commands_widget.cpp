@@ -19,11 +19,15 @@
 #include "stringizer.h"
 #include "model/event_command_list.h"
 #include "ui/commands/all_commands.h"
+#include "model/event_command_templates.h"
 #include "ui/event/event_raw_widget.h"
+#include "ui/event/insert_command_dialog.h"
 #include "ui/common/widget_as_dialog_wrapper.h"
 #include <iostream>
 #include <QMenu>
 #include <QAction>
+#include <QKeyEvent>
+#include <QTreeWidgetItemIterator>
 #include <memory>
 
 
@@ -39,14 +43,17 @@ EventCommandsWidget::EventCommandsWidget(QWidget* parent) :
 }
 
 void EventCommandsWidget::setData(ProjectData& project, lcf::rpg::CommonEvent* event) {
+	m_battle = false;
 	setDataInternal(project, event);
 }
 
 void EventCommandsWidget::setData(ProjectData& project, lcf::rpg::TroopPage* event) {
+	m_battle = true;
 	setDataInternal(project, event);
 }
 
 void EventCommandsWidget::setData(ProjectData& project, lcf::rpg::EventPage* event) {
+	m_battle = false;
 	setDataInternal(project, event);
 }
 
@@ -97,11 +104,21 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 
 	using Cmd = lcf::rpg::EventCommand::Code;
 
+	// Like in RPG Maker, an empty line inserts a command before it
+	if (isEndLine(item)) {
+		insertCommand(nullptr);
+		return;
+	}
+
 	auto& cmd = *static_cast<lcf::rpg::EventCommand*>(item->data(column, Qt::UserRole).value<void*>());
+
+	if (static_cast<Cmd>(cmd.code) == Cmd::END) {
+		insertCommand(item);
+		return;
+	}
 
 	// Commands with no configuration
 	switch (static_cast<Cmd>(cmd.code))	{
-		case Cmd::END:
 		case Cmd::EnterExitVehicle:
 		case Cmd::ProceedWithMovement:
 		case Cmd::HaltAllMovement:
@@ -143,9 +160,29 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 			break;
 	}
 
-	std::unique_ptr<QDialog> evt_dialog;
-
 	int index = item->text(1).toInt();
+	size_t old_size = m_commands->size();
+
+	if (openEditor(index) == NoEditor) {
+		editRawEvent(item, column, true);
+		return;
+	}
+
+	if (m_commands->size() != old_size) {
+		// Lines were added to or removed from a message, the following items moved
+		refreshList();
+		selectIndex(index);
+	} else {
+		item->setData(column, Qt::DisplayRole, commandText(*m_commands, index));
+	}
+}
+
+int EventCommandsWidget::openEditor(int index) {
+	using Cmd = lcf::rpg::EventCommand::Code;
+
+	auto& cmd = (*m_commands)[index];
+
+	std::unique_ptr<QDialog> evt_dialog;
 
 	// The list shows a ShowMessage and its ShowMessage_2 lines as one item,
 	// but a stray ShowMessage_2 must still open the ShowMessage above it.
@@ -272,20 +309,10 @@ void EventCommandsWidget::editEvent(QTreeWidgetItem* item, int column) {
 		//case Cmd::Maniac_ChangePictureId: evt_dialog.reset(make_evt_dialog<Maniac_ChangePictureIdWidget>(m_project, cmd, this)); break;
 		//case Cmd::Maniac_SetGameOption: evt_dialog.reset(make_evt_dialog<Maniac_SetGameOptionWidget>(m_project, cmd, this)); break;
 		//case Cmd::Maniac_CallCommand: evt_dialog.reset(make_evt_dialog<Maniac_CallCommandWidget>(m_project, cmd, this)); break;
-		default: editRawEvent(item, column, true); return;
+		default: return NoEditor;
 	}
 
-	size_t old_size = m_commands->size();
-
-	evt_dialog->exec();
-
-	if (m_commands->size() != old_size) {
-		// Lines were added to or removed from a message, the following items moved
-		refreshList();
-		setCurrentItem(findItems(QString::number(index), Qt::MatchExactly | Qt::MatchRecursive, 1).value(0));
-	} else {
-		item->setData(column, Qt::DisplayRole, commandText(*m_commands, index));
-	}
+	return evt_dialog->exec();
 }
 
 void EventCommandsWidget::addRawEvent(QTreeWidgetItem *item) {
@@ -310,45 +337,154 @@ void EventCommandsWidget::addRawEvent(QTreeWidgetItem *item) {
 void EventCommandsWidget::editRawEvent(QTreeWidgetItem *item, int column, bool show_warning) {
 	assert(column == 0);
 
-	auto& cmd = *static_cast<lcf::rpg::EventCommand*>(item->data(column, Qt::UserRole).value<void*>());
+	openRawEditor(item->text(1).toInt(), show_warning);
+	refreshList();
+}
 
-	auto* wrapper = new WidgetAsDialogWrapper<EventRawWidget, lcf::rpg::EventCommand>(*m_project, cmd, this);
+int EventCommandsWidget::openRawEditor(int index, bool show_warning) {
+	auto* wrapper = new WidgetAsDialogWrapper<EventRawWidget, lcf::rpg::EventCommand>(*m_project, (*m_commands)[index], this);
 	wrapper->widget()->setShowWarning(show_warning);
 
 	std::unique_ptr<QDialog> dialog;
 	dialog.reset(wrapper);
 
-	dialog->exec();
+	return dialog->exec();
+}
+
+void EventCommandsWidget::insertCommand(QTreeWidgetItem* item) {
+	namespace T = EventCommandTemplates;
+
+	if (item && !canInsertBefore(item)) {
+		return;
+	}
+
+	const bool rpg2k3 = m_project->database().system.ldb_id == 2003;
+
+	InsertCommandDialog chooser(rpg2k3, m_battle, this);
+	if (chooser.exec() != QDialog::Accepted || !chooser.selected()) {
+		return;
+	}
+
+	// Like RPG Maker: before the chosen line, at its indent, or at the end of the list
+	const int index = item ? item->text(1).toInt() : static_cast<int>(m_commands->size());
+	const int indent = item ? (*m_commands)[index].indent : 0;
+
+	auto head = T::makeCommand(*chooser.selected(), rpg2k3, indent);
+	const auto companions = T::makeCompanions(head);
+	m_commands->insert(m_commands->begin() + index, head);
+	m_commands->insert(m_commands->begin() + index + 1, companions.begin(), companions.end());
 	refreshList();
+	selectIndex(index);
+
+	const size_t inserted_size = m_commands->size();
+	int result = openEditor(index);
+	if (result == NoEditor) {
+		if (head.parameters.empty() && head.string.empty()) {
+			// Nothing to configure
+			return;
+		}
+		// Can still be filled in by hand
+		result = openRawEditor(index, false);
+	}
+
+	if (result != QDialog::Accepted) {
+		const size_t count = 1 + companions.size() + (m_commands->size() - inserted_size);
+		m_commands->erase(m_commands->begin() + index, m_commands->begin() + index + count);
+	} else if (m_commands->size() == inserted_size) {
+		// The editor changed only the command: its parameters decide the
+		// branches (else branch, choices, battle handlers, ...)
+		auto first = m_commands->begin() + index + 1;
+		m_commands->erase(first, first + companions.size());
+		const auto updated = T::makeCompanions((*m_commands)[index]);
+		m_commands->insert(m_commands->begin() + index + 1, updated.begin(), updated.end());
+	}
+
+	refreshList();
+	selectIndex(index);
+}
+
+bool EventCommandsWidget::canInsertBefore(QTreeWidgetItem* item) const {
+	auto& cmd = (*m_commands)[item->text(1).toInt()];
+	return !EventCommandTemplates::isCompanion(cmd.code);
+}
+
+bool EventCommandsWidget::canDelete(QTreeWidgetItem* item) const {
+	using Cmd = lcf::rpg::EventCommand::Code;
+
+	// The empty lines and the lines of a block belong to the block
+	auto& cmd = (*m_commands)[item->text(1).toInt()];
+	return static_cast<Cmd>(cmd.code) != Cmd::END && !EventCommandTemplates::isCompanion(cmd.code);
+}
+
+bool EventCommandsWidget::isEndLine(QTreeWidgetItem* item) const {
+	return item && item->text(1).toInt() >= static_cast<int>(m_commands->size());
 }
 
 void EventCommandsWidget::deleteEvent(QTreeWidgetItem *item) {
+	if (!canDelete(item)) {
+		return;
+	}
+
+	// A message with its lines, a block with its branches and content
 	size_t index = item->text(1).toInt();
-	m_commands->erase(m_commands->begin() + index, m_commands->begin() + commandEnd(*m_commands, index));
+	m_commands->erase(m_commands->begin() + index, m_commands->begin() + EventCommandTemplates::blockEnd(*m_commands, index));
 	refreshList();
+	selectIndex(index);
+}
+
+void EventCommandsWidget::selectIndex(int index) {
+	// findItems can't search the index, the tree has only one column
+	const QString text = QString::number(index);
+	for (QTreeWidgetItemIterator it(this); *it; ++it) {
+		if ((*it)->text(1) == text) {
+			setCurrentItem(*it);
+			scrollToItem(*it);
+			return;
+		}
+	}
+}
+
+void EventCommandsWidget::keyPressEvent(QKeyEvent* event) {
+	auto* item = isEndLine(currentItem()) ? nullptr : currentItem();
+
+	switch (event->key()) {
+		case Qt::Key_Insert:
+			insertCommand(item);
+			return;
+		case Qt::Key_Delete:
+			if (item) {
+				deleteEvent(item);
+			}
+			return;
+		default:
+			QTreeWidget::keyPressEvent(event);
+	}
 }
 
 void EventCommandsWidget::showContextMenu(const QPoint& pos) {
-	auto* item = this->itemAt(pos);
-
-	auto* editAct = new QAction(tr("Edit") + "...", this);
-	auto* addRawAct = new QAction(tr("Add raw") + "...", this);
-	auto* editRawAct = new QAction(tr("Edit raw") + "...", this);
-	auto* deleteAct = new QAction(tr("Delete"), this);
-
-	connect(editAct, &QAction::triggered, this, [&]{ editEvent(item, 0); });
-	connect(addRawAct, &QAction::triggered, this, [&]{ addRawEvent(item); });
-	connect(editRawAct, &QAction::triggered, this, [&]{ editRawEvent(item, 0, false); });
-	connect(deleteAct, &QAction::triggered, this, [&]{ deleteEvent(item); });
+	// The empty line at the end isn't a command
+	auto* item = isEndLine(this->itemAt(pos)) ? nullptr : this->itemAt(pos);
 
 	QMenu menu(this);
+
 	if (item) {
-		menu.addAction(editAct);
+		connect(menu.addAction(tr("Edit") + "..."), &QAction::triggered, this, [&]{ editEvent(item, 0); });
 	}
-	menu.addAction(addRawAct);
+	auto* insertAct = menu.addAction(tr("Insert command") + "...");
+	insertAct->setShortcut(QKeySequence(Qt::Key_Insert));
+	insertAct->setEnabled(!item || canInsertBefore(item));
+	connect(insertAct, &QAction::triggered, this, [&]{ insertCommand(item); });
+
+	menu.addSeparator();
+	connect(menu.addAction(tr("Add raw") + "..."), &QAction::triggered, this, [&]{ addRawEvent(item); });
 	if (item) {
-		menu.addAction(editRawAct);
-		menu.addAction(deleteAct);
+		connect(menu.addAction(tr("Edit raw") + "..."), &QAction::triggered, this, [&]{ editRawEvent(item, 0, false); });
+
+		menu.addSeparator();
+		auto* deleteAct = menu.addAction(tr("Delete"));
+		deleteAct->setShortcut(QKeySequence(Qt::Key_Delete));
+		deleteAct->setEnabled(canDelete(item));
+		connect(deleteAct, &QAction::triggered, this, [&]{ deleteEvent(item); });
 	}
 
 	menu.exec(mapToGlobal(pos));
@@ -430,6 +566,12 @@ void EventCommandsWidget::refreshList() {
 		}
 		--i;
 	}
+
+	// Like in RPG Maker, the list ends with an empty line (written by liblcf
+	// as the terminator of the list), commands can be inserted before it
+	auto* end_item = new QTreeWidgetItem({QString(), QString::number(m_commands->size())});
+	end_item->setToolTip(0, tr("Line") + ": " + QString::number(m_commands->size() + 1));
+	addTopLevelItem(end_item);
 
 	expandAll();
 }

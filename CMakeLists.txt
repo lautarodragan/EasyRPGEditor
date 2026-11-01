@@ -321,6 +321,8 @@ set(EDITOR_SOURCES
 	src/ui/event/event_raw_widget.cpp
 	src/ui/event/event_raw_widget.h
 	src/ui/event/event_raw_widget.ui
+	src/ui/event/insert_command_dialog.cpp
+	src/ui/event/insert_command_dialog.h
 	src/ui/main_window.cpp
 	src/ui/main_window.h
 	src/ui/main_window.ui

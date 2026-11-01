@@ -42,10 +42,27 @@ private:
 
 	void addRawEvent(QTreeWidgetItem* item);
 	void editRawEvent(QTreeWidgetItem* item, int column, bool show_warning);
+	void insertCommand(QTreeWidgetItem* item);
 	void deleteEvent(QTreeWidgetItem* item);
+	bool canInsertBefore(QTreeWidgetItem* item) const;
+	bool canDelete(QTreeWidgetItem* item) const;
+	/** The empty line at the end of the list, it's not a command */
+	bool isEndLine(QTreeWidgetItem* item) const;
 	void refreshList();
+	void selectIndex(int index);
+
+	/** Result of openEditor for commands without an editor */
+	static constexpr int NoEditor = -1;
+	/** Opens the editor of the command at index, returns the dialog result or NoEditor */
+	int openEditor(int index);
+	int openRawEditor(int index, bool show_warning);
 
 	ProjectData* m_project = nullptr;
+	/** Commands of a troop page, they have their own set of commands */
+	bool m_battle = false;
+
+protected:
+	void keyPressEvent(QKeyEvent* event) override;
 
 private slots:
 	void editEvent(QTreeWidgetItem* item, int column);
