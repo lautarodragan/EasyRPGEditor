@@ -17,6 +17,7 @@
 
 #include "picker_audio_widget.h"
 #include "ui_picker_audio_widget.h"
+#include <QFileDialog>
 #include <QFileInfo>
 
 #include "common/audio_player.h"
@@ -35,6 +36,10 @@ PickerAudioWidget::PickerAudioWidget(const lcf::rpg::Music& music, QWidget *pare
 	ui->sliderBalance->setValue(music.balance);
 
 	setupPlayback();
+
+	connect(m_player, &AudioPlayer::soundFontChanged, this, &PickerAudioWidget::updateSoundFont);
+	AudioPlayer::loadSoundFont();
+	updateSoundFont();
 }
 
 PickerAudioWidget::PickerAudioWidget(const lcf::rpg::Sound& sound, QWidget *parent) :
@@ -47,6 +52,7 @@ PickerAudioWidget::PickerAudioWidget(const lcf::rpg::Sound& sound, QWidget *pare
 	ui->sliderBalance->setValue(sound.balance);
 
 	ui->groupFadeIn->hide();
+	ui->groupSoundFont->hide();
 
 	setupPlayback();
 	m_player->setLooping(false);
@@ -83,6 +89,50 @@ void PickerAudioWidget::on_pushPlay_clicked() {
 
 void PickerAudioWidget::on_pushStop_clicked() {
 	m_player->stop();
+}
+
+void PickerAudioWidget::on_pushSoundFont_clicked() {
+	QString dir = QFileInfo(AudioPlayer::chosenSoundFont()).absolutePath();
+	QString path = QFileDialog::getOpenFileName(this, tr("Choose SoundFont"),
+		AudioPlayer::chosenSoundFont().isEmpty() ? QString() : dir,
+		tr("SoundFont (*.sf2 *.sf3);;All files (*)"));
+	if (path.isEmpty()) {
+		return;
+	}
+	ui->labelError->clear();
+	AudioPlayer::setSoundFont(path);
+}
+
+void PickerAudioWidget::on_pushSoundFontAuto_clicked() {
+	ui->labelError->clear();
+	AudioPlayer::setSoundFont(QString());
+}
+
+void PickerAudioWidget::updateSoundFont() {
+	QString chosen = AudioPlayer::chosenSoundFont();
+	QString path = AudioPlayer::soundFont();
+	QString error = AudioPlayer::soundFontError();
+	ui->pushSoundFontAuto->setEnabled(!chosen.isEmpty());
+
+	if (AudioPlayer::isSoundFontLoading()) {
+		ui->labelSoundFont->setText(tr("Loading..."));
+		ui->labelSoundFont->setToolTip(chosen);
+		return;
+	}
+
+	QString text = QFileInfo(path).fileName();
+	if (chosen.isEmpty() && !path.isEmpty()) {
+		text = tr("%1 (automatic)").arg(text);
+	}
+	QString tooltip = path;
+	if (!error.isEmpty()) {
+		// The chosen one failed: the automatic one is used, if any
+		text = path.isEmpty() ? tr("None") : tr("%1 (automatic)").arg(QFileInfo(path).fileName());
+		tooltip = path.isEmpty() ? error : error + "\n" + tr("Using %1").arg(path);
+		ui->labelError->setText(error);
+	}
+	ui->labelSoundFont->setText(text);
+	ui->labelSoundFont->setToolTip(tooltip);
 }
 
 int PickerAudioWidget::fadeInTime() const {

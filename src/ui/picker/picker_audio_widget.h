@@ -55,6 +55,7 @@ public:
 
 private:
 	void setupPlayback();
+	void updateSoundFont();
 
 	Ui::PickerAudioWidget *ui;
 	AudioPlayer* m_player = nullptr;
@@ -69,4 +70,6 @@ private slots:
 	void on_sliderBalance_valueChanged(int value);
 	void on_pushPlay_clicked();
 	void on_pushStop_clicked();
+	void on_pushSoundFont_clicked();
+	void on_pushSoundFontAuto_clicked();
 };

@@ -28,9 +28,9 @@ class QTimer;
  * Plays music and sounds for previews.
  *
  * Audio files are played with Qt Multimedia. MIDI files are synthesized with
- * FluidSynth inside the editor, using a SoundFont: the one set in the
- * EASYRPG_EDITOR_SOUNDFONT environment variable, the one shipped with the
- * editor, or FluidR3 as installed by the system.
+ * FluidSynth inside the editor, using a SoundFont: the one chosen by the user,
+ * else the one set in the EASYRPG_EDITOR_SOUNDFONT environment variable,
+ * the one shipped with the editor, or FluidR3 as installed by the system.
  */
 class AudioPlayer : public QObject {
 	Q_OBJECT
@@ -65,12 +65,33 @@ public:
 
 	static bool isMidi(const QString& path);
 
+	/** SoundFont chosen by the user, empty to find one automatically */
+	static QString chosenSoundFont();
+
+	/** Saves the choice and loads that SoundFont in the background, stopping the MIDI playing */
+	static void setSoundFont(const QString& path);
+
+	/** Starts loading the SoundFont in the background, if not done yet */
+	static void loadSoundFont();
+
+	static bool isSoundFontLoading();
+
+	/** SoundFont in use, empty while loading or when none could be loaded */
+	static QString soundFont();
+
+	/** Why the chosen SoundFont, or any, could not be loaded */
+	static QString soundFontError();
+
 signals:
 	/** Reports why a file cannot be played */
 	void error(const QString& message);
 
+	/** The SoundFont started or finished loading, emitted by every player */
+	void soundFontChanged();
+
 private:
 	void playMidi(const QString& path);
+	void waitForSoundFont();
 	void startMidi();
 	void stopMidi();
 	void startFade(int fade_in);

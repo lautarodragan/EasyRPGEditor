@@ -27,6 +27,7 @@
 #include <QFutureWatcher>
 #include <QIODevice>
 #include <QMediaPlayer>
+#include <QSettings>
 #include <QTimer>
 #include <QUrl>
 #include <QtConcurrent>
@@ -38,16 +39,28 @@ class SynthDevice;
 namespace {
 constexpr int fade_step_ms = 50;
 constexpr int sample_rate = 44100;
+constexpr const char* soundfont_key = "soundfont";
+
+struct SoundFontLoad {
+	QString path;
+	QString error;
+	// The chosen SoundFont failed, but the automatic one is used
+	QString warning;
+};
 
 // One synthesizer for the whole editor: loading the SoundFont takes a while,
 // so it is loaded once, in the background. Only one player plays MIDI at a time.
 struct Synth {
 	fluid_settings_t* settings = nullptr;
 	fluid_synth_t* synth = nullptr;
-	QFutureWatcher<QString>* loader = nullptr;
+	QFutureWatcher<SoundFontLoad>* loader = nullptr;
 	bool ready = false;
+	bool reload = false;
+	QString path;
 	QString error;
+	QString warning;
 	AudioPlayer* owner = nullptr;
+	QList<AudioPlayer*> players;
 	// Shared output: creating one per song added seconds before it sounded
 	QAudioSink* sink = nullptr;
 	SynthDevice* device = nullptr;
@@ -110,6 +123,49 @@ bool canLoopFromLoopPoint() {
 	return major > 2 || (major == 2 && minor >= 3);
 }
 
+// Runs in the background: replaces the loaded SoundFont with the chosen one,
+// or with the automatic one when there is no choice or it cannot be loaded
+SoundFontLoad replaceSoundFont(fluid_synth_t* synth, const QString& chosen, const QString& automatic) {
+	while (fluid_synth_sfcount(synth) > 0) {
+		fluid_synth_sfunload(synth, fluid_sfont_get_id(fluid_synth_get_sfont(synth, 0)), 1);
+	}
+
+	SoundFontLoad result;
+	if (!chosen.isEmpty()) {
+		if (fluid_synth_sfload(synth, QFile::encodeName(chosen).constData(), 1) != FLUID_FAILED) {
+			result.path = chosen;
+			return result;
+		}
+		result.warning = QCoreApplication::translate("AudioPlayer", "Cannot load the SoundFont %1").arg(chosen);
+	}
+	if (automatic.isEmpty()) {
+		result.error = QCoreApplication::translate("AudioPlayer",
+			"No SoundFont found to play MIDI. Install FluidR3 (soundfont-fluid or fluid-soundfont-gm), or set EASYRPG_EDITOR_SOUNDFONT to a .sf2 or .sf3 file.");
+	} else if (fluid_synth_sfload(synth, QFile::encodeName(automatic).constData(), 1) == FLUID_FAILED) {
+		result.error = QCoreApplication::translate("AudioPlayer", "Cannot load the SoundFont %1").arg(automatic);
+	} else {
+		result.path = automatic;
+	}
+	if (!result.warning.isEmpty() && !result.error.isEmpty()) {
+		result.error = result.warning + "\n" + result.error;
+	}
+	return result;
+}
+
+void startLoading() {
+	auto& s = synth();
+	s.ready = false;
+	s.path.clear();
+	s.error.clear();
+	s.warning.clear();
+	// Looked up here: applicationDirPath() is not reliable in other threads
+	QString chosen = AudioPlayer::chosenSoundFont();
+	QString automatic = findSoundFont();
+	s.loader->setFuture(QtConcurrent::run([synth = s.synth, chosen, automatic] {
+		return replaceSoundFont(synth, chosen, automatic);
+	}));
+}
+
 // Starts loading the SoundFont, unless already loaded or loading
 void loadSynth() {
 	auto& s = synth();
@@ -121,24 +177,25 @@ void loadSynth() {
 	fluid_settings_setnum(s.settings, "synth.sample-rate", sample_rate);
 	s.synth = new_fluid_synth(s.settings);
 
-	s.loader = new QFutureWatcher<QString>(qApp);
+	s.loader = new QFutureWatcher<SoundFontLoad>(qApp);
 	QObject::connect(s.loader, &QFutureWatcherBase::finished, [] {
 		auto& s = synth();
-		s.error = s.loader->result();
-		s.ready = s.error.isEmpty();
+		if (s.reload) {
+			// Chosen again while loading
+			s.reload = false;
+			startLoading();
+			return;
+		}
+		SoundFontLoad result = s.loader->result();
+		s.path = result.path;
+		s.error = result.error;
+		s.warning = result.warning;
+		s.ready = !s.path.isEmpty();
+		for (AudioPlayer* player : s.players) {
+			emit player->soundFontChanged();
+		}
 	});
-	// Looked up here: applicationDirPath() is not reliable in other threads
-	QString path = findSoundFont();
-	s.loader->setFuture(QtConcurrent::run([synth = s.synth, path]() -> QString {
-		if (path.isEmpty()) {
-			return QCoreApplication::translate("AudioPlayer",
-				"No SoundFont found to play MIDI. Install FluidR3 (soundfont-fluid or fluid-soundfont-gm), or set EASYRPG_EDITOR_SOUNDFONT to a .sf2 or .sf3 file.");
-		}
-		if (fluid_synth_sfload(synth, QFile::encodeName(path).constData(), 1) == FLUID_FAILED) {
-			return QCoreApplication::translate("AudioPlayer", "Cannot load the SoundFont %1").arg(path);
-		}
-		return {};
-	}));
+	startLoading();
 }
 }
 
@@ -191,10 +248,13 @@ AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent) {
 
 	m_fade = new QTimer(this);
 	m_fade->setInterval(fade_step_ms);
+
+	synth().players << this;
 }
 
 AudioPlayer::~AudioPlayer() {
 	stop();
+	synth().players.removeOne(this);
 }
 
 void AudioPlayer::setLooping(bool looping) {
@@ -298,15 +358,23 @@ void AudioPlayer::playMidi(const QString& path) {
 
 	// Still loading: play once the SoundFont is ready, unless stopped meanwhile
 	loadSynth();
-	connect(s.loader, &QFutureWatcherBase::finished, this, [this] {
+	waitForSoundFont();
+}
+
+void AudioPlayer::waitForSoundFont() {
+	connect(synth().loader, &QFutureWatcherBase::finished, this, [this] {
 		if (m_pending_midi.isEmpty()) {
 			return;
 		}
-		if (synth().ready) {
+		auto& s = synth();
+		if (s.ready) {
 			startMidi();
-		} else {
+		} else if (!s.error.isEmpty()) {
 			m_pending_midi.clear();
-			emit error(synth().error);
+			emit error(s.error);
+		} else {
+			// Loading again, a different SoundFont was chosen meanwhile
+			waitForSoundFont();
 		}
 	}, Qt::SingleShotConnection);
 }
@@ -377,4 +445,52 @@ void AudioPlayer::stopMidi() {
 	if (s.owner == this) {
 		s.owner = nullptr;
 	}
+}
+
+QString AudioPlayer::chosenSoundFont() {
+	return QSettings().value(soundfont_key).toString();
+}
+
+void AudioPlayer::setSoundFont(const QString& path) {
+	QSettings settings;
+	if (path.isEmpty()) {
+		settings.remove(soundfont_key);
+	} else {
+		settings.setValue(soundfont_key, path);
+	}
+
+	auto& s = synth();
+	if (!s.loader) {
+		loadSynth();
+	} else if (s.loader->isRunning()) {
+		s.reload = true;
+	} else {
+		// Silence the output while loading: rendering waits for the synthesizer
+		if (s.owner) {
+			s.owner->stopMidi();
+		}
+		if (s.sink) {
+			s.sink->stop();
+		}
+		startLoading();
+	}
+	for (AudioPlayer* player : s.players) {
+		emit player->soundFontChanged();
+	}
+}
+
+void AudioPlayer::loadSoundFont() {
+	loadSynth();
+}
+
+bool AudioPlayer::isSoundFontLoading() {
+	return synth().loader && synth().loader->isRunning();
+}
+
+QString AudioPlayer::soundFont() {
+	return synth().path;
+}
+
+QString AudioPlayer::soundFontError() {
+	return synth().error.isEmpty() ? synth().warning : synth().error;
 }
