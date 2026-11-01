@@ -692,10 +692,11 @@ else()
 		#	DESTINATION ${CMAKE_INSTALL_DATADIR}/appdata)
 	endif()
 
-	# SoundFont used to play MIDI. Without one, the editor looks for FluidR3 in the system.
-	set(EDITOR_SOUNDFONT "" CACHE STRING "SoundFont (.sf2 or .sf3) to install for playing MIDI, and its license, e.g. FluidR3Mono_GM.sf3;FluidR3Mono_License.md")
-	if(EDITOR_SOUNDFONT)
-		install(FILES ${EDITOR_SOUNDFONT}
+	# SoundFont used to play MIDI: FluidR3Mono (MIT), from MuseScore 3.6.2.
+	# Without it, the editor looks for FluidR3 in the system.
+	option(EDITOR_INSTALL_SOUNDFONT "Install the bundled SoundFont for playing MIDI" ON)
+	if(EDITOR_INSTALL_SOUNDFONT)
+		install(FILES resources/soundfonts/FluidR3Mono_GM.sf3 resources/soundfonts/FluidR3Mono_License.md
 			DESTINATION ${CMAKE_INSTALL_DATADIR}/easyrpg-editor/soundfonts)
 	endif()
 endif()
