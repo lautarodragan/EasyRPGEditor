@@ -54,6 +54,7 @@ namespace Stringizer {
 	QString commonEventName(int id);
 	QString troopName(int id);
 	QString terrainName(int id);
+	QString chipsetName(int id);
 	QString mapName(int id);
 	QString direction(int id);
 	QString moveCommand(int id);
@@ -64,4 +65,13 @@ namespace Stringizer {
 	/** Name of a transition, -1 is the default one and transitionCount is "None" (only for Change Screen Transitions) */
 	QString eraseTransitionName(int id);
 	QString showTransitionName(int id);
+	/** Music that Change System BGM changes, IDs 0 to systemBgmCount - 1 */
+	constexpr int systemBgmCount = 7;
+	QString systemBgmName(int id);
+	/** Sound effects that Change System SFX changes, IDs 0 to systemSfxCount - 1 */
+	constexpr int systemSfxCount = 12;
+	QString systemSfxName(int id);
+	/** Transitions that Change Screen Transitions changes: even types erase, odd ones show */
+	constexpr int transitionTypeCount = 6;
+	QString transitionTypeName(int id);
 }

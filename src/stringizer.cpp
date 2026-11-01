@@ -613,62 +613,34 @@ namespace
 
 	QString stringizeChangeSystemBGM(const lcf::rpg::EventCommand& com)
 	{
-		static const std::vector<const char*> bgm_contexts =
-			{
-				QT_TRANSLATE_NOOP("Stringizer", "Battle"),
-				QT_TRANSLATE_NOOP("Stringizer", "Victory"),
-				QT_TRANSLATE_NOOP("Stringizer", "Inn"),
-				QT_TRANSLATE_NOOP("Stringizer", "Boat"),
-				QT_TRANSLATE_NOOP("Stringizer", "Ship"),
-				QT_TRANSLATE_NOOP("Stringizer", "Airship"),
-				QT_TRANSLATE_NOOP("Stringizer", "Game Over")
-			};
-
-		QString context;
-		if (com.parameters[0] < 0 || com.parameters[0] >= static_cast<int>(bgm_contexts.size()))
-			context = Stringizer::tr("Unknown");
-		else
-			context = Stringizer::tr(bgm_contexts[static_cast<size_t>(com.parameters[0])]);
-		return Stringizer::tr("Change System BGM") + ": " + context + ", "
+		return Stringizer::tr("Change System BGM") + ": " + Stringizer::systemBgmName(com.parameters[0]) + ", "
 			+ ToQString(com.string);
 	}
 
 	QString stringizeChangeSystemSFX(const lcf::rpg::EventCommand& com)
 	{
-		static const std::vector<const char*> system_sfx =
-			{
-				QT_TRANSLATE_NOOP("Stringizer", "Cursor"),
-				QT_TRANSLATE_NOOP("Stringizer", "Decision"),
-				QT_TRANSLATE_NOOP("Stringizer", "Cancel"),
-				QT_TRANSLATE_NOOP("Stringizer", "Buzzer"),
-				QT_TRANSLATE_NOOP("Stringizer", "Begin Battle"),
-				QT_TRANSLATE_NOOP("Stringizer", "Escape"),
-				QT_TRANSLATE_NOOP("Stringizer", "Enemy Attacks"),
-				QT_TRANSLATE_NOOP("Stringizer", "Enemy Damage"),
-				QT_TRANSLATE_NOOP("Stringizer", "Ally Damage"),
-				QT_TRANSLATE_NOOP("Stringizer", "Evasion"),
-				QT_TRANSLATE_NOOP("Stringizer", "Enemy Defeated"),
-				QT_TRANSLATE_NOOP("Stringizer", "Use Item")
-			};
-		QString sfx;
-		if (com.parameters[0] < 0 || com.parameters[0] >= static_cast<int>(system_sfx.size()))
-			sfx = Stringizer::tr("Unknown");
-		else
-			sfx = Stringizer::tr(system_sfx[static_cast<size_t>(com.parameters[0])]);
-		return Stringizer::tr("Change System SFX") + ": " + sfx + ", "
+		return Stringizer::tr("Change System SFX") + ": " + Stringizer::systemSfxName(com.parameters[0]) + ", "
 			+ ToQString(com.string);
 	}
 
 	QString stringizeChangeSystemGraphics(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Change System Graphics") + ": " + ToQString(com.string);
+		QString text = Stringizer::tr("Change System Graphics") + ": " + ToQString(com.string);
+		if (com.parameters.size() >= 2) {
+			text += ", " + (com.parameters[0] ? Stringizer::tr("Tiled") : Stringizer::tr("Stretched"))
+				+ ", " + (com.parameters[1] ? Stringizer::tr("Font 2") : Stringizer::tr("Font 1"));
+		}
+		return text;
 	}
 
 	QString stringizeChangeScreenTransitions(const lcf::rpg::EventCommand& com)
 	{
+		// The type is even for erasing and odd for showing
+		int type = com.parameters[0];
 		return Stringizer::tr("Change Screen Transitions") + ": "
-			+ (com.parameters[0] ? Stringizer::showTransitionName(com.parameters[1])
-								 : Stringizer::eraseTransitionName(com.parameters[1]));
+			+ Stringizer::transitionTypeName(type) + ", "
+			+ (type % 2 == 0 ? Stringizer::eraseTransitionName(com.parameters[1])
+							 : Stringizer::showTransitionName(com.parameters[1]));
 	}
 
 	QString stringizeEnemyEncounter(const lcf::rpg::EventCommand& com)
@@ -769,16 +741,19 @@ namespace
 			com.parameters[0] == 0 ? Stringizer::tr("Boat") :
 			com.parameters[0] == 1 ? Stringizer::tr("Ship") :
 			com.parameters[0] == 2 ? Stringizer::tr("Airship") : Stringizer::tr("Unknown");
+		if (com.parameters[0] == -1)
+			vehicle = Stringizer::tr("Party");
+		// Parameters: vehicle, mode (0: constant, 1: variables), map, x, y
 		if (com.parameters[1])
 			return Stringizer::tr("Set Vehicle Location") + ": " + vehicle + ", "
-				+ variable(com.parameters[0]) + ", ("
-				+ variable(com.parameters[1]) + ","
-				+ variable(com.parameters[2]) + ")";
+				+ variable(com.parameters[2]) + " ("
+				+ variable(com.parameters[3]) + ","
+				+ variable(com.parameters[4]) + ")";
 		else
 			return Stringizer::tr("Set Vehicle Location") + ": " + vehicle + ", "
-				+ map(com.parameters[0]) + " ("
-				+ QString::number(com.parameters[1]) + ","
-				+ QString::number(com.parameters[2]) + ")";
+				+ map(com.parameters[2]) + " ("
+				+ QString::number(com.parameters[3]) + ","
+				+ QString::number(com.parameters[4]) + ")";
 	}
 
 	QString stringizeChangeEventLocation(const lcf::rpg::EventCommand& com)
@@ -884,7 +859,7 @@ namespace
 				+ Stringizer::tr("Speed") + " " + QString::number(com.parameters[3]) + " "
 				+ (com.parameters[4] ? Stringizer::tr("(Wait)") : "");
 		default:
-			return Stringizer::tr("Pan Screen") + ": " + Stringizer::tr("Reset Position")
+			return Stringizer::tr("Pan Screen") + ": " + Stringizer::tr("Reset Position") + ", "
 				+ Stringizer::tr("Speed") + " " + QString::number(com.parameters[3]) + " "
 				+ (com.parameters[4] ? Stringizer::tr("(Wait)") : "");
 		}
@@ -976,13 +951,14 @@ namespace
 	QString stringizePlayerVisibility(const lcf::rpg::EventCommand& com)
 	{
 		return Stringizer::tr("Player Visibility") + ": "
-			+ (com.parameters[0] ? Stringizer::tr("Opaque") : Stringizer::tr("Transparent"));
+			+ (com.parameters[0] ? Stringizer::tr("Show") : Stringizer::tr("Hide"));
 	}
 
 	QString stringizeFlashSprite(const lcf::rpg::EventCommand& com)
 	{
 		return Stringizer::tr("Flash Sprite") + ": "
 			+ characterName(com.parameters[0]) + ", "
+			+ QString("(%1,%2,%3,%4), ").arg(com.parameters[1]).arg(com.parameters[2]).arg(com.parameters[3]).arg(com.parameters[4])
 			+ tenthSeconds(com.parameters[5]) + " "
 			+ (com.parameters[6] ? Stringizer::tr("(Wait)") : "");
 	}
@@ -1063,14 +1039,23 @@ namespace
 
 	QString stringizeChangeMapTileset(const lcf::rpg::EventCommand& com)
 	{
-		return Stringizer::tr("Change Map Tileset") + ": " + ToQString(com.string);
+		return Stringizer::tr("Change Map Tileset") + ": " + Stringizer::chipsetName(com.parameters[0]);
 	}
 
 	QString stringizeChangePBG(const lcf::rpg::EventCommand& com)
 	{
+		// Parameters: horizontal and vertical scroll, then autoscroll and speed of each
+		auto scroll = [&com](int index, const QString& name) -> QString {
+			if (!com.parameters[index])
+				return "";
+			QString text = ", " + name;
+			if (com.parameters[index + 2])
+				text += " " + Stringizer::tr("Auto") + " " + QString::number(com.parameters[index + 3]);
+			return text;
+		};
 		return Stringizer::tr("Change PBG") + ": " + ToQString(com.string)
-			+ (com.parameters[0] ? ", " + Stringizer::tr("Horz Scroll") : "")
-			+ (com.parameters[1] ? ", " + Stringizer::tr("Vert Scroll") : "");
+			+ scroll(0, Stringizer::tr("Horz Scroll"))
+			+ scroll(1, Stringizer::tr("Vert Scroll"));
 	}
 
 	QString stringizeChangeEncounterSteps(const lcf::rpg::EventCommand& com)
@@ -1501,6 +1486,71 @@ namespace Stringizer
 		if (id < 1 || id > static_cast<int>(core().project()->database().terrains.size()))
 			return QString("<%1?>").arg(id);
 		return ToQString(core().project()->database().terrains[static_cast<size_t>(id)-1].name);
+	}
+
+	QString chipsetName(int id)
+	{
+		if (id < 1 || id > static_cast<int>(core().project()->database().chipsets.size()))
+			return QString("<%1?>").arg(id);
+		return ToQString(core().project()->database().chipsets[static_cast<size_t>(id)-1].name);
+	}
+
+	QString systemBgmName(int id)
+	{
+		static const std::vector<const char*> bgm_contexts =
+			{
+				QT_TR_NOOP("Battle"),
+				QT_TR_NOOP("Victory"),
+				QT_TR_NOOP("Inn"),
+				QT_TR_NOOP("Boat"),
+				QT_TR_NOOP("Ship"),
+				QT_TR_NOOP("Airship"),
+				QT_TR_NOOP("Game Over")
+			};
+		static_assert(systemBgmCount == 7);
+		if (id < 0 || id >= systemBgmCount)
+			return tr("Unknown");
+		return tr(bgm_contexts[static_cast<size_t>(id)]);
+	}
+
+	QString systemSfxName(int id)
+	{
+		static const std::vector<const char*> system_sfx =
+			{
+				QT_TR_NOOP("Cursor"),
+				QT_TR_NOOP("Decision"),
+				QT_TR_NOOP("Cancel"),
+				QT_TR_NOOP("Buzzer"),
+				QT_TR_NOOP("Begin Battle"),
+				QT_TR_NOOP("Escape"),
+				QT_TR_NOOP("Enemy Attacks"),
+				QT_TR_NOOP("Enemy Damage"),
+				QT_TR_NOOP("Ally Damage"),
+				QT_TR_NOOP("Evasion"),
+				QT_TR_NOOP("Enemy Defeated"),
+				QT_TR_NOOP("Use Item")
+			};
+		static_assert(systemSfxCount == 12);
+		if (id < 0 || id >= systemSfxCount)
+			return tr("Unknown");
+		return tr(system_sfx[static_cast<size_t>(id)]);
+	}
+
+	QString transitionTypeName(int id)
+	{
+		static const std::vector<const char*> types =
+			{
+				QT_TR_NOOP("Teleport, Erase"),
+				QT_TR_NOOP("Teleport, Show"),
+				QT_TR_NOOP("Battle Start, Erase"),
+				QT_TR_NOOP("Battle Start, Show"),
+				QT_TR_NOOP("Battle End, Erase"),
+				QT_TR_NOOP("Battle End, Show")
+			};
+		static_assert(transitionTypeCount == 6);
+		if (id < 0 || id >= transitionTypeCount)
+			return tr("Unknown");
+		return tr(types[static_cast<size_t>(id)]);
 	}
 
 	QString mapName(int id)
