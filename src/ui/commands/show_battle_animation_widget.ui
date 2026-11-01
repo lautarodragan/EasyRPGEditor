@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ShowBattleAnimationWidget</class>
+ <widget class="QWidget" name="ShowBattleAnimationWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>340</width><height>200</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Show Battle Animation</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupAnimation">
+     <property name="title"><string>Animation</string></property>
+     <layout class="QVBoxLayout" name="layoutAnimation">
+      <item><widget class="AnimationRpgComboBox" name="comboAnimation"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupTarget">
+     <property name="title"><string>Target</string></property>
+     <layout class="QVBoxLayout" name="layoutTarget">
+      <item><widget class="QComboBox" name="comboTarget"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkWait">
+     <property name="text"><string>Wait until done</string></property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkGlobal">
+     <property name="text"><string>Show on the whole screen</string></property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>0</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>AnimationRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

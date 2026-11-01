@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PictureWidget</class>
+ <widget class="QWidget" name="PictureWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>620</width><height>480</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Picture</string>
+  </property>
+  <layout class="QGridLayout" name="layoutMain">
+   <item row="0" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupPicture">
+     <property name="title"><string>Picture</string></property>
+     <layout class="QHBoxLayout" name="layoutPicture">
+      <item>
+       <widget class="QLabel" name="labelNumber"><property name="text"><string>Number:</string></property></widget>
+      </item>
+      <item>
+       <widget class="RpgSpinBox" name="spinNumber">
+        <property name="minimum"><number>1</number></property>
+        <property name="maximum"><number>99999</number></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelFile"><property name="text"><string>File:</string></property></widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineFile">
+        <property name="readOnly"><bool>true</bool></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QToolButton" name="pushFile">
+        <property name="text"><string>...</string></property>
+        <property name="toolTip"><string>Choose the picture file</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QGroupBox" name="groupPosition">
+     <property name="title"><string>Position</string></property>
+     <layout class="QGridLayout" name="layoutPosition">
+      <item row="0" column="0">
+       <widget class="QRadioButton" name="radioConstant"><property name="text"><string>Constant</string></property></widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="labelX"><property name="text"><string>X:</string></property></widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="RpgSpinBox" name="spinX">
+        <property name="minimum"><number>-9999</number></property>
+        <property name="maximum"><number>9999</number></property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="labelY"><property name="text"><string>Y:</string></property></widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="RpgSpinBox" name="spinY">
+        <property name="minimum"><number>-9999</number></property>
+        <property name="maximum"><number>9999</number></property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QRadioButton" name="radioVariable"><property name="text"><string>Variables</string></property></widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="labelVarX"><property name="text"><string>X:</string></property></widget>
+      </item>
+      <item row="1" column="2" colspan="3">
+       <widget class="VariableRpgComboBox" name="comboVarX"/>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="labelVarY"><property name="text"><string>Y:</string></property></widget>
+      </item>
+      <item row="2" column="2" colspan="3">
+       <widget class="VariableRpgComboBox" name="comboVarY"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="labelOrigin">
+        <property name="text"><string>Origin:</string></property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="4">
+       <widget class="QComboBox" name="comboOrigin">
+        <property name="toolTip"><string>Point of the picture placed at the position (Maniac Patch)</string></property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="5">
+       <widget class="QCheckBox" name="checkScroll">
+        <property name="text"><string>Scroll with the map</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QGroupBox" name="groupColor">
+     <property name="title"><string>Color</string></property>
+     <layout class="QFormLayout" name="layoutColor">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelRed"><property name="text"><string>Red:</string></property></widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="RpgSpinBox" name="spinRed">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>200</number></property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelGreen"><property name="text"><string>Green:</string></property></widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="RpgSpinBox" name="spinGreen">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>200</number></property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelBlue"><property name="text"><string>Blue:</string></property></widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="RpgSpinBox" name="spinBlue">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>200</number></property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="labelSat"><property name="text"><string>Saturation:</string></property></widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="RpgSpinBox" name="spinSat">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>200</number></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="groupDisplay">
+     <property name="title"><string>Magnification and Transparency</string></property>
+     <layout class="QGridLayout" name="layoutDisplay">
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelMagnify"><property name="text"><string>Magnification:</string></property></widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="RpgSpinBox" name="spinMagnify">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>2000</number></property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelTop"><property name="text"><string>Transparency:</string></property></widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="RpgSpinBox" name="spinTop">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>100</number></property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelBottom"><property name="text"><string>Bottom transparency:</string></property></widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="RpgSpinBox" name="spinBottom">
+        <property name="suffix"><string>%</string></property>
+        <property name="maximum"><number>100</number></property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QCheckBox" name="checkTransparentColor">
+        <property name="text"><string>Use the transparent color</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <layout class="QVBoxLayout" name="layoutRight">
+     <item>
+      <widget class="QGroupBox" name="groupEffect">
+       <property name="title"><string>Effect</string></property>
+       <layout class="QFormLayout" name="layoutEffect">
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelEffect"><property name="text"><string>Effect:</string></property></widget>
+        </item>
+        <item row="0" column="1"><widget class="QComboBox" name="comboEffect"/></item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelPower"><property name="text"><string>Speed:</string></property></widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="RpgSpinBox" name="spinPower">
+          <property name="maximum"><number>10</number></property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupDuration">
+       <property name="title"><string>Duration</string></property>
+       <layout class="QFormLayout" name="layoutDuration">
+        <item row="0" column="0">
+         <widget class="QLabel" name="labelDuration"><property name="text"><string>Time:</string></property></widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="RpgSpinBox" name="spinDuration">
+          <property name="suffix"><string> × 0.1 s</string></property>
+          <property name="maximum"><number>10000</number></property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QCheckBox" name="checkWait">
+          <property name="text"><string>Wait until done</string></property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="spacerRight">
+       <property name="orientation"><enum>Qt::Vertical</enum></property>
+       <property name="sizeHint" stdset="0"><size><width>20</width><height>0</height></size></property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupExtra">
+     <property name="title"><string>RPG Maker 2003 v1.12</string></property>
+     <layout class="QGridLayout" name="layoutExtra">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkSpritesheet">
+        <property name="text"><string>Spritesheet:</string></property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="RpgSpinBox" name="spinCols">
+        <property name="prefix"><string>Columns: </string></property>
+        <property name="minimum"><number>1</number></property>
+        <property name="maximum"><number>99</number></property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="RpgSpinBox" name="spinRows">
+        <property name="prefix"><string>Rows: </string></property>
+        <property name="minimum"><number>1</number></property>
+        <property name="maximum"><number>99</number></property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QComboBox" name="comboFrameMode"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="RpgSpinBox" name="spinFrame">
+        <property name="maximum"><number>9999</number></property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="checkPlayOnce">
+        <property name="text"><string>Play once</string></property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelMapLayer"><property name="text"><string>Map layer:</string></property></widget>
+      </item>
+      <item row="2" column="1" colspan="2">
+       <widget class="QComboBox" name="comboMapLayer"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="labelBattleLayer"><property name="text"><string>Battle layer:</string></property></widget>
+      </item>
+      <item row="3" column="1" colspan="2">
+       <widget class="QComboBox" name="comboBattleLayer"/>
+      </item>
+      <item row="0" column="3" rowspan="4">
+       <layout class="QVBoxLayout" name="layoutFlags">
+        <item><widget class="QCheckBox" name="checkEraseMap"><property name="text"><string>Erase on map change</string></property></widget></item>
+        <item><widget class="QCheckBox" name="checkEraseBattle"><property name="text"><string>Erase when the battle ends</string></property></widget></item>
+        <item><widget class="QCheckBox" name="checkTint"><property name="text"><string>Affected by screen tint</string></property></widget></item>
+        <item><widget class="QCheckBox" name="checkFlash"><property name="text"><string>Affected by screen flash</string></property></widget></item>
+        <item><widget class="QCheckBox" name="checkShake"><property name="text"><string>Affected by screen shake</string></property></widget></item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <spacer name="spacerBottom">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>0</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>RpgSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ui/common/rpg_spinbox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>VariableRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

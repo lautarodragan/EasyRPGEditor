@@ -281,10 +281,10 @@ int EventCommandsWidget::openEditor(int index) {
 		case Cmd::ShakeScreen: evt_dialog.reset(make_evt_dialog<ShakeScreenWidget>(m_project, cmd, this)); break;
 		//case Cmd::PanScreen: evt_dialog.reset(make_evt_dialog<PanScreenWidget>(m_project, cmd, this)); break;
 		case Cmd::WeatherEffects: evt_dialog.reset(make_evt_dialog<WeatherEffectsWidget>(m_project, cmd, this)); break;
-		//case Cmd::ShowPicture: evt_dialog.reset(make_evt_dialog<ShowPictureWidget>(m_project, cmd, this)); break;
-		//case Cmd::MovePicture: evt_dialog.reset(make_evt_dialog<MovePictureWidget>(m_project, cmd, this)); break;
-		//case Cmd::ErasePicture: evt_dialog.reset(make_evt_dialog<ErasePictureWidget>(m_project, cmd, this)); break;
-		//case Cmd::ShowBattleAnimation: evt_dialog.reset(make_evt_dialog<ShowBattleAnimationWidget>(m_project, cmd, this)); break;
+		case Cmd::ShowPicture: evt_dialog.reset(make_evt_dialog<ShowPictureWidget>(m_project, cmd, this)); break;
+		case Cmd::MovePicture: evt_dialog.reset(make_evt_dialog<MovePictureWidget>(m_project, cmd, this)); break;
+		case Cmd::ErasePicture: evt_dialog.reset(make_evt_dialog<ErasePictureWidget>(m_project, cmd, this)); break;
+		case Cmd::ShowBattleAnimation: evt_dialog.reset(make_evt_dialog<ShowBattleAnimationWidget>(m_project, cmd, this)); break;
 		//case Cmd::SpriteTransparency: evt_dialog.reset(make_evt_dialog<SpriteTransparencyWidget>(m_project, cmd, this)); break;
 		//case Cmd::FlashSprite: evt_dialog.reset(make_evt_dialog<FlashSpriteWidget>(m_project, cmd, this)); break;
 		case Cmd::MoveEvent: evt_dialog.reset(make_evt_dialog<MoveEventWidget>(m_project, cmd, this)); break;

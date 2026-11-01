@@ -863,34 +863,54 @@ namespace
 		return Stringizer::tr("Weather Effects") + ": " + type + ", " + strength;
 	}
 
+	// Position of Show Picture and Move Picture.
+	// The Maniac Patch stores the origin above the low byte of the mode.
+	QString picturePosition(const lcf::rpg::EventCommand& com)
+	{
+		if (com.parameters.size() < 4)
+			return "";
+		bool by_variable = (com.parameters[1] & 0xFF) != 0;
+		return "(" + valueOrVariable(by_variable, com.parameters[2]) + ","
+			+ valueOrVariable(by_variable, com.parameters[3]) + ")";
+	}
+
 	QString stringizeShowPicture(const lcf::rpg::EventCommand& com)
 	{
+		if (com.parameters.empty())
+			return Stringizer::tr("Show Picture");
 		return Stringizer::tr("Show Picture") + ": "
 			+ QString::number(com.parameters[0]) + ", "
-			+ ToQString(com.string);
+			+ ToQString(com.string) + ", "
+			+ picturePosition(com);
 	}
 
 	QString stringizeMovePicture(const lcf::rpg::EventCommand& com)
 	{
+		if (com.parameters.size() < 16)
+			return Stringizer::tr("Move Picture");
 		return Stringizer::tr("Move Picture") + ": "
-			+ QString::number(com.parameters[0]) + ", ("
-			+ valueOrVariable(com.parameters[1], com.parameters[2]) + ","
-			+ valueOrVariable(com.parameters[1], com.parameters[3]) + "), "
+			+ QString::number(com.parameters[0]) + ", "
+			+ picturePosition(com) + ", "
 			+ tenthSeconds(com.parameters[14]) + " "
-			+ (com.parameters[15] ? Stringizer::tr("(Wait)") : "");
+			+ ((com.parameters[15] & 1) ? Stringizer::tr("(Wait)") : "");
 	}
 
 	QString stringizeErasePicture(const lcf::rpg::EventCommand& com)
 	{
+		if (com.parameters.empty())
+			return Stringizer::tr("Erase Picture");
 		return Stringizer::tr("Erase Picture") + ": " + QString::number(com.parameters[0]);
 	}
 
 	QString stringizeShowBattleAnimation(const lcf::rpg::EventCommand& com)
 	{
+		if (com.parameters.size() < 3)
+			return Stringizer::tr("Show Battle Animation");
 		return Stringizer::tr("Show Battle Animation") + ": "
 			+ Stringizer::animationName(com.parameters[0]) + ", "
 			+ characterName(com.parameters[1]) + " "
-			+ (com.parameters[2] ? Stringizer::tr("(Wait)") : "");
+			+ (com.parameters[2] ? Stringizer::tr("(Wait)") : "")
+			+ (com.parameters.size() > 3 && com.parameters[3] ? " " + Stringizer::tr("(Whole Screen)") : "");
 	}
 
 	QString stringizePlayerVisibility(const lcf::rpg::EventCommand& com)

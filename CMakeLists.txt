@@ -154,6 +154,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/enable_disable_widget.cpp
 	src/ui/commands/enable_disable_widget.h
 	src/ui/commands/enable_disable_widget.ui
+	src/ui/commands/erase_picture_widget.cpp
+	src/ui/commands/erase_picture_widget.h
+	src/ui/commands/erase_picture_widget.ui
 	src/ui/commands/face_graphics_widget.cpp
 	src/ui/commands/face_graphics_widget.h
 	src/ui/commands/face_graphics_widget.ui
@@ -181,9 +184,15 @@ set(EDITOR_SOURCES
 	src/ui/commands/screen_transition_widget.cpp
 	src/ui/commands/screen_transition_widget.h
 	src/ui/commands/screen_transition_widget.ui
+	src/ui/commands/picture_widget.cpp
+	src/ui/commands/picture_widget.h
+	src/ui/commands/picture_widget.ui
 	src/ui/commands/shake_screen_widget.cpp
 	src/ui/commands/shake_screen_widget.h
 	src/ui/commands/shake_screen_widget.ui
+	src/ui/commands/show_battle_animation_widget.cpp
+	src/ui/commands/show_battle_animation_widget.h
+	src/ui/commands/show_battle_animation_widget.ui
 	src/ui/commands/show_choices_widget.cpp
 	src/ui/commands/show_choices_widget.h
 	src/ui/commands/show_choices_widget.ui
