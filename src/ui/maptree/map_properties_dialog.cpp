@@ -114,6 +114,8 @@ MapPropertiesDialog::MapPropertiesDialog(ProjectData& project, lcf::rpg::MapInfo
 
 	ui->spinDungeonRoomHeight->setValue(m_map_copy.generator_height);
 	ui->spinDungeonRoomWidth->setValue(m_map_copy.generator_width);
+	// QSpinBox defaults to 0-99, maps often use 100 or more steps
+	ui->spinEncounterRate->setRange(0, 9999);
 	ui->spinEncounterRate->setValue(m_info_copy.encounter_steps);
 	ui->checkDungeonSurroundWithWalls->setChecked(m_map_copy.generator_surround);
 	ui->groupUseGenerator->setChecked(m_map_copy.generator_flag);
@@ -125,7 +127,9 @@ MapPropertiesDialog::MapPropertiesDialog(ProjectData& project, lcf::rpg::MapInfo
 	ui->radioDungeonPassage2_2->setChecked(m_map_copy.generator_tiles == 1);
 	for (int i = 0; i < static_cast<int>(m_info_copy.encounters.size()); i++) {
 		QTableWidgetItem *item = new QTableWidgetItem();
-		item->setData(Qt::DisplayRole, ToQString(database.troops[static_cast<size_t>(m_info_copy.encounters[static_cast<size_t>(i)].troop_id)-1].name));
+		const int troop_id = m_info_copy.encounters[static_cast<size_t>(i)].troop_id;
+		const bool valid = troop_id >= 1 && troop_id <= static_cast<int>(database.troops.size());
+		item->setData(Qt::DisplayRole, valid ? ToQString(database.troops[static_cast<size_t>(troop_id) - 1].name) : QString("<%1?>").arg(troop_id));
 		item->setData(Qt::UserRole, m_info_copy.encounters[static_cast<size_t>(i)].troop_id);
 		ui->tableEncounters->insertRow(i);
 		ui->tableEncounters->setItem(i, 0, item);
@@ -323,14 +327,8 @@ void MapPropertiesDialog::accept() {
 	if (ui->groupPanorama->isChecked()) {
 		m_map_copy.parallax_name = new_panorama;
 	} else {
+		// Like RPG Maker, keep the panorama settings: they come back when it is enabled again
 		m_map_copy.parallax_flag = false;
-		m_map_copy.parallax_name = ToDBString("");
-		m_map_copy.parallax_loop_x = false;
-		m_map_copy.parallax_loop_y = false;
-		m_map_copy.parallax_auto_loop_x = false;
-		m_map_copy.parallax_auto_loop_y = false;
-		m_map_copy.parallax_sx = 0;
-		m_map_copy.parallax_sy = 0;
 	}
 
 	new_music.name = ui->lineBGMname->text().toStdString();
@@ -340,6 +338,7 @@ void MapPropertiesDialog::accept() {
 	for (int i = 0; i < ui->tableEncounters->rowCount(); i++) {
 		QTableWidgetItem *item = ui->tableEncounters->item(i, 0);
 		lcf::rpg::Encounter enc;
+		enc.ID = i + 1;
 		enc.troop_id = item->data(Qt::UserRole).toInt();
 		m_info_copy.encounters.push_back(enc);
 	}
