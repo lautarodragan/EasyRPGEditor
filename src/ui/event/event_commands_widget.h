@@ -35,6 +35,16 @@ public:
 	void setData(ProjectData& project, lcf::rpg::TroopPage* event);
 	void setData(ProjectData& project, lcf::rpg::EventPage* event);
 
+	/**
+	 * Opens the editor of every command and accepts it without changes,
+	 * which must leave the commands as they were (see --check-editors).
+	 *
+	 * @param opened Incremented for each editor opened
+	 * @param notes Receives the message boxes the editors showed
+	 * @return A description of each command that an editor changed
+	 */
+	QStringList checkEditorsRoundTrip(int& opened, QStringList& notes);
+
 private:
 	template<typename T>
 	void setDataInternal(ProjectData& project, T* event);

@@ -17,6 +17,7 @@
 
 #include "core.h"
 #include "ui/main_window.h"
+#include "ui/event/editor_check.h"
 #include "version.h"
 #include <QApplication>
 #include <QCommandLineParser>
@@ -34,6 +35,9 @@ void setupCommandLineParser(QCommandLineParser& parser) {
 	parser.setApplicationDescription("Editor for RPG Maker 2000/2003 and EasyRPG projects");
 	parser.addHelpOption();
 	parser.addVersionOption();
+	parser.addOption({"check-editors",
+		"Open the editor of every event command of the project and accept it without changes, "
+		"printing the commands that change. Exits with 1 if any did. For testing.", "project"});
 }
 
 // Handles --help and --version (both exit) without creating a window
@@ -71,6 +75,15 @@ int main(int argc, char *argv[]) {
 		QCommandLineParser parser;
 		setupCommandLineParser(parser);
 		parser.process(app);
+	}
+
+	{
+		QCommandLineParser parser;
+		setupCommandLineParser(parser);
+		parser.parse(app.arguments());
+		if (parser.isSet("check-editors")) {
+			return checkEditors(parser.value("check-editors"));
+		}
 	}
 
 	// show splash

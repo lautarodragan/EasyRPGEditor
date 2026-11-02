@@ -26,6 +26,9 @@
 #include <iostream>
 #include <QMenu>
 #include <QAction>
+#include <QApplication>
+#include <QDialog>
+#include <QTimer>
 #include <QKeyEvent>
 #include <QTreeWidgetItemIterator>
 #include <memory>
@@ -606,3 +609,65 @@ void EventCommandsWidget::refreshList() {
 	expandAll();
 }
 
+
+namespace {
+QString describeParameters(const lcf::rpg::EventCommand& cmd) {
+	QStringList values;
+	for (auto v : cmd.parameters) {
+		values << QString::number(v);
+	}
+	return values.join(' ');
+}
+}
+
+QStringList EventCommandsWidget::checkEditorsRoundTrip(int& opened, QStringList& notes) {
+	QStringList changed;
+
+	for (int i = 0; i < static_cast<int>(m_commands->size()); ++i) {
+		const auto before = *m_commands;
+
+		// Accept every dialog the editor opens, as if OK was pressed
+		QTimer accept;
+		accept.setInterval(0);
+		connect(&accept, &QTimer::timeout, this, [&] {
+			if (auto* dialog = qobject_cast<QDialog*>(QApplication::activeModalWidget())) {
+				const QString name = dialog->metaObject()->className();
+				if (name != QLatin1String("WidgetAsDialogWrapperBase")) {
+					notes << QString("line %1 (code %2) showed a %3").arg(i).arg(before[i].code).arg(name);
+				}
+				dialog->accept();
+			}
+		});
+		accept.start();
+		const int result = openEditor(i);
+		accept.stop();
+
+		if (result == NoEditor) {
+			continue;
+		}
+		++opened;
+
+		if (*m_commands == before) {
+			continue;
+		}
+
+		QString what = QString("line %1 code %2 [%3], %4 -> %5 lines")
+			.arg(i).arg(before[i].code).arg(describeParameters(before[i]))
+			.arg(before.size()).arg(m_commands->size());
+		for (size_t j = 0; j < std::min(before.size(), m_commands->size()); ++j) {
+			const auto& a = before[j];
+			const auto& b = (*m_commands)[j];
+			if (!(a == b)) {
+				what += QString("; first difference at line %1: code %2 -> %3, indent %4 -> %5, [%6] -> [%7], \"%8\" -> \"%9\"")
+					.arg(j).arg(a.code).arg(b.code).arg(a.indent).arg(b.indent)
+					.arg(describeParameters(a), describeParameters(b),
+						QString::fromStdString(std::string(a.string)), QString::fromStdString(std::string(b.string)));
+				break;
+			}
+		}
+		changed << what;
+		*m_commands = before;
+	}
+
+	return changed;
+}
