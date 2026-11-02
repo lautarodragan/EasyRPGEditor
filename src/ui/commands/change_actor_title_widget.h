@@ -38,4 +38,5 @@ public slots:
 
 private:
 	Ui::ChangeActorTitleWidget *ui;
+	bool m_loading = false;
 };

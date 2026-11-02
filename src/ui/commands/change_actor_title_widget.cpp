@@ -35,13 +35,16 @@ ChangeActorTitleWidget::~ChangeActorTitleWidget() {
 }
 
 void ChangeActorTitleWidget::setData(lcf::rpg::EventCommand* cmd_) {
+	// Selecting the actor of the command is not a change: keep its text
+	m_loading = true;
 	EventCommandBaseWidget::setData(cmd_);
+	m_loading = false;
 
 	ui->lineTitle_argX->setText(ToQString(cmd_->string));
 }
 
 void ChangeActorTitleWidget::onParameterChanged(int index, int new_value) {
-	if (index == 0) {
+	if (index == 0 && !m_loading) {
 		const auto& actor = lcf::ReaderUtil::GetElement(m_project.database().actors, new_value);
 
 		ui->lineTitle_argX->setText(ToQString(actor->title));
