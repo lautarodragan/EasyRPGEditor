@@ -76,6 +76,16 @@ void ShowChoicesWidget::setData(EventCommandList* commands) {
 	m_cancelGroup->button(cancel)->setChecked(true);
 
 	updateState();
+	m_initialState = dialogState();
+}
+
+QString ShowChoicesWidget::dialogState() const {
+	QStringList state;
+	for (auto* edit : m_edits) {
+		state << edit->text();
+	}
+	state << QString::number(m_cancelGroup->checkedId());
+	return state.join('\n');
 }
 
 void ShowChoicesWidget::parseBlock() {
@@ -187,6 +197,13 @@ void ShowChoicesWidget::updateState() {
 }
 
 void ShowChoicesWidget::apply() {
+	// Nothing changed in an existing block: keep it as it is, even when
+	// RPG Maker left settings the editor would normalize (e.g. cancelling
+	// with a choice that doesn't exist)
+	if (m_end >= 0 && dialogState() == m_initialState) {
+		return;
+	}
+
 	auto& cmds = m_commands->commands();
 	int index = m_commands->index();
 	int indent = cmds[index].indent;

@@ -67,6 +67,8 @@ private:
 	void updateState();
 	bool hasContent(const Segment& segment) const;
 	std::vector<int> usedChoices() const;
+	/** Texts and cancel setting, to tell whether the user changed anything */
+	QString dialogState() const;
 
 	Ui::ShowChoicesWidget *ui;
 
@@ -78,4 +80,5 @@ private:
 	Segment m_cancel;
 	int m_end = -1;
 	int m_extraOptions = 0;
+	QString m_initialState;
 };
