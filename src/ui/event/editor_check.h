@@ -20,9 +20,11 @@
 #include <QString>
 
 /**
- * Opens the editor of every event command of a project (maps, common events
- * and troop pages) and accepts it without changes, which must leave every
- * command as it was. Prints the commands that changed.
+ * Opens the editors of a project and accepts them without changes, which
+ * must leave the project as it was: the editor of every event command (maps,
+ * common events and troop pages), the event dialog of every event, the map
+ * properties of every map and the database dialog with every entry selected.
+ * Prints what changed. Nothing is saved.
  *
  * @param project_dir Folder of the project
  * @return 0 when nothing changed, 1 when something did, 2 when the project can't be loaded

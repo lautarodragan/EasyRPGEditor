@@ -36,8 +36,9 @@ void setupCommandLineParser(QCommandLineParser& parser) {
 	parser.addHelpOption();
 	parser.addVersionOption();
 	parser.addOption({"check-editors",
-		"Open the editor of every event command of the project and accept it without changes, "
-		"printing the commands that change. Exits with 1 if any did. For testing.", "project"});
+		"Open the command editors, event dialogs, map properties and database of the project "
+		"and accept them without changes, printing what changes. Saves nothing. "
+		"Exits with 1 if anything changed. For testing.", "project"});
 }
 
 // Handles --help and --version (both exit) without creating a window

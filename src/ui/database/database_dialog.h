@@ -58,6 +58,11 @@ public:
 	explicit DatabaseDialog(ProjectData& project, QWidget *parent = nullptr);
 	~DatabaseDialog();
 
+	/** The copy of the project being edited, saved on OK or Apply */
+	const ProjectData& editedData() const {
+		return m_projectDataCopy;
+	}
+
 signals:
 	void currentActorChanged(lcf::rpg::Actor *actor);
 
