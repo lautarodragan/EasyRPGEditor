@@ -305,9 +305,9 @@ int EventCommandsWidget::openEditor(int index) {
 		case Cmd::ChangePBG: evt_dialog.reset(make_evt_dialog<ChangePBGWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeEncounterSteps: evt_dialog.reset(make_evt_dialog<ChangeEncounterStepsWidget>(m_project, cmd, this)); break;
 		case Cmd::TileSubstitution: evt_dialog.reset(make_evt_dialog<TileSubstitutionWidget>(m_project, cmd, this)); break;
-		//case Cmd::TeleportTargets: evt_dialog.reset(make_evt_dialog<TeleportTargetsWidget>(m_project, cmd, this)); break;
+		case Cmd::TeleportTargets: evt_dialog.reset(make_evt_dialog<TeleportTargetsWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeTeleportAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;
-		//case Cmd::EscapeTarget: evt_dialog.reset(make_evt_dialog<EscapeTargetWidget>(m_project, cmd, this)); break;
+		case Cmd::EscapeTarget: evt_dialog.reset(make_evt_dialog<EscapeTargetWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeEscapeAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeSaveAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;
 		case Cmd::ChangeMainMenuAccess: evt_dialog.reset(make_evt_dialog<EnableDisableWidget>(m_project, cmd, this)); break;

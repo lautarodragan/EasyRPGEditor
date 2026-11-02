@@ -175,6 +175,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/enable_disable_widget.cpp
 	src/ui/commands/enable_disable_widget.h
 	src/ui/commands/enable_disable_widget.ui
+	src/ui/commands/escape_target_widget.cpp
+	src/ui/commands/escape_target_widget.h
+	src/ui/commands/escape_target_widget.ui
 	src/ui/commands/erase_picture_widget.cpp
 	src/ui/commands/erase_picture_widget.h
 	src/ui/commands/erase_picture_widget.ui
@@ -269,6 +272,9 @@ set(EDITOR_SOURCES
 	src/ui/commands/teleport_widget.cpp
 	src/ui/commands/teleport_widget.h
 	src/ui/commands/teleport_widget.ui
+	src/ui/commands/teleport_targets_widget.cpp
+	src/ui/commands/teleport_targets_widget.h
+	src/ui/commands/teleport_targets_widget.ui
 	src/ui/commands/tint_screen_widget.cpp
 	src/ui/commands/tint_screen_widget.h
 	src/ui/commands/tint_screen_widget.ui

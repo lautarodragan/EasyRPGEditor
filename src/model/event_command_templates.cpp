@@ -150,10 +150,10 @@ const std::vector<Template>& all() {
 		{ Cmd::ChangePBG, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Change PBG"), {0, 0, 0, 0, 0, 0} },
 		{ Cmd::ChangeEncounterSteps, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Change Encounter Steps"), {25} },
 		{ Cmd::TileSubstitution, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Tile Substitution"), {0, 0, 0} },
-		// add map 1 (0,0)
-		{ Cmd::TeleportTargets, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Teleport Targets"), {0, 1, 0, 0, 0, 0} },
-		// map 1 (0,0)
-		{ Cmd::EscapeTarget, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Escape Target"), {1, 0, 0, 0, 0} },
+		// add map 1 (0,0), no switch (RPG Maker keeps switch 1 selected)
+		{ Cmd::TeleportTargets, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Teleport Targets"), {0, 1, 0, 0, 0, 1} },
+		// map 1 (0,0), no switch
+		{ Cmd::EscapeTarget, Cat::MapMovement, Map, QT_TRANSLATE_NOOP("Stringizer", "Escape Target"), {1, 0, 0, 0, 1} },
 
 		// Screen
 		// -1 uses the default transition

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EscapeTargetWidget</class>
+ <widget class="QWidget" name="EscapeTargetWidget">
+  <property name="geometry">
+   <rect><x>0</x><y>0</y><width>400</width><height>170</height></rect>
+  </property>
+  <property name="windowTitle">
+   <string>Escape Target</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupLocation">
+     <property name="title"><string>Location</string></property>
+     <layout class="QHBoxLayout" name="layoutLocation">
+      <item>
+       <widget class="QLineEdit" name="lineLocation">
+        <property name="readOnly"><bool>true</bool></property>
+        <property name="minimumSize"><size><width>300</width><height>0</height></size></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushPick">
+        <property name="text"><string>...</string></property>
+        <property name="toolTip"><string>Pick the map and the location</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupSwitch">
+     <property name="title"><string>Switch</string></property>
+     <layout class="QVBoxLayout" name="layoutSwitch">
+      <item>
+       <widget class="QCheckBox" name="checkSwitch">
+        <property name="text"><string>Turn this switch ON when escaping here</string></property>
+       </widget>
+      </item>
+      <item><widget class="SwitchRpgComboBox" name="comboSwitch"/></item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation"><enum>Qt::Vertical</enum></property>
+     <property name="sizeHint" stdset="0"><size><width>20</width><height>10</height></size></property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>SwitchRpgComboBox</class>
+   <extends>QWidget</extends>
+   <header>ui/common/rpg_combobox.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

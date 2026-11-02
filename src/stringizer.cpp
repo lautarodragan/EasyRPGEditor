@@ -1071,16 +1071,27 @@ namespace
 			+ QString::number(com.parameters[2]);
 	}
 
+	// The switch turned ON when the party arrives at a teleport or escape target
+	QString targetSwitch(const lcf::rpg::EventCommand& com, size_t index)
+	{
+		if (!param(com, index))
+			return "";
+		return ", " + QString("S[%1:%2]").arg(param(com, index + 1), 4, 10, QChar('0'))
+			.arg(Stringizer::switchName(param(com, index + 1))) + " " + Stringizer::tr("ON");
+	}
+
 	QString stringizeTeleportTargets(const lcf::rpg::EventCommand& com)
 	{
-		if (com.parameters[1])
+		// Parameters: add (0) or remove, map, x, y, switch enabled, switch
+		if (param(com, 0))
 			return Stringizer::tr("Teleport Targets") + ": "
-				+ Stringizer::tr("Remove") + " " + map(com.parameters[1]);
+				+ Stringizer::tr("Remove") + " " + map(param(com, 1));
 		else
 			return Stringizer::tr("Teleport Targets") + ": "
-				+ Stringizer::tr("Add") + " " + map(com.parameters[1]) + " ("
-				+ QString::number(com.parameters[2]) + ","
-				+ QString::number(com.parameters[3]) + ")";
+				+ Stringizer::tr("Add") + " " + map(param(com, 1)) + " ("
+				+ QString::number(param(com, 2)) + ","
+				+ QString::number(param(com, 3)) + ")"
+				+ targetSwitch(com, 4);
 	}
 
 	QString stringizeChangeTeleportAccess(const lcf::rpg::EventCommand& com)
@@ -1091,10 +1102,12 @@ namespace
 
 	QString stringizeEscapeTarget(const lcf::rpg::EventCommand& com)
 	{
+		// Parameters: map, x, y, switch enabled, switch
 		return Stringizer::tr("Escape Target") + ": "
-			+ map(com.parameters[0]) + " ("
-			+ QString::number(com.parameters[1]) + ","
-			+ QString::number(com.parameters[2]) + ")";
+			+ map(param(com, 0)) + " ("
+			+ QString::number(param(com, 1)) + ","
+			+ QString::number(param(com, 2)) + ")"
+			+ targetSwitch(com, 3);
 	}
 
 	QString stringizeChangeEscapeAccess(const lcf::rpg::EventCommand& com)
