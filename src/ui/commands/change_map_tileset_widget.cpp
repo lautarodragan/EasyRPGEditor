@@ -18,8 +18,6 @@
 #include "change_map_tileset_widget.h"
 #include "ui_change_map_tileset_widget.h"
 #include "param_bindings.h"
-#include "common/dbstring.h"
-#include "model/project_data.h"
 
 using namespace ParamBindings;
 
@@ -29,12 +27,7 @@ ChangeMapTilesetWidget::ChangeMapTilesetWidget(ProjectData& project, QWidget *pa
 
 	ui->setupUi(this);
 
-	// ChipsetRpgComboBox does not build yet (RpgReflect names a ChipsetWidget, the class is
-	// ChipSetWidget), so the chipsets are listed by hand
-	const auto& chipsets = project.database().chipsets;
-	for (size_t i = 0; i < chipsets.size(); ++i) {
-		ui->comboChipset->addItem(QString("%1: %2").arg(i + 1, 4, 10, QChar('0')).arg(ToQString(chipsets[i].name)), static_cast<int>(i + 1));
-	}
+	ui->comboChipset->makeModel(project);
 }
 
 ChangeMapTilesetWidget::~ChangeMapTilesetWidget() {
@@ -46,5 +39,5 @@ void ChangeMapTilesetWidget::setData(lcf::rpg::EventCommand* cmd) {
 	ensureParameters(cmd, 1);
 	EventCommandBaseWidget::setData(cmd);
 
-	bindComboData(ui->comboChipset, m_cmd, 0);
+	bindDatabaseCombo(ui->comboChipset, m_cmd, 0);
 }
