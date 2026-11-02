@@ -188,7 +188,9 @@ void ActorWidget::on_spinMaxLv_valueChanged(int value) {
 
 void ActorWidget::on_comboBattleset_currentIndexChanged(int index)
 {
-	if (!m_current)
+	// -1: the value is not in the list (e.g. RPG Maker 2000 has no battler
+	// animations), keep it
+	if (!m_current || index < 0)
 		return;
 
 	m_current->battler_animation = index;
