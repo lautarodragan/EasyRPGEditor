@@ -5,6 +5,10 @@ name: Editor Round Trip
 # builds, so it runs in parallel and doesn't hold them up.
 # The game is Zounds for now; it should become a free test game made with
 # the free RTP, covering every command.
+#
+# Zounds is private: it is cloned with a read-only deploy key of that
+# repository, saved here as the secret ZOUNDS_DEPLOY_KEY. Secrets are not
+# given to pull requests from other repositories, so those skip this check.
 
 on:
   push:
@@ -22,6 +26,7 @@ defaults:
 jobs:
   round-trip:
     name: Zounds
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     container:
       image: ubuntu:24.04
@@ -34,7 +39,8 @@ jobs:
           apt-get install -yqq --no-install-recommends --no-install-suggests \
             ca-certificates build-essential cmake ninja-build git \
             libicu-dev curl zip unzip tar tzdata \
-            autoconf autoconf-archive automake libtool pkg-config ccache
+            autoconf autoconf-archive automake libtool pkg-config ccache \
+            openssh-client
 
       - name: Install Qt6
         uses: jurplel/install-qt-action@v4
@@ -91,6 +97,7 @@ jobs:
         with:
           repository: lautarodragan/zounds
           path: zounds
+          ssh-key: ${{ secrets.ZOUNDS_DEPLOY_KEY }}
 
       - name: Open and accept every command editor
         run: |
