@@ -37,7 +37,8 @@ void ShowMessageWidget::setData(EventCommandList* commands) {
 
 	using Cmd = lcf::rpg::EventCommand::Code;
 
-	ui->message->append(ToQString(m_cmd->string));
+	// Not QTextEdit::append: it drops an empty first line
+	QStringList text = { ToQString(m_cmd->string) };
 
 	for (size_t i = commands->index() + 1; i < commands->size(); ++i) {
 		auto& cur_cmd = commands->commands()[i];
@@ -46,8 +47,10 @@ void ShowMessageWidget::setData(EventCommandList* commands) {
 			break;
 		}
 
-		ui->message->append(ToQString(cur_cmd.string));
+		text.append(ToQString(cur_cmd.string));
 	}
+
+	ui->message->setPlainText(text.join('\n'));
 }
 
 void ShowMessageWidget::apply() {
