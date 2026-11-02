@@ -18,6 +18,9 @@
 #pragma once
 
 #include <QDialog>
+#include <type_traits>
+#include <lcf/rpg/eventcommand.h>
+#include "model/event_command_list.h"
 #include <QVBoxLayout>
 #include <QDialogButtonBox>
 #include <QAbstractButton>
@@ -113,6 +116,13 @@ public:
 	explicit WidgetAsDialogWrapper(ProjectData& project, DATA& data, QWidget* parent = nullptr) :
 	WidgetAsDialogWrapperBase(parent), dataOriginal(data) {
 		dataCopy = data;
+		if constexpr (std::is_same_v<DATA, lcf::rpg::EventCommand>) {
+			originalCode = data.code;
+			originalParameterCount = data.parameters.size();
+		} else if constexpr (std::is_same_v<DATA, EventCommandList>) {
+			originalCode = data.command().code;
+			originalParameterCount = data.command().parameters.size();
+		}
 
 		wrappedWidget = new WIDGET(project, this);
 		wrappedWidget->setData(&dataCopy);
@@ -133,10 +143,37 @@ private:
 			wrappedWidget->apply();
 		}
 
+		if constexpr (std::is_same_v<DATA, lcf::rpg::EventCommand>) {
+			trimPadding(dataCopy);
+		} else if constexpr (std::is_same_v<DATA, EventCommandList>) {
+			if (dataCopy.index() < static_cast<int>(dataCopy.size())) {
+				trimPadding(dataCopy.command());
+			}
+		}
+
 		dataOriginal = dataCopy;
 	}
 
-private:
+	/**
+	 * Editors add zero parameters up to the ones they show. Drop them again
+	 * when they are still zero: the Player reads missing parameters as 0, and
+	 * commands keep the size they were saved with (e.g. by RPG Maker 2000).
+	 */
+	void trimPadding(lcf::rpg::EventCommand& cmd) const {
+		if (cmd.code != originalCode || cmd.parameters.size() <= originalParameterCount) {
+			return;
+		}
+		for (size_t i = originalParameterCount; i < cmd.parameters.size(); ++i) {
+			if (cmd.parameters[i] != 0) {
+				return;
+			}
+		}
+		cmd.parameters = lcf::DBArray<int32_t>(cmd.parameters.begin(), cmd.parameters.begin() + originalParameterCount);
+	}
+
+	int originalCode = 0;
+	size_t originalParameterCount = 0;
+
 	DATA& dataOriginal;
 	DATA dataCopy;
 	WIDGET* wrappedWidget = nullptr;
