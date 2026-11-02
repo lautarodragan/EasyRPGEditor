@@ -1,0 +1,107 @@
+name: Editor Round Trip
+
+# Opens the editor of every event command of a real game and accepts it
+# without changes, which must leave the game as it was. Separate from the
+# builds, so it runs in parallel and doesn't hold them up.
+# The game is Zounds for now; it should become a free test game made with
+# the free RTP, covering every command.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  round-trip:
+    name: Zounds
+    runs-on: ubuntu-24.04
+    container:
+      image: ubuntu:24.04
+
+    steps:
+      - name: Install dependencies
+        run: |
+          export DEBIAN_FRONTEND="noninteractive"
+          apt-get update
+          apt-get install -yqq --no-install-recommends --no-install-suggests \
+            ca-certificates build-essential cmake ninja-build git \
+            libicu-dev curl zip unzip tar tzdata \
+            autoconf autoconf-archive automake libtool pkg-config ccache
+
+      - name: Install Qt6
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.10.1'
+          install-deps: 'nosudo'
+          modules: 'qtmultimedia qtshadertools qtwaylandcompositor'
+          cache: true
+
+      - name: Install vcpkg
+        id: vcpkg
+        run: |
+          git clone https://github.com/Microsoft/vcpkg.git ../vcpkg
+          echo "commit=$(git -C ../vcpkg rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Clone Repository
+        uses: actions/checkout@v7
+
+      # Same keys as the x86_64 job of Stable Compilation, to reuse its packages
+      - name: Cache vcpkg packages
+        uses: actions/cache@v4
+        with:
+          path: vcpkg-cache
+          key: vcpkg-docker-${{ runner.arch }}-${{ hashFiles('vcpkg.json') }}-${{ steps.vcpkg.outputs.commit }}
+          restore-keys: |
+            vcpkg-docker-${{ runner.arch }}-${{ hashFiles('vcpkg.json') }}-
+            vcpkg-docker-${{ runner.arch }}-
+
+      - name: Cache compiled objects (ccache)
+        uses: actions/cache@v4
+        with:
+          path: .ccache
+          key: ccache-round-trip-${{ runner.arch }}-${{ github.sha }}
+          restore-keys: |
+            ccache-round-trip-${{ runner.arch }}-
+            ccache-docker-${{ runner.arch }}-
+
+      - name: Compile
+        run: |
+          export VCPKG_ROOT=$PWD/../vcpkg
+          export VCPKG_BINARY_SOURCES="clear;files,$PWD/vcpkg-cache,readwrite"
+          mkdir -p vcpkg-cache
+          export Qt6_Path=$QT_ROOT_DIR
+          export CCACHE_DIR=$PWD/.ccache CCACHE_BASEDIR=$PWD CCACHE_MAXSIZE=500M
+          ccache -z
+          cmake --preset vcpkg-liblcf-release -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_PREFIX_PATH=$QT_ROOT_DIR -DLIBLCF_WITH_ICU=OFF \
+            -DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache
+          cmake --build --preset vcpkg-liblcf-release
+          ccache -s
+
+      - name: Clone Zounds
+        uses: actions/checkout@v7
+        with:
+          repository: lautarodragan/zounds
+          path: zounds
+
+      - name: Open and accept every command editor
+        run: |
+          export QT_QPA_PLATFORM=offscreen LC_ALL=C.UTF-8
+          status=0
+          ./build/vcpkg-liblcf-release/easyrpg-editor --check-editors zounds | tee round-trip.txt || status=$?
+          {
+            echo "### Editor round trip: Zounds"
+            echo
+            echo '```'
+            grep -v '^NOTE' round-trip.txt | tail -n 50
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY
+          exit $status
