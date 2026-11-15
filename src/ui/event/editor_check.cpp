@@ -18,6 +18,7 @@
 #include "editor_check.h"
 #include "event_commands_widget.h"
 #include "event_dialog.h"
+#include "move_route_dialog.h"
 #include "core.h"
 #include "model/project.h"
 #include "model/project_data.h"
@@ -176,6 +177,35 @@ int checkEditors(const QString& project_dir) {
 	}
 	out << "Checked " << events << " event dialogs: " << events_changed << " changed" << Qt::endl;
 	dialogs_changed += events_changed;
+
+	// Movement pattern of every event page ("Define Pattern")
+	int routes = 0;
+	int routes_changed = 0;
+	for (const auto& info : data.treeMap().maps) {
+		if (info.ID == 0 || info.type != lcf::rpg::TreeMap::MapType_map) {
+			continue;
+		}
+		auto map = project->loadMap(info.ID);
+		for (auto& event : map->events) {
+			for (auto& page : event.pages) {
+				const QString where = QString("Map%1 event %2 page %3").arg(info.ID, 4, 10, QChar('0')).arg(event.ID).arg(page.ID);
+				auto route = page.move_route;
+				MoveRouteDialog dialog(data, route);
+				execAndAccept(dialog, notes, where);
+				++routes;
+				if (!(route == page.move_route)) {
+					++routes_changed;
+					lcf::rpg::Map a, b;
+					a.events = { event };
+					b.events = { event };
+					b.events[0].pages[static_cast<size_t>(&page - event.pages.data())].move_route = route;
+					out << "CHANGED " << where << " (movement pattern):\n" << firstDifferences(mapXml(a, engine), mapXml(b, engine)) << Qt::endl;
+				}
+			}
+		}
+	}
+	out << "Checked " << routes << " movement pattern dialogs: " << routes_changed << " changed" << Qt::endl;
+	dialogs_changed += routes_changed;
 
 	// Map properties of every map
 	int maps = 0;

@@ -22,7 +22,8 @@
 /**
  * Opens the editors of a project and accepts them without changes, which
  * must leave the project as it was: the editor of every event command (maps,
- * common events and troop pages), the event dialog of every event, the map
+ * common events and troop pages), the event dialog of every event, the
+ * movement pattern of every event page, the map
  * properties of every map and the database dialog with every entry selected.
  * Prints what changed. Nothing is saved.
  *
