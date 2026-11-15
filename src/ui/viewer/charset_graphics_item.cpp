@@ -16,6 +16,8 @@
  */
 
 #include "charset_graphics_item.h"
+#include <QBitmap>
+#include <QImage>
 #include "core.h"
 #include "common/dbstring.h"
 #include "common/image_loader.h"
@@ -76,6 +78,12 @@ void CharSetGraphicsItem::refresh(QString filename, int index) {
 		QString path = m_project.project().findFile(CHARSET, filename, FileFinder::FileType::Image);
 		if (!path.isEmpty()) {
 			m_image = ImageLoader::Load(path);
+			// Like the game and the map: the first palette color is transparent
+			QImage image = m_image.toImage();
+			if (!image.isNull()) {
+				QColor keycolor = image.colorCount() > 0 ? QColor(image.color(0)) : QColor(image.pixel(0, 0));
+				m_image.setMask(m_image.createMaskFromColor(keycolor));
+			}
 		} else {
 			m_image = QPixmap(48, 48);
 			m_image.fill(QColor(255, 255, 255, 0));
