@@ -205,6 +205,8 @@ set(EDITOR_SOURCES
 	src/ui/commands/location_variables_widget.cpp
 	src/ui/commands/location_variables_widget.h
 	src/ui/commands/location_variables_widget.ui
+	src/ui/common/move_route_editor.cpp
+	src/ui/common/move_route_editor.h
 	src/ui/commands/move_event_widget.cpp
 	src/ui/commands/move_event_widget.h
 	src/ui/commands/move_event_widget.ui
@@ -395,6 +397,8 @@ set(EDITOR_SOURCES
 	src/ui/event/editor_check.cpp
 	src/ui/event/editor_check.h
 	src/ui/event/event_commands_widget.cpp
+	src/ui/event/move_route_dialog.cpp
+	src/ui/event/move_route_dialog.h
 	src/ui/event/event_commands_widget.h
 	src/ui/event/event_dialog.cpp
 	src/ui/event/event_dialog.h

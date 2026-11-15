@@ -37,21 +37,8 @@ public:
 	void setData(lcf::rpg::EventCommand* cmd) override;
 
 private:
-	void addCommandButtons();
 	void populateTargets();
-	void refreshRoute(int select_row);
-	void insertCommand(int code);
-	void editCommand(int row);
-	bool editOptions(lcf::rpg::MoveCommand& cmd);
-	bool editSwitch(lcf::rpg::MoveCommand& cmd);
-	bool editGraphic(lcf::rpg::MoveCommand& cmd);
-	bool editSound(lcf::rpg::MoveCommand& cmd);
-	void deleteCommand();
-	void deleteAllCommands();
-	void writeRoute();
 
 	Ui::MoveEventWidget *ui;
 	std::string m_encoding;
-	std::vector<lcf::rpg::MoveCommand> m_route;
-	bool m_route_valid = true;
 };

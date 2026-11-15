@@ -77,58 +77,35 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="layoutMain">
-     <item>
-      <layout class="QVBoxLayout" name="layoutLeft">
-       <item>
-        <widget class="QLabel" name="labelRoute">
-         <property name="text"><string>Movement Commands</string></property>
-        </widget>
-       </item>
-       <item><widget class="QListWidget" name="listRoute"/></item>
-       <item>
-        <layout class="QHBoxLayout" name="layoutDelete">
-         <item>
-          <widget class="QPushButton" name="pushDelete">
-           <property name="text"><string>Delete</string></property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushDeleteAll">
-           <property name="text"><string>Delete All</string></property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupOptions">
-         <property name="title"><string>Options</string></property>
-         <layout class="QVBoxLayout" name="layoutOptions">
-          <item>
-           <widget class="QCheckBox" name="checkRepeat_arg2">
-            <property name="text"><string>Repeat Action</string></property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkSkip_arg3">
-            <property name="text"><string>Skip if Cannot Move</string></property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item>
-      <widget class="QGroupBox" name="groupCommands">
-       <property name="title"><string>Add Command</string></property>
-       <layout class="QGridLayout" name="layoutCommands"/>
-      </widget>
-     </item>
-    </layout>
+    <widget class="MoveRouteEditor" name="routeEditor"/>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupOptions">
+     <property name="title"><string>Options</string></property>
+     <layout class="QVBoxLayout" name="layoutOptions">
+      <item>
+       <widget class="QCheckBox" name="checkRepeat_arg2">
+        <property name="text"><string>Repeat Action</string></property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkSkip_arg3">
+        <property name="text"><string>Skip if Cannot Move</string></property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MoveRouteEditor</class>
+   <extends>QWidget</extends>
+   <header>ui/common/move_route_editor.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
  <buttongroups>

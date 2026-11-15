@@ -16,6 +16,7 @@
  */
 
 #include "event_page_widget.h"
+#include "move_route_dialog.h"
 #include "ui_event_page_widget.h"
 #include <QDialogButtonBox>
 #include <QMessageBox>
@@ -192,12 +193,14 @@ void EventPageWidget::setEventPage(lcf::rpg::EventPage *eventPage)
 	ui->comboHero->setEnabled(ui->checkHero->isChecked());
 	ui->label->setEnabled(ui->comboMoveType->currentIndex() != lcf::rpg::EventPage::MoveType_stationary);
 	ui->comboMoveFrequency->setEnabled(ui->comboMoveType->currentIndex() != lcf::rpg::EventPage::MoveType_stationary);
+	ui->pushMovePattern->setEnabled(ui->comboMoveType->currentIndex() == lcf::rpg::EventPage::MoveType_custom);
 }
 
 void EventPageWidget::on_comboMoveType_currentIndexChanged(int index)
 {
 	ui->label->setEnabled(index != lcf::rpg::EventPage::MoveType_stationary);
 	ui->comboMoveFrequency->setEnabled(index != lcf::rpg::EventPage::MoveType_stationary);
+	ui->pushMovePattern->setEnabled(index == lcf::rpg::EventPage::MoveType_custom);
 }
 
 void EventPageWidget::on_checkVar_toggled(bool checked)
@@ -281,4 +284,13 @@ void EventPageWidget::updateGraphic()
 		m_charaItem->setVisible(true);
 		m_scene->setSceneRect(0,0,48,64);
 	}
+}
+
+void EventPageWidget::on_pushMovePattern_clicked()
+{
+	if (!m_eventPage) {
+		return;
+	}
+	MoveRouteDialog dialog(m_project, m_eventPage->move_route, this);
+	dialog.exec();
 }

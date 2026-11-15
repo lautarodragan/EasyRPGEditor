@@ -62,6 +62,8 @@ private slots:
 
 	void on_pushSetSprite_clicked();
 
+	void on_pushMovePattern_clicked();
+
 private:
 
 	void updateGraphic();
