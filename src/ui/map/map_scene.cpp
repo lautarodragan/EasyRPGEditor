@@ -16,6 +16,7 @@
  */
 
 #include "map_scene.h"
+#include <QTimer>
 #include <QAction>
 #include <QDialogButtonBox>
 #include <QGraphicsBlurEffect>
@@ -133,19 +134,19 @@ void MapScene::Init()
 	connect(m_view->verticalScrollBar(),
 			SIGNAL(valueChanged(int)),
 			this,
-			SLOT(redrawMap()));
+			SLOT(scheduleScrollRedraw()));
 	connect(m_view->horizontalScrollBar(),
 			SIGNAL(valueChanged(int)),
 			this,
-			SLOT(redrawMap()));
+			SLOT(scheduleScrollRedraw()));
 	connect(m_view->verticalScrollBar(),
 			SIGNAL(rangeChanged(int,int)),
 			this,
-			SLOT(redrawMap()));
+			SLOT(scheduleScrollRedraw()));
 	connect(m_view->horizontalScrollBar(),
 			SIGNAL(rangeChanged(int,int)),
 			this,
-			SLOT(redrawMap()));
+			SLOT(scheduleScrollRedraw()));
 	connect(m_view->verticalScrollBar(),
 			SIGNAL(valueChanged(int)),
 			this,
@@ -267,6 +268,35 @@ void MapScene::redrawMap()
 	core().LoadChipset(m_map->chipset_id);
 	core().setCurrentMapEvents(mapEvents());
 	core().setCurrentMapId(id());
+	s_tileSize = core().tileSize() * static_cast<double>(m_scale);
+	redrawLayer(Core::LOWER);
+	redrawLayer(Core::UPPER);
+}
+
+void MapScene::scheduleScrollRedraw()
+{
+	// Scrolling sends many events in a row (smooth scrolling, touchpads):
+	// redraw once for all of them, and only the visible tiles. Reloading the
+	// chipset and the event graphics on each one kept the main thread busy,
+	// which also cut the music of the Jukebox.
+	if (m_scrollRedrawPending)
+		return;
+	m_scrollRedrawPending = true;
+	QTimer::singleShot(0, this, [this] {
+		m_scrollRedrawPending = false;
+		redrawVisibleLayers();
+	});
+}
+
+void MapScene::redrawVisibleLayers()
+{
+	if (!m_init)
+		return;
+	// The chipset and event graphics belong to the map drawn last
+	if (core().currentMapId() != id()) {
+		redrawMap();
+		return;
+	}
 	s_tileSize = core().tileSize() * static_cast<double>(m_scale);
 	redrawLayer(Core::LOWER);
 	redrawLayer(Core::UPPER);

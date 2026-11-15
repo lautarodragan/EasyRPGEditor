@@ -64,6 +64,8 @@ signals:
 
 public slots:
 	void redrawMap();
+	/** Redraws the visible part after scrolling, once per event loop iteration */
+	void scheduleScrollRedraw();
 
 	void onLayerChanged();
 
@@ -116,6 +118,8 @@ private:
 	void stopSelecting();
 	void updateArea(int x1, int y1, int x2, int y2);
 	void redrawLayer(Core::Layer layer);
+	void redrawVisibleLayers();
+	bool m_scrollRedrawPending = false;
 	void drawPen();
 	void drawRect();
 	void drawFill(int terrain_id, int x, int y);
