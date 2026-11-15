@@ -28,10 +28,13 @@
 #include <QIODevice>
 #include <QMediaPlayer>
 #include <QSettings>
+#include <QThread>
 #include <QTimer>
 #include <QUrl>
 #include <QtConcurrent>
 #include <algorithm>
+#include <atomic>
+#include <mutex>
 #include <fluidsynth.h>
 
 class SynthDevice;
@@ -61,9 +64,16 @@ struct Synth {
 	QString warning;
 	AudioPlayer* owner = nullptr;
 	QList<AudioPlayer*> players;
-	// Shared output: creating one per song added seconds before it sounded
+	// Shared output: creating one per song added seconds before it sounded.
+	// It lives in its own thread, so a busy main thread (e.g. scrolling a big
+	// map) doesn't leave it without samples. Only used from that thread.
+	QThread* thread = nullptr;
+	QObject* thread_context = nullptr;
 	QAudioSink* sink = nullptr;
 	SynthDevice* device = nullptr;
+	// Rendering (audio thread) against starting, stopping or changing the
+	// MIDI player (main thread)
+	std::mutex mutex;
 	// Tick of the RPG Maker loop point of the playing MIDI file
 	int loop_tick = -1;
 };
@@ -71,6 +81,32 @@ struct Synth {
 Synth& synth() {
 	static Synth s;
 	return s;
+}
+
+// Runs f in the audio thread, started on first use; waits for it when asked
+template<typename F>
+void inAudioThread(F f, bool wait = false) {
+	auto& s = synth();
+	if (!s.thread) {
+		s.thread = new QThread();
+		s.thread->setObjectName("Audio");
+		s.thread_context = new QObject();
+		s.thread_context->moveToThread(s.thread);
+		s.thread->start();
+		QObject::connect(qApp, &QCoreApplication::aboutToQuit, [] {
+			auto& s = synth();
+			QMetaObject::invokeMethod(s.thread_context, [] {
+				auto& s = synth();
+				delete s.sink;
+				delete s.device;
+				s.sink = nullptr;
+				s.device = nullptr;
+			}, Qt::BlockingQueuedConnection);
+			s.thread->quit();
+			s.thread->wait();
+		});
+	}
+	QMetaObject::invokeMethod(s.thread_context, f, wait ? Qt::BlockingQueuedConnection : Qt::QueuedConnection);
 }
 
 QString findSoundFont() {
@@ -126,6 +162,8 @@ bool canLoopFromLoopPoint() {
 // Runs in the background: replaces the loaded SoundFont with the chosen one,
 // or with the automatic one when there is no choice or it cannot be loaded
 SoundFontLoad replaceSoundFont(fluid_synth_t* synth, const QString& chosen, const QString& automatic) {
+	// The output is stopped meanwhile, this only makes sure nothing renders
+	std::lock_guard lock(::synth().mutex);
 	while (fluid_synth_sfcount(synth) > 0) {
 		fluid_synth_sfunload(synth, fluid_sfont_get_id(fluid_synth_get_sfont(synth, 0)), 1);
 	}
@@ -219,11 +257,16 @@ protected:
 	qint64 readData(char* data, qint64 max_size) override {
 		int frames = static_cast<int>(max_size / 4);
 		auto* samples = reinterpret_cast<int16_t*>(data);
-		fluid_synth_write_s16(synth().synth, frames, samples, 0, 2, samples, 1, 2);
-		if (m_left < 1.0f || m_right < 1.0f) {
+		{
+			std::lock_guard lock(synth().mutex);
+			fluid_synth_write_s16(synth().synth, frames, samples, 0, 2, samples, 1, 2);
+		}
+		const float left = m_left;
+		const float right = m_right;
+		if (left < 1.0f || right < 1.0f) {
 			for (int i = 0; i < frames; ++i) {
-				samples[i * 2] = static_cast<int16_t>(samples[i * 2] * m_left);
-				samples[i * 2 + 1] = static_cast<int16_t>(samples[i * 2 + 1] * m_right);
+				samples[i * 2] = static_cast<int16_t>(samples[i * 2] * left);
+				samples[i * 2 + 1] = static_cast<int16_t>(samples[i * 2 + 1] * right);
 			}
 		}
 		return frames * 4;
@@ -232,8 +275,8 @@ protected:
 	qint64 writeData(const char*, qint64) override { return -1; }
 
 private:
-	float m_left = 1.0f;
-	float m_right = 1.0f;
+	std::atomic<float> m_left = 1.0f;
+	std::atomic<float> m_right = 1.0f;
 };
 
 AudioPlayer::AudioPlayer(QObject* parent) : QObject(parent) {
@@ -315,8 +358,12 @@ void AudioPlayer::startFade(int fade_in) {
 void AudioPlayer::applyVolume(float volume) {
 	m_current_volume = volume;
 	m_output->setVolume(volume);
-	if (synth().owner == this && synth().sink) {
-		synth().sink->setVolume(volume);
+	if (synth().owner == this) {
+		inAudioThread([volume] {
+			if (synth().sink) {
+				synth().sink->setVolume(volume);
+			}
+		});
 	}
 }
 
@@ -331,14 +378,19 @@ void AudioPlayer::setTempo(int tempo) {
 	m_tempo = std::clamp(tempo, 50, 150);
 	m_player->setPlaybackRate(m_tempo / 100.0);
 	if (m_midi_player) {
+		std::lock_guard lock(synth().mutex);
 		fluid_player_set_tempo(static_cast<fluid_player_t*>(m_midi_player), FLUID_PLAYER_TEMPO_INTERNAL, m_tempo / 100.0);
 	}
 }
 
 void AudioPlayer::setBalance(int balance) {
 	m_balance = std::clamp(balance, 0, 100);
-	if (synth().owner == this && synth().device) {
-		synth().device->setBalance(m_balance);
+	if (synth().owner == this) {
+		inAudioThread([balance = m_balance] {
+			if (synth().device) {
+				synth().device->setBalance(balance);
+			}
+		});
 	}
 }
 
@@ -389,6 +441,8 @@ void AudioPlayer::startMidi() {
 	QString path = m_pending_midi;
 	m_pending_midi.clear();
 
+	std::unique_lock lock(s.mutex);
+
 	// Forget the instruments and controllers of the previous song
 	fluid_synth_system_reset(s.synth);
 
@@ -412,23 +466,27 @@ void AudioPlayer::startMidi() {
 	fluid_player_set_tempo(player, FLUID_PLAYER_TEMPO_INTERNAL, m_tempo / 100.0);
 	fluid_player_play(player);
 	m_midi_player = player;
+	lock.unlock();
 
-	if (!s.sink) {
-		QAudioFormat format;
-		format.setSampleRate(sample_rate);
-		format.setChannelCount(2);
-		format.setSampleFormat(QAudioFormat::Int16);
-		s.device = new SynthDevice(qApp);
-		s.sink = new QAudioSink(format, qApp);
-		// A small buffer, so volume changes and stops are heard right away
-		s.sink->setBufferSize(format.bytesForDuration(100'000));
-	}
-	s.device->setBalance(m_balance);
-	s.sink->setVolume(m_current_volume);
-	// Kept running between songs, rendering silence: restarting it adds a delay
-	if (s.sink->state() == QAudio::StoppedState) {
-		s.sink->start(s.device);
-	}
+	inAudioThread([balance = m_balance, volume = m_current_volume] {
+		auto& s = synth();
+		if (!s.sink) {
+			QAudioFormat format;
+			format.setSampleRate(sample_rate);
+			format.setChannelCount(2);
+			format.setSampleFormat(QAudioFormat::Int16);
+			s.device = new SynthDevice(nullptr);
+			s.sink = new QAudioSink(format);
+			// A small buffer, so volume changes and stops are heard right away
+			s.sink->setBufferSize(format.bytesForDuration(100'000));
+		}
+		s.device->setBalance(balance);
+		s.sink->setVolume(volume);
+		// Kept running between songs, rendering silence: restarting it adds a delay
+		if (s.sink->state() == QAudio::StoppedState) {
+			s.sink->start(s.device);
+		}
+	});
 }
 
 void AudioPlayer::stopMidi() {
@@ -436,6 +494,7 @@ void AudioPlayer::stopMidi() {
 
 	auto& s = synth();
 	if (m_midi_player) {
+		std::lock_guard lock(s.mutex);
 		auto* player = static_cast<fluid_player_t*>(m_midi_player);
 		fluid_player_stop(player);
 		delete_fluid_player(player);
@@ -469,8 +528,13 @@ void AudioPlayer::setSoundFont(const QString& path) {
 		if (s.owner) {
 			s.owner->stopMidi();
 		}
-		if (s.sink) {
-			s.sink->stop();
+		// Wait for it: the SoundFont is unloaded next, while nothing renders
+		if (s.thread) {
+			inAudioThread([] {
+				if (synth().sink) {
+					synth().sink->stop();
+				}
+			}, true);
 		}
 		startLoading();
 	}
